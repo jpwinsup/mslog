@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    
+      <link rel="icon" href="/mslog/favicon.png" />
+    
+
+    <title>
+        
+          WebDav への接続に関する事象の調査に必要な資料について - Windows の資料採取に関する情報公開サイト
+        
+    </title>
+
+    <!-- Spectre.css framework -->
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <!-- theme css & js -->
+    
+<link rel="stylesheet" href="/mslog/css/book.css">
+
+    
+<script src="/mslog/js/book.js"></script>
+
+
+    <!-- tocbot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+    
+    <!-- katex -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zooming/2.1.1/zooming.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const zooming = new Zooming()
+    zooming.listen('.book-content img')
+})
+</script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+<div class="book-container">
+  <div class="book-sidebar">
+    <div class="book-brand">
+  <a href="/mslog/">
+    <span>トップ ページへ</span>
+  </a>
+</div>
+    <div class="book-menu">
+  <h1 id="資料採取手順"><a href="#資料採取手順" class="headerlink" title="資料採取手順"></a>資料採取手順</h1><!-- - [アクティベーション](/mslog/categories/activation) -->
+<!-- - [BitLocker](/mslog/categories/bitlocker) -->
+<!-- - [デプロイメント](/mslog/categories/deployment) -->
+<!-- - [デバイス](/mslog/categories/device) -->
+<!-- - [セットアップ](/mslog/categories/setup) -->
+<ul>
+<li><a href="/mslog/categories/networking">ネットワーク一般</a></li>
+<li><a href="/mslog/categories/fileservices">ファイル サービス</a><!-- - [リモート アクセス](/mslog/categories/remoteaccess) -->
+<!-- - [ワイヤレス ネットワーク](/mslog/categories/wireless) --></li>
+<li><a href="/mslog/categories/cluster">クラスター</a></li>
+<li><a href="/mslog/categories/hyper-v">Hyper-V</a></li>
+<li><a href="/mslog/categories/perf">パフォーマンス</a></li>
+<li><a href="/mslog/categories/storage">ストレージ</a><!-- - [リモート デスクトップ サービス](/mslog/categories/rds) -->
+<!-- - [ユーザー インターフェースとアプリ](/mslog/categories/uiandapps) -->
+
+</li>
+</ul>
+<h1 id="リンク"><a href="#リンク" class="headerlink" title="リンク"></a>リンク</h1><ul>
+<li><a href="https://cssjpn.github.io/" target="_blank" rel="noopener">日本マイクロソフト サポート情報</a></li>
+<li><a href="https://jpwinsup.github.io/blog/">Microsoft Japan Windows Technology Support Blog</a></li>
+</ul>
+
+</div>
+
+
+<script src="/mslog/js/book-menu.js"></script>
+
+  </div>
+
+  <div class="sidebar-toggle" onclick="sidebar_toggle()" onmouseover="add_inner()" onmouseleave="remove_inner()">
+  <div class="sidebar-toggle-inner"></div>
+</div>
+
+<script>
+function add_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.add('show')  
+}
+
+function remove_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.remove('show')
+}
+
+function sidebar_toggle() {
+    let sidebar_toggle = document.querySelector('.sidebar-toggle')
+    let sidebar = document.querySelector('.book-sidebar')
+    let content = document.querySelector('.off-canvas-content')
+    if (sidebar_toggle.classList.contains('extend')) { // show
+        sidebar_toggle.classList.remove('extend')
+        sidebar.classList.remove('hide')
+        content.classList.remove('extend')
+    }
+    else { // hide
+        sidebar_toggle.classList.add('extend')
+        sidebar.classList.add('hide')
+        content.classList.add('extend')
+    }
+}
+</script>
+
+  <div class="off-canvas-content">
+    <div class="columns">
+      <div class="column col-10 col-lg-12">
+        <div class="book-navbar">
+          <!-- For Responsive Layout -->
+
+<header class="navbar">
+  <section class="navbar-section">
+    <a onclick="open_sidebar()">
+      <i class="icon icon-menu"></i>
+    </a>
+  </section>
+</header>
+
+        </div>
+        <div class="book-content">
+          <div class="book-post">
+  <h1 id="WebDav-への接続に関する事象の調査に必要な資料について"><a href="#WebDav-への接続に関する事象の調査に必要な資料について" class="headerlink" title="WebDav への接続に関する事象の調査に必要な資料について"></a>WebDav への接続に関する事象の調査に必要な資料について</h1><p>いつも弊社製品をご利用いただきまして誠にありがとうございます。<br>本サイトでは弊社にお問い合わせいただく際に、事前に採取しておいたほうが良い内容についてご紹介しております。<br>このページでは「WebDav への接続に関する事象の調査に必要な資料について」紹介いたします。</p>
+<h2 id="本資料が有効なシナリオ"><a href="#本資料が有効なシナリオ" class="headerlink" title="本資料が有効なシナリオ"></a>本資料が有効なシナリオ</h2><ul>
+<li>WebDAV サーバーに接続できない</li>
+<li>WebDAV サーバー上のファイル操作に失敗する</li>
+</ul>
+<h2 id="採取いただく資料"><a href="#採取いただく資料" class="headerlink" title="採取いただく資料"></a>採取いただく資料</h2><ul>
+<li>作業中のスクリーンショット</li>
+<li>パケット キャプチャー</li>
+<li>ファイル共有関連トレース ログ</li>
+<li>Process Monitor ログ</li>
+<li>システム情報<ul>
+<li>OS 基本情報 (msinfo32.exe)</li>
+<li>ネットワーク設定情報 (IP アドレス、ホスト名等)</li>
+<li>イベント ログ</li>
+<li>更新プログラムの適用状況</li>
+</ul>
+</li>
+</ul>
+<p>など</p>
+<h2 id="情報採取時の影響について"><a href="#情報採取時の影響について" class="headerlink" title="情報採取時の影響について"></a>情報採取時の影響について</h2><p>Process Monitor の採取を含む場合、採取中は一時的にコンピューター リソースへの負荷が高まる可能性がございます。</p>
+<h2 id="対象機器"><a href="#対象機器" class="headerlink" title="対象機器"></a>対象機器</h2><ul>
+<li>事象が発生するクライアント端末</li>
+</ul>
+<h2 id="事前準備"><a href="#事前準備" class="headerlink" title="事前準備"></a>事前準備</h2><ol>
+<li><a href="/mslog/fileservices/webdav/webdav-access-failure/CollectInfo_WebDAV.zip" title="CollectInfo_WebDAV.zip のダウンロード リンク">CollectInfo_WebDAV.zip のダウンロード リンク</a>より CollectInfo_WebDAV.zip をダウンロードします。</li>
+<li>採取対象機器に CollectInfo_WebDAV を配置し、展開します。<br>※ 展開後のフォルダーには CollectInfo_WebDAV.bat および t.cmd が配置されていることを確認ください。</li>
+<li><a href="https://docs.microsoft.com/ja-jp/sysinternals/downloads/procmon" target="_blank" rel="noopener">Process Monitor - Windows Sysinternals | Microsoft Docs</a> より ProcessMonitor.zip をダウンロードします。</li>
+<li>対象機器に ProcessMonitor.zip を展開し、Procmon.exe を CollectInfo_WebDAV.bat と同じフォルダーに配置します。<br>※ 何らかの事情で Process Monitor の取得が困難な場合は本 “事前準備” の 3. および 4. をスキップしてください。<br>※ Procmon.exe が存在しない場合は自動的に Process Monitor の採取を行いません。</li>
+</ol>
+<h2 id="資料採取手順"><a href="#資料採取手順" class="headerlink" title="資料採取手順"></a>資料採取手順</h2><ol>
+<li>クライアントに管理者アカウントでログオンします。</li>
+<li>CollectInfo-Client.bat ファイルを右クリックし、[管理者として実行] を選択します。</li>
+<li>“実行したい番号を入力ください” メッセージに 1 を入力、リターン キーを押下し、表示に従いメニューに戻ります。</li>
+<li>事象を再現します。</li>
+<li>“実行したい番号を入力ください” メッセージに 2 を入力、リターン キーを押下し、表示に従いメニューに戻ります。</li>
+<li>“実行したい番号を入力ください” メッセージに 3 を入力、リターン キーを押下し、表示に従いメニューに戻ります。</li>
+<li>“実行したい番号を入力ください” メッセージに q を入力、リターン キーを押下してツールを終了します。</li>
+<li><code>C:\temp</code> 配下に作成された <code>&lt;YYYYMMDD 形式の年月日&gt;_&lt;ホスト名&gt;_info</code> フォルダーを圧縮し弊社まで提供ください。</li>
+</ol>
+<p><em>本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</em></p>
+
+</div>
+
+
+  <div class="book-comments">
+    
+
+
+
+
+  </div>
+
+
+
+<script src="/mslog/js/book-post.js"></script>
+
+        </div>
+      </div>
+      <div class="column col-2 hide-lg">
+        <div class="book-post-info">
+  
+    <div class="book-post-meta">
+  
+    <div class="link">
+      <a class="category-link" href="/mslog/categories/fileservices/">FileServices</a> <a class="category-link" href="/mslog/categories/fileservices/webdav/">WebDAV</a>
+
+      
+    </div>
+  
+</div>
+  
+
+  <div class="book-tocbot">
+</div>
+<div class="book-tocbot-menu">
+  <a class="book-toc-expand" onclick="expand_toc()">Expand all</a>
+  <a onclick="go_top()">Back to top</a>
+  <a onclick="go_bottom()">Go to bottom</a>
+</div>
+
+
+<script src="/mslog/js/book-toc.js"></script>
+
+</div>
+      </div>
+    </div>
+  </div>
+  
+  <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
+</div>
+
+</body>
+</html>
+
+
+<script src="/mslog/js/book.js"></script>

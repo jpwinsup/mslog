@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    
+      <link rel="icon" href="/mslog/favicon.png" />
+    
+
+    <title>
+        
+          クラスターのグループ (役割) がフェールオーバーした事象の調査に必要な資料について - Windows の資料採取に関する情報公開サイト
+        
+    </title>
+
+    <!-- Spectre.css framework -->
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <!-- theme css & js -->
+    
+<link rel="stylesheet" href="/mslog/css/book.css">
+
+    
+<script src="/mslog/js/book.js"></script>
+
+
+    <!-- tocbot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+    
+    <!-- katex -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zooming/2.1.1/zooming.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const zooming = new Zooming()
+    zooming.listen('.book-content img')
+})
+</script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+<div class="book-container">
+  <div class="book-sidebar">
+    <div class="book-brand">
+  <a href="/mslog/">
+    <span>トップ ページへ</span>
+  </a>
+</div>
+    <div class="book-menu">
+  <h1 id="資料採取手順"><a href="#資料採取手順" class="headerlink" title="資料採取手順"></a>資料採取手順</h1><!-- - [アクティベーション](/mslog/categories/activation) -->
+<!-- - [BitLocker](/mslog/categories/bitlocker) -->
+<!-- - [デプロイメント](/mslog/categories/deployment) -->
+<!-- - [デバイス](/mslog/categories/device) -->
+<!-- - [セットアップ](/mslog/categories/setup) -->
+<ul>
+<li><a href="/mslog/categories/networking">ネットワーク一般</a></li>
+<li><a href="/mslog/categories/fileservices">ファイル サービス</a><!-- - [リモート アクセス](/mslog/categories/remoteaccess) -->
+<!-- - [ワイヤレス ネットワーク](/mslog/categories/wireless) --></li>
+<li><a href="/mslog/categories/cluster">クラスター</a></li>
+<li><a href="/mslog/categories/hyper-v">Hyper-V</a></li>
+<li><a href="/mslog/categories/perf">パフォーマンス</a></li>
+<li><a href="/mslog/categories/storage">ストレージ</a><!-- - [リモート デスクトップ サービス](/mslog/categories/rds) -->
+<!-- - [ユーザー インターフェースとアプリ](/mslog/categories/uiandapps) -->
+
+</li>
+</ul>
+<h1 id="リンク"><a href="#リンク" class="headerlink" title="リンク"></a>リンク</h1><ul>
+<li><a href="https://cssjpn.github.io/" target="_blank" rel="noopener">日本マイクロソフト サポート情報</a></li>
+<li><a href="https://jpwinsup.github.io/blog/">Microsoft Japan Windows Technology Support Blog</a></li>
+</ul>
+
+</div>
+
+
+<script src="/mslog/js/book-menu.js"></script>
+
+  </div>
+
+  <div class="sidebar-toggle" onclick="sidebar_toggle()" onmouseover="add_inner()" onmouseleave="remove_inner()">
+  <div class="sidebar-toggle-inner"></div>
+</div>
+
+<script>
+function add_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.add('show')  
+}
+
+function remove_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.remove('show')
+}
+
+function sidebar_toggle() {
+    let sidebar_toggle = document.querySelector('.sidebar-toggle')
+    let sidebar = document.querySelector('.book-sidebar')
+    let content = document.querySelector('.off-canvas-content')
+    if (sidebar_toggle.classList.contains('extend')) { // show
+        sidebar_toggle.classList.remove('extend')
+        sidebar.classList.remove('hide')
+        content.classList.remove('extend')
+    }
+    else { // hide
+        sidebar_toggle.classList.add('extend')
+        sidebar.classList.add('hide')
+        content.classList.add('extend')
+    }
+}
+</script>
+
+  <div class="off-canvas-content">
+    <div class="columns">
+      <div class="column col-10 col-lg-12">
+        <div class="book-navbar">
+          <!-- For Responsive Layout -->
+
+<header class="navbar">
+  <section class="navbar-section">
+    <a onclick="open_sidebar()">
+      <i class="icon icon-menu"></i>
+    </a>
+  </section>
+</header>
+
+        </div>
+        <div class="book-content">
+          <div class="book-post">
+  <h1 id="クラスターのグループ-役割-がフェールオーバーした事象の調査に必要な資料について"><a href="#クラスターのグループ-役割-がフェールオーバーした事象の調査に必要な資料について" class="headerlink" title="クラスターのグループ (役割) がフェールオーバーした事象の調査に必要な資料について"></a>クラスターのグループ (役割) がフェールオーバーした事象の調査に必要な資料について</h1><p>本記事はマイクロソフト社員によって公開されております。</p>
+<p>いつも弊社製品をご利用いただきまして誠にありがとうございます。</p>
+<p>Windows プラットフォームサポートの石田です。</p>
+<p>弊社にお問い合わせいただく際に、事前に採取しておいたほうが良い内容についてご紹介させていただきます。</p>
+<p>今回のテーマは「クラスターのグループ (役割) がフェールオーバーした事象の調査に必要な資料について」です。</p>
+<p>その他の事象に関しては以下の公開情報をご確認ください。</p>
+<p>Microsoft サポートサービスへお問い合わせいただく際に採取しておいたほうがよい資料について</p>
+<p>クラスターのグループにて予期せずフェールオーバーが発生した場合は、速やかにクラスターログの採取をご実施いただくことをお勧めいたします。</p>
+<p>また、弊社へお問い合わせいただく際は、弊社情報採取スクリプト (shacollector) のサポートログ情報 (support オプション) をご取得ください。</p>
+<p>こちらは、サービスに影響のない負荷の低い時間帯に実施いただければと存じます。</p>
+<ul>
+<li><p>採取いただく資料</p>
+<ul>
+<li>クラスターログ</li>
+<li>情報採取スクリプト (shacollector) のサポートログ情報 (support オプション)</li>
+</ul>
+</li>
+<li><p>対象機器</p>
+<ul>
+<li>クラスターを構成しているすべてのノード</li>
+</ul>
+</li>
+</ul>
+<h2 id="有効と思われる資料採取"><a href="#有効と思われる資料採取" class="headerlink" title="有効と思われる資料採取"></a>有効と思われる資料採取</h2><ol>
+<li><p>クラスターログの採取</p>
+<ul>
+<li><p>Windows Server 2008/2008 R2 環境</p>
+<p>管理者権限のあるコマンドプロンプトにて以下のコマンドを実行します。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cluster log &#x2F;g</span><br></pre></td></tr></table></figure>
+<p>出力先は %SystemRoot%\Cluster\Reports\Cluster.log です。</p>
+</li>
+<li><p>Windows Server 2012 以降の環境</p>
+<p>管理者権限のある PowerShell から以下のコマンドレットを実行します。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-ClusterLog</span><br></pre></td></tr></table></figure>
+<p>出力先は C:\Windows\Cluster\Reports\Cluster.log です。</p>
+</li>
+</ul>
+</li>
+<li><p>以下の URL より “shacollector.zip” をダウンロードおよび展開いただき、対象端末へ配置します。</p>
+<p>ダウンロード先:<br><a href="https://github.com/CSS-Windows/WindowsDiag/raw/master/SHA/ShaCollector/shacollector.zip" target="_blank" rel="noopener">https://github.com/CSS-Windows/WindowsDiag/raw/master/SHA/ShaCollector/shacollector.zip</a></p>
+<p><a href="https://github.com/CSS-Windows/WindowsDiag/tree/master/SHA/ShaCollector" target="_blank" rel="noopener">shacollector の使い方についてはこちら</a></p>
+<p>(注意)<br>shacollector は機能の拡張などにより内容が変更されることがあります。<br>そのため、毎回上記のダウンロード先から shacollector を取得いただき利用してください。</p>
+</li>
+<li><p>管理者権限のコマンドプロンプトから配置した “shacollector” フォルダーへ移動して、以下のコマンドを実行の上、サポート情報ログの採取を実施します。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat support all C:\mslog</span><br></pre></td></tr></table></figure>
+<p>※ 出力先フォルダー名に C:\mslog 以外のフォルダーを指定することも可能です。</p>
+</li>
+<li><p>生成されましたログの出力先フォルダーを圧縮の上、弊社までご提供ください。</p>
+</li>
+</ol>
+<p>本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+
+</div>
+
+
+  <div class="book-comments">
+    
+
+
+
+
+  </div>
+
+
+
+<script src="/mslog/js/book-post.js"></script>
+
+        </div>
+      </div>
+      <div class="column col-2 hide-lg">
+        <div class="book-post-info">
+  
+    <div class="book-post-meta">
+  
+    <div class="link">
+      <a class="category-link" href="/mslog/categories/cluster/">Cluster</a> <a class="category-link" href="/mslog/categories/cluster/%E3%83%95%E3%82%A7%E3%83%BC%E3%83%AB%E3%82%AA%E3%83%BC%E3%83%90%E3%83%BC/">フェールオーバー</a>
+
+      
+    </div>
+  
+</div>
+  
+
+  <div class="book-tocbot">
+</div>
+<div class="book-tocbot-menu">
+  <a class="book-toc-expand" onclick="expand_toc()">Expand all</a>
+  <a onclick="go_top()">Back to top</a>
+  <a onclick="go_bottom()">Go to bottom</a>
+</div>
+
+
+<script src="/mslog/js/book-toc.js"></script>
+
+</div>
+      </div>
+    </div>
+  </div>
+  
+  <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
+</div>
+
+</body>
+</html>
+
+
+<script src="/mslog/js/book.js"></script>

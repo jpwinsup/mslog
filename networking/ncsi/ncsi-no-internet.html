@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    
+      <link rel="icon" href="/mslog/favicon.png" />
+    
+
+    <title>
+        
+          タスク バーのネットワーク アイコンに黄色の警告マークまたは地球儀アイコンが表示される事象の調査に必要な資料について - Windows の資料採取に関する情報公開サイト
+        
+    </title>
+
+    <!-- Spectre.css framework -->
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <!-- theme css & js -->
+    
+<link rel="stylesheet" href="/mslog/css/book.css">
+
+    
+<script src="/mslog/js/book.js"></script>
+
+
+    <!-- tocbot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+    
+    <!-- katex -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zooming/2.1.1/zooming.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const zooming = new Zooming()
+    zooming.listen('.book-content img')
+})
+</script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+<div class="book-container">
+  <div class="book-sidebar">
+    <div class="book-brand">
+  <a href="/mslog/">
+    <span>トップ ページへ</span>
+  </a>
+</div>
+    <div class="book-menu">
+  <h1 id="資料採取手順"><a href="#資料採取手順" class="headerlink" title="資料採取手順"></a>資料採取手順</h1><!-- - [アクティベーション](/mslog/categories/activation) -->
+<!-- - [BitLocker](/mslog/categories/bitlocker) -->
+<!-- - [デプロイメント](/mslog/categories/deployment) -->
+<!-- - [デバイス](/mslog/categories/device) -->
+<!-- - [セットアップ](/mslog/categories/setup) -->
+<ul>
+<li><a href="/mslog/categories/networking">ネットワーク一般</a></li>
+<li><a href="/mslog/categories/fileservices">ファイル サービス</a><!-- - [リモート アクセス](/mslog/categories/remoteaccess) -->
+<!-- - [ワイヤレス ネットワーク](/mslog/categories/wireless) --></li>
+<li><a href="/mslog/categories/cluster">クラスター</a></li>
+<li><a href="/mslog/categories/hyper-v">Hyper-V</a></li>
+<li><a href="/mslog/categories/perf">パフォーマンス</a></li>
+<li><a href="/mslog/categories/storage">ストレージ</a><!-- - [リモート デスクトップ サービス](/mslog/categories/rds) -->
+<!-- - [ユーザー インターフェースとアプリ](/mslog/categories/uiandapps) -->
+
+</li>
+</ul>
+<h1 id="リンク"><a href="#リンク" class="headerlink" title="リンク"></a>リンク</h1><ul>
+<li><a href="https://cssjpn.github.io/" target="_blank" rel="noopener">日本マイクロソフト サポート情報</a></li>
+<li><a href="https://jpwinsup.github.io/blog/">Microsoft Japan Windows Technology Support Blog</a></li>
+</ul>
+
+</div>
+
+
+<script src="/mslog/js/book-menu.js"></script>
+
+  </div>
+
+  <div class="sidebar-toggle" onclick="sidebar_toggle()" onmouseover="add_inner()" onmouseleave="remove_inner()">
+  <div class="sidebar-toggle-inner"></div>
+</div>
+
+<script>
+function add_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.add('show')  
+}
+
+function remove_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.remove('show')
+}
+
+function sidebar_toggle() {
+    let sidebar_toggle = document.querySelector('.sidebar-toggle')
+    let sidebar = document.querySelector('.book-sidebar')
+    let content = document.querySelector('.off-canvas-content')
+    if (sidebar_toggle.classList.contains('extend')) { // show
+        sidebar_toggle.classList.remove('extend')
+        sidebar.classList.remove('hide')
+        content.classList.remove('extend')
+    }
+    else { // hide
+        sidebar_toggle.classList.add('extend')
+        sidebar.classList.add('hide')
+        content.classList.add('extend')
+    }
+}
+</script>
+
+  <div class="off-canvas-content">
+    <div class="columns">
+      <div class="column col-10 col-lg-12">
+        <div class="book-navbar">
+          <!-- For Responsive Layout -->
+
+<header class="navbar">
+  <section class="navbar-section">
+    <a onclick="open_sidebar()">
+      <i class="icon icon-menu"></i>
+    </a>
+  </section>
+</header>
+
+        </div>
+        <div class="book-content">
+          <div class="book-post">
+  <h1 id="タスク-バーのネットワーク-アイコンに黄色の警告マークまたは地球儀アイコンが表示される事象の調査に必要な資料について"><a href="#タスク-バーのネットワーク-アイコンに黄色の警告マークまたは地球儀アイコンが表示される事象の調査に必要な資料について" class="headerlink" title="タスク バーのネットワーク アイコンに黄色の警告マークまたは地球儀アイコンが表示される事象の調査に必要な資料について"></a>タスク バーのネットワーク アイコンに黄色の警告マークまたは地球儀アイコンが表示される事象の調査に必要な資料について</h1><p>いつも弊社製品をご利用いただきまして誠にありがとうございます。<br>本サイトでは弊社にお問い合わせいただく際に、事前に採取しておいたほうが良い内容についてご紹介しております。<br>このページでは「タスク バーのネットワーク アイコンに黄色の警告マークまたは地球儀アイコンが表示される事象の調査に必要な資料について」紹介いたします。</p>
+<h2 id="本資料が有効なシナリオ"><a href="#本資料が有効なシナリオ" class="headerlink" title="本資料が有効なシナリオ"></a>本資料が有効なシナリオ</h2><ul>
+<li>タスク バーのネットワーク アイコンに黄色の警告マークまたは地球儀アイコンが表示されている</li>
+<li>上記の状態で Office のライセンス認証に失敗する</li>
+</ul>
+<h2 id="情報を採取いただく前に"><a href="#情報を採取いただく前に" class="headerlink" title="情報を採取いただく前に"></a>情報を採取いただく前に</h2><p>Windows では、Network Location Awareness (NLA) サービスの機能である Network Connection Status Indicator (NCSI) によってインターネットへの接続性の検証が行われます。<br>この判定結果を踏まえ、タスク バーのネットワーク アイコンにインターネット アクセスの有無が表示されます。</p>
+<p>また NCSI がインターネット接続性なしと判断している場合、ライセンス認証や “Office へサインイン” など Office 共通の動作が失敗する場合があります。<br>この問題について確認すべきポイントなどを Outlook サポート チームより公開しております。<br>情報採取を行わずとも問題を解決できる可能性がございますので、是非ご一読ください。</p>
+<p><a href="https://social.msdn.microsoft.com/Forums/ja-JP/5cef1013-aec1-492d-a129-15f47e863f0c/-outlook-20132016-?forum=exchangeteamjp" target="_blank" rel="noopener">インターネット接続性チェックが失敗する環境で Outlook 2013/2016 による先進認証が失敗する</a></p>
+<p>上記公開情報の対処方法を実施しても効果が見られない場合などは以下の情報を採取いただきました上で弊社に調査を依頼ください。</p>
+<h2 id="採取いただく資料"><a href="#採取いただく資料" class="headerlink" title="採取いただく資料"></a>採取いただく資料</h2><ul>
+<li>パケット キャプチャー</li>
+<li>ネットワーク関連トレース ログ</li>
+<li>イベント ログ、各種設定情報</li>
+<li>プロキシ構成情報</li>
+<li>問題ステップ記録ツール</li>
+</ul>
+<h2 id="資料採取時の影響について"><a href="#資料採取時の影響について" class="headerlink" title="資料採取時の影響について"></a>資料採取時の影響について</h2><p>ログ採取中は各種リソースに多少の負荷がかかる可能性がございますが、通常は実影響はありません。<br>採取前後の再起動は必要ありません。</p>
+<h2 id="対象機器"><a href="#対象機器" class="headerlink" title="対象機器"></a>対象機器</h2><ul>
+<li>問題が発生している端末</li>
+</ul>
+<h2 id="事前準備"><a href="#事前準備" class="headerlink" title="事前準備"></a>事前準備</h2><ol>
+<li><a href="https://www.microsoft.com/en-us/download/details.aspx?id=51694" target="_blank" rel="noopener">Download IEDigest from Official Microsoft Download Center</a> より iedigest_NET2.exe または iedigest_NET4.exe をダウンロードします。</li>
+<li>採取対象の端末に iedigest_NET2.exe または iedigest_NET4.exe を配置します。</li>
+</ol>
+<p>※ Windows 7 環境では iedigest_NET2.exe をダウンロードします。<br>※ Windows 8.1 / Windows 10 では iedigest_NET4.exe をダウンロードします。</p>
+<h2 id="資料採取手順"><a href="#資料採取手順" class="headerlink" title="資料採取手順"></a>資料採取手順</h2><h3 id="a-資料採取開始"><a href="#a-資料採取開始" class="headerlink" title="a. 資料採取開始"></a>a. 資料採取開始</h3><ol>
+<li>Windows キーを押下し、”cmd.exe” を検索します。</li>
+<li>[コマンド プロンプト] を右クリックし、[管理者として実行] を選択します。</li>
+<li>コマンド プロンプトにて次のコマンドを実行します。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">md C:\MSLOG_%COMPUTERNAME%</span><br><span class="line">cd C:\MSLOG_%COMPUTERNAME%</span><br><span class="line">netsh trace start capture&#x3D;yes persistent&#x3D;yes maxSize&#x3D;1024 scenario&#x3D;InternetClient_dbg traceFile&#x3D;C:\MSLOG_%COMPUTERNAME%\NetTrace.etl provider&#x3D;&quot;Microsoft-Windows-Kernel-Process&quot; keywords&#x3D;0x70 level&#x3D;0x4 report&#x3D;no</span><br><span class="line">psr.exe &#x2F;start &#x2F;output &quot;C:\MSLOG_%COMPUTERNAME%\psr.zip&quot; &#x2F;gui 0 &#x2F;sc 1 &#x2F;maxsc 100</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="b-NCSI-の判定処理を実行"><a href="#b-NCSI-の判定処理を実行" class="headerlink" title="b. NCSI の判定処理を実行"></a>b. NCSI の判定処理を実行</h3><ol>
+<li>Windows キーを押下し、”ncpa.cpl” を検索し、クリックします。</li>
+<li>ご利用のネットワーク アダプターを右クリックし [無効化する] を選択した後、[有効にする] を選択します。</li>
+</ol>
+<h3 id="c-資料採取停止"><a href="#c-資料採取停止" class="headerlink" title="c. 資料採取停止"></a>c. 資料採取停止</h3><ol>
+<li>次のコマンドを実行して、ログ採取を終了します。C:\MSLOG 配下に生成されたファイルを全て採取ください。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">psr.exe &#x2F;stop</span><br><span class="line">netsh trace stop</span><br><span class="line">netsh winhttp show proxy &gt; C:\MSLOG_%COMPUTERNAME%\WinhttpProxy.txt</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="d-ブラウザーのプロキシ構成情報の取得"><a href="#d-ブラウザーのプロキシ構成情報の取得" class="headerlink" title="d. ブラウザーのプロキシ構成情報の取得"></a>d. ブラウザーのプロキシ構成情報の取得</h3><ol>
+<li>事前にダウンロードした iedigest_NET2.exe または iedigest_NET4.exe をダブルクリックします。</li>
+<li>[Reports] タブの [Create report] をクリックすると、ブラウザーのプロキシ構成情報が取得されます。</li>
+<li>デスクトップに作成された IEDigest フォルダーを <code>C:\MSLOG_&lt;コンピューター名&gt;</code> フォルダーに移動します。</li>
+</ol>
+<h3 id="e-資料提供"><a href="#e-資料提供" class="headerlink" title="e. 資料提供"></a>e. 資料提供</h3><ol>
+<li><code>C:\MSLOG_&lt;コンピューター名&gt;</code> フォルダーに必要な資料が保存されていますので、zip 形式で圧縮します。</li>
+<li>弊社まで資料をご提供ください。</li>
+</ol>
+<p><em>本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</em></p>
+
+</div>
+
+
+  <div class="book-comments">
+    
+
+
+
+
+  </div>
+
+
+
+<script src="/mslog/js/book-post.js"></script>
+
+        </div>
+      </div>
+      <div class="column col-2 hide-lg">
+        <div class="book-post-info">
+  
+    <div class="book-post-meta">
+  
+    <div class="link">
+      <a class="category-link" href="/mslog/categories/networking/">Networking</a> <a class="category-link" href="/mslog/categories/networking/ncsi/">NCSI</a>
+
+      
+    </div>
+  
+</div>
+  
+
+  <div class="book-tocbot">
+</div>
+<div class="book-tocbot-menu">
+  <a class="book-toc-expand" onclick="expand_toc()">Expand all</a>
+  <a onclick="go_top()">Back to top</a>
+  <a onclick="go_bottom()">Go to bottom</a>
+</div>
+
+
+<script src="/mslog/js/book-toc.js"></script>
+
+</div>
+      </div>
+    </div>
+  </div>
+  
+  <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
+</div>
+
+</body>
+</html>
+
+
+<script src="/mslog/js/book.js"></script>

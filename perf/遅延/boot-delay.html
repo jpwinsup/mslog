@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    
+      <link rel="icon" href="/mslog/favicon.png" />
+    
+
+    <title>
+        
+          OS の起動が遅延してしまう事象の調査 - Windows の資料採取に関する情報公開サイト
+        
+    </title>
+
+    <!-- Spectre.css framework -->
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <!-- theme css & js -->
+    
+<link rel="stylesheet" href="/mslog/css/book.css">
+
+    
+<script src="/mslog/js/book.js"></script>
+
+
+    <!-- tocbot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+    
+    <!-- katex -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zooming/2.1.1/zooming.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const zooming = new Zooming()
+    zooming.listen('.book-content img')
+})
+</script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+<div class="book-container">
+  <div class="book-sidebar">
+    <div class="book-brand">
+  <a href="/mslog/">
+    <span>トップ ページへ</span>
+  </a>
+</div>
+    <div class="book-menu">
+  <h1 id="資料採取手順"><a href="#資料採取手順" class="headerlink" title="資料採取手順"></a>資料採取手順</h1><!-- - [アクティベーション](/mslog/categories/activation) -->
+<!-- - [BitLocker](/mslog/categories/bitlocker) -->
+<!-- - [デプロイメント](/mslog/categories/deployment) -->
+<!-- - [デバイス](/mslog/categories/device) -->
+<!-- - [セットアップ](/mslog/categories/setup) -->
+<ul>
+<li><a href="/mslog/categories/networking">ネットワーク一般</a></li>
+<li><a href="/mslog/categories/fileservices">ファイル サービス</a><!-- - [リモート アクセス](/mslog/categories/remoteaccess) -->
+<!-- - [ワイヤレス ネットワーク](/mslog/categories/wireless) --></li>
+<li><a href="/mslog/categories/cluster">クラスター</a></li>
+<li><a href="/mslog/categories/hyper-v">Hyper-V</a></li>
+<li><a href="/mslog/categories/perf">パフォーマンス</a></li>
+<li><a href="/mslog/categories/storage">ストレージ</a><!-- - [リモート デスクトップ サービス](/mslog/categories/rds) -->
+<!-- - [ユーザー インターフェースとアプリ](/mslog/categories/uiandapps) -->
+
+</li>
+</ul>
+<h1 id="リンク"><a href="#リンク" class="headerlink" title="リンク"></a>リンク</h1><ul>
+<li><a href="https://cssjpn.github.io/" target="_blank" rel="noopener">日本マイクロソフト サポート情報</a></li>
+<li><a href="https://jpwinsup.github.io/blog/">Microsoft Japan Windows Technology Support Blog</a></li>
+</ul>
+
+</div>
+
+
+<script src="/mslog/js/book-menu.js"></script>
+
+  </div>
+
+  <div class="sidebar-toggle" onclick="sidebar_toggle()" onmouseover="add_inner()" onmouseleave="remove_inner()">
+  <div class="sidebar-toggle-inner"></div>
+</div>
+
+<script>
+function add_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.add('show')  
+}
+
+function remove_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.remove('show')
+}
+
+function sidebar_toggle() {
+    let sidebar_toggle = document.querySelector('.sidebar-toggle')
+    let sidebar = document.querySelector('.book-sidebar')
+    let content = document.querySelector('.off-canvas-content')
+    if (sidebar_toggle.classList.contains('extend')) { // show
+        sidebar_toggle.classList.remove('extend')
+        sidebar.classList.remove('hide')
+        content.classList.remove('extend')
+    }
+    else { // hide
+        sidebar_toggle.classList.add('extend')
+        sidebar.classList.add('hide')
+        content.classList.add('extend')
+    }
+}
+</script>
+
+  <div class="off-canvas-content">
+    <div class="columns">
+      <div class="column col-10 col-lg-12">
+        <div class="book-navbar">
+          <!-- For Responsive Layout -->
+
+<header class="navbar">
+  <section class="navbar-section">
+    <a onclick="open_sidebar()">
+      <i class="icon icon-menu"></i>
+    </a>
+  </section>
+</header>
+
+        </div>
+        <div class="book-content">
+          <div class="book-post">
+  <h1 id="OS-の起動が遅延してしまう事象の調査"><a href="#OS-の起動が遅延してしまう事象の調査" class="headerlink" title="OS の起動が遅延してしまう事象の調査"></a>OS の起動が遅延してしまう事象の調査</h1><p>本記事はマイクロソフト社員によって公開されております。</p>
+<p>こんにちは。 Windows Performance チームの飯田です。<br>本ブログでは、 OS の起動が遅延してしまう事象が発生した場合に採取いただきたい資料についてご紹介いたします。</p>
+<p>事象の再現性があるかどうかで採取いただきたい資料が変わりますので、以下、順にご説明いたします。</p>
+<h2 id="A-事象の再現性がある場合"><a href="#A-事象の再現性がある場合" class="headerlink" title="[A] 事象の再現性がある場合"></a>[A] 事象の再現性がある場合</h2><h3 id="資料採取の流れ"><a href="#資料採取の流れ" class="headerlink" title="資料採取の流れ"></a>資料採取の流れ</h3><ol>
+<li>採取用スクリプト (shacollector.zip) を資料採取対象のマシンの任意の場所にコピーし展開します。</li>
+<li>トレース情報の採取を開始します。</li>
+<li>事象が再現したことを確認します。</li>
+<li>トレース情報の採取を停止します。</li>
+<li>採取用スクリプトを利用してサポートログ情報を採取します。</li>
+</ol>
+<p>※ 比較調査のため、可能でしたら現象発生時のパターンと正常時のパターンの 2 パターンの採取をお願いいたします。</p>
+<h3 id="ログ採取について"><a href="#ログ採取について" class="headerlink" title="ログ採取について"></a>ログ採取について</h3><ol>
+<li><p>以下の URL より “shacollector.zip” をダウンロードおよび展開いただき、対象端末へ配置します。</p>
+<p>ダウンロード先:<br><a href="https://github.com/CSS-Windows/WindowsDiag/raw/master/SHA/ShaCollector/shacollector.zip" target="_blank" rel="noopener">https://github.com/CSS-Windows/WindowsDiag/raw/master/SHA/ShaCollector/shacollector.zip</a></p>
+<p><a href="https://github.com/CSS-Windows/WindowsDiag/tree/master/SHA/ShaCollector" target="_blank" rel="noopener">shacollector の使い方についてはこちら</a></p>
+<p>(注意)<br>shacollector は機能の拡張などにより内容が変更されることがあります。<br>そのため、毎回上記のダウンロード先から shacollector を取得いただき利用してください。</p>
+</li>
+<li><p>コマンドプロンプトを管理者モードで起動し、shacollector.zip を展開したフォルダーのバッチファイル (shacollector.bat) を以下のオプションを指定して実行します。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat perf perfmon start C:\mslog interval 0:0:1</span><br></pre></td></tr></table></figure>
+<p>※ 出力先フォルダー名に C:\mslog 以外のフォルダーを指定することも可能です。</p>
+<p>※ 既定のサンプリング インターバール (interval) の指定は 1 秒となっていますが、変更することも可能です。</p>
+</li>
+<li><p>shacollector.zip を展開したフォルダにて以下の実行ファイルを管理者権限で起動します。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\shacollector\libs\WPR10-x64\WPRUI.exe</span><br></pre></td></tr></table></figure></li>
+<li><p>左下の “More options” を選択します。</p>
+</li>
+<li><p>“Select additional profiles for performance recording” の欄にて以下にチェックを入れます。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">First level Triage</span><br><span class="line">   ┗ First level Triage (チェック)</span><br><span class="line">   Resource Analysis</span><br><span class="line">   ┣ CPU usage (チェック)</span><br><span class="line">   ┣ Disk I&#x2F;O activity (チェック)</span><br><span class="line">   ┣ File I&#x2F;O activity (チェック)</span><br><span class="line">   ┣ Registry I&#x2F;O activity</span><br><span class="line">   ┣ Networking I&#x2F;O activity</span><br><span class="line">   ┣ Heap usage</span><br><span class="line">   ┣ Pool usage</span><br><span class="line">   ┣ VirtualAlloc usage</span><br><span class="line">   ┣ Power usage</span><br><span class="line">   ┣ Handle usage</span><br><span class="line">   ┣ Desktop composition activity</span><br><span class="line">   ┗ Resident Set analysis</span><br></pre></td></tr></table></figure></li>
+<li><p>右のプルダウンメニューに以下﻿設定します。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Performance scenario - Boot</span><br><span class="line"> Detail level         - Verbose</span><br><span class="line"> Logging mode         - File</span><br><span class="line"> Number of iterations - 1</span><br></pre></td></tr></table></figure>
+<p>&lt;参考&gt; 設定画面</p>
+<img src="boot-delay/wpr.png" align="left">
+<br style="clear:left;">
+</li>
+<li><p>[Start] をクリックします。</p>
+</li>
+<li><p>ログファイルの出力先を指定し、”Type in a detailed description of the problem” の欄に任意の文字列を入力します。<br>　(ここは何を入力いただいても構いません。)</p>
+</li>
+<li><p>[Save] をクリックします。</p>
+</li>
+<li><p>[OK] をクリックします。</p>
+<p>この後、自動的に OS の再起動が行われて、ログが収集されます。</p>
+</li>
+<li><p>ログオン後、WPR ログが自動で収集されます。<br>WPRUI.exe が表示されない場合は、WPRUI.exe を管理者権限で起動し、ログの保存が開始されたことをご確認ください。</p>
+</li>
+<li><p>shacollector を以下のように実行してログの採取を停止します。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat perf perfmon stop</span><br></pre></td></tr></table></figure></li>
+<li><p>shacollector を support オプションを指定して実行します。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat support all C:\mslog</span><br></pre></td></tr></table></figure>
+<p>※ 出力先フォルダー名に C:\mslog 以外のフォルダーを指定することも可能です。</p>
+</li>
+<li><p>生成されましたログの出力先フォルダーを圧縮の上、弊社までご提供ください。</p>
+</li>
+</ol>
+<h2 id="B-事象の再現性がない場合"><a href="#B-事象の再現性がない場合" class="headerlink" title="[B] 事象の再現性がない場合"></a>[B] 事象の再現性がない場合</h2><h3 id="資料採取の流れ-1"><a href="#資料採取の流れ-1" class="headerlink" title="資料採取の流れ"></a>資料採取の流れ</h3><ol>
+<li>採取用スクリプト (shacollector.zip) を資料採取対象のマシンの任意の場所にコピーし展開します。</li>
+<li>採取用スクリプトを利用してサポートログ情報を採取します。</li>
+</ol>
+<h3 id="ログ採取について-1"><a href="#ログ採取について-1" class="headerlink" title="ログ採取について"></a>ログ採取について</h3><ol>
+<li><p>以下の URL より “shacollector.zip” をダウンロードおよび展開いただき、対象端末へ配置します。</p>
+<p>ダウンロード先:<br><a href="https://github.com/CSS-Windows/WindowsDiag/raw/master/SHA/ShaCollector/shacollector.zip" target="_blank" rel="noopener">https://github.com/CSS-Windows/WindowsDiag/raw/master/SHA/ShaCollector/shacollector.zip</a></p>
+<p><a href="https://github.com/CSS-Windows/WindowsDiag/tree/master/SHA/ShaCollector" target="_blank" rel="noopener">shacollector の使い方についてはこちら</a></p>
+<p>(注意)<br>shacollector は機能の拡張などにより内容が変更されることがあります。<br>そのため、毎回上記のダウンロード先から shacollector を取得いただき利用してください。</p>
+</li>
+<li><p>以下のコマンドを管理者権限のコマンド プロンプトから実行して、サポート情報ログを採取します。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat support all C:\mslog</span><br></pre></td></tr></table></figure>
+<p>※ 出力先フォルダー名に C:\mslog 以外のフォルダーを指定することも可能です。</p>
+</li>
+<li><p>生成されましたログの出力先フォルダーを圧縮の上、弊社までご提供ください。</p>
+</li>
+</ol>
+<h3 id="その他連携いただきたい情報"><a href="#その他連携いただきたい情報" class="headerlink" title="その他連携いただきたい情報"></a>その他連携いただきたい情報</h3><ol>
+<li>事象発生日時をお教えください。</li>
+<li>OS 起動遅延の状況をできるだけ詳細にお伝えください。<br>(どの画面で時間が掛かったか。ログオン前なのか、ログオン後なのか。)</li>
+</ol>
+<p>以上となります。</p>
+<p>本ブログが少しでも皆様のお役に立てば幸いです。</p>
+<p>本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+
+</div>
+
+
+  <div class="book-comments">
+    
+
+
+
+
+  </div>
+
+
+
+<script src="/mslog/js/book-post.js"></script>
+
+        </div>
+      </div>
+      <div class="column col-2 hide-lg">
+        <div class="book-post-info">
+  
+    <div class="book-post-meta">
+  
+    <div class="link">
+      <a class="category-link" href="/mslog/categories/perf/">Perf</a> <a class="category-link" href="/mslog/categories/perf/%E9%81%85%E5%BB%B6/">遅延</a>
+
+      
+    </div>
+  
+</div>
+  
+
+  <div class="book-tocbot">
+</div>
+<div class="book-tocbot-menu">
+  <a class="book-toc-expand" onclick="expand_toc()">Expand all</a>
+  <a onclick="go_top()">Back to top</a>
+  <a onclick="go_bottom()">Go to bottom</a>
+</div>
+
+
+<script src="/mslog/js/book-toc.js"></script>
+
+</div>
+      </div>
+    </div>
+  </div>
+  
+  <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
+</div>
+
+</body>
+</html>
+
+
+<script src="/mslog/js/book.js"></script>

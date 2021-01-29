@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    
+      <link rel="icon" href="/mslog/favicon.png" />
+    
+
+    <title>
+        
+          アプリケーションがハングアップしてしまう事象の調査 - Windows の資料採取に関する情報公開サイト
+        
+    </title>
+
+    <!-- Spectre.css framework -->
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <!-- theme css & js -->
+    
+<link rel="stylesheet" href="/mslog/css/book.css">
+
+    
+<script src="/mslog/js/book.js"></script>
+
+
+    <!-- tocbot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+    
+    <!-- katex -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zooming/2.1.1/zooming.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const zooming = new Zooming()
+    zooming.listen('.book-content img')
+})
+</script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+<div class="book-container">
+  <div class="book-sidebar">
+    <div class="book-brand">
+  <a href="/mslog/">
+    <span>トップ ページへ</span>
+  </a>
+</div>
+    <div class="book-menu">
+  <h1 id="資料採取手順"><a href="#資料採取手順" class="headerlink" title="資料採取手順"></a>資料採取手順</h1><!-- - [アクティベーション](/mslog/categories/activation) -->
+<!-- - [BitLocker](/mslog/categories/bitlocker) -->
+<!-- - [デプロイメント](/mslog/categories/deployment) -->
+<!-- - [デバイス](/mslog/categories/device) -->
+<!-- - [セットアップ](/mslog/categories/setup) -->
+<ul>
+<li><a href="/mslog/categories/networking">ネットワーク一般</a></li>
+<li><a href="/mslog/categories/fileservices">ファイル サービス</a><!-- - [リモート アクセス](/mslog/categories/remoteaccess) -->
+<!-- - [ワイヤレス ネットワーク](/mslog/categories/wireless) --></li>
+<li><a href="/mslog/categories/cluster">クラスター</a></li>
+<li><a href="/mslog/categories/hyper-v">Hyper-V</a></li>
+<li><a href="/mslog/categories/perf">パフォーマンス</a></li>
+<li><a href="/mslog/categories/storage">ストレージ</a><!-- - [リモート デスクトップ サービス](/mslog/categories/rds) -->
+<!-- - [ユーザー インターフェースとアプリ](/mslog/categories/uiandapps) -->
+
+</li>
+</ul>
+<h1 id="リンク"><a href="#リンク" class="headerlink" title="リンク"></a>リンク</h1><ul>
+<li><a href="https://cssjpn.github.io/" target="_blank" rel="noopener">日本マイクロソフト サポート情報</a></li>
+<li><a href="https://jpwinsup.github.io/blog/">Microsoft Japan Windows Technology Support Blog</a></li>
+</ul>
+
+</div>
+
+
+<script src="/mslog/js/book-menu.js"></script>
+
+  </div>
+
+  <div class="sidebar-toggle" onclick="sidebar_toggle()" onmouseover="add_inner()" onmouseleave="remove_inner()">
+  <div class="sidebar-toggle-inner"></div>
+</div>
+
+<script>
+function add_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.add('show')  
+}
+
+function remove_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.remove('show')
+}
+
+function sidebar_toggle() {
+    let sidebar_toggle = document.querySelector('.sidebar-toggle')
+    let sidebar = document.querySelector('.book-sidebar')
+    let content = document.querySelector('.off-canvas-content')
+    if (sidebar_toggle.classList.contains('extend')) { // show
+        sidebar_toggle.classList.remove('extend')
+        sidebar.classList.remove('hide')
+        content.classList.remove('extend')
+    }
+    else { // hide
+        sidebar_toggle.classList.add('extend')
+        sidebar.classList.add('hide')
+        content.classList.add('extend')
+    }
+}
+</script>
+
+  <div class="off-canvas-content">
+    <div class="columns">
+      <div class="column col-10 col-lg-12">
+        <div class="book-navbar">
+          <!-- For Responsive Layout -->
+
+<header class="navbar">
+  <section class="navbar-section">
+    <a onclick="open_sidebar()">
+      <i class="icon icon-menu"></i>
+    </a>
+  </section>
+</header>
+
+        </div>
+        <div class="book-content">
+          <div class="book-post">
+  <h1 id="アプリケーションがハングアップしてしまう事象の調査"><a href="#アプリケーションがハングアップしてしまう事象の調査" class="headerlink" title="アプリケーションがハングアップしてしまう事象の調査"></a>アプリケーションがハングアップしてしまう事象の調査</h1><p>(本記事はマイクロソフト社員によって公開されております)</p>
+<p>こんにちは、日本マイクロソフトの Windows プラットフォーム サポートの永岡です。</p>
+<p>本日はお客様システム上で動作するアプリケーションが、応答を返さない場合に (ハングアップした際に)、調査の初動に役立つ資料採取手順をご案内させていただきます。</p>
+<p>ご使用のアプリケーションおよびプロセスが弊社製で無い (3rd party 製) 場合には、これらの資料を採取いただき、製造元様へお問い合わせいただく事もご検討いただければ<br>と思いますが、誰が調査するにせよ、調査の初動に役立つ資料採取となりますので、ぜひご活用いただければと思います。</p>
+<p>※ 弊社製、3rd Party 製のいずれの調査も、弊社で受け付けておりますが、3rd Party 製のプロセスの場合には、最終的にお問い合わせいただく事をご案内する事が多い状況です。</p>
+<p>また、ここではアプリケーション (プロセス) のハング アップが対象となりますので、システム全体が応答を返さずにハングアップしている場合には、別途、完全メモリ ダンプの採取手順をご確認いただければと思います。</p>
+<h2 id="有効と思われる資料採取"><a href="#有効と思われる資料採取" class="headerlink" title="有効と思われる資料採取"></a>有効と思われる資料採取</h2><ol>
+<li><p>ハングアップしているプロセス名 (もしくは PID) を確認します。</p>
+<p>(確認には、タスクマネージャーや、”tasklist” コマンドが便利です)</p>
+</li>
+<li><p>タスク マネージャーを開き [詳細] タブから、ハングアップしているプロセスを右クリックして、[ダンプ ファイルの作成] を押下します。</p>
+</li>
+<li><p>保存場所が表示されますので、対象の場所からプロセス ダンプを退避させます。</p>
+</li>
+<li><p>上記 1) から 3) の操作を 10 分置きに 3 回程度実施します。</p>
+<p>(複数本プロセス ダンプを採取いただく事で、ハングアップ事象の調査時に全く処理が進んでいないのか、それとも若干でも進んでいるものの、問題が生じているのか、などの観点で調査する事が可能となります)</p>
+</li>
+<li><p>また可能であればプロセスダンプと併せて、以下の情報を確認します。</p>
+<ol>
+<li>対象のアプリケーション (プロセス) はどのような役割で動作するか (3rd Party の場合等)</li>
+<li>どのような操作を実施するとアプリケーションのハングアップが発生するのか</li>
+<li>正常に処理が進むパターンの存在可否</li>
+<li>回避策は確認できているか (その場合、どのような手法か)</li>
+</ol>
+</li>
+<li><p>以下の URL より “shacollector.zip” をダウンロードおよび展開いただき、対象端末へ配置します。</p>
+<p>ダウンロード先:<br><a href="https://github.com/CSS-Windows/WindowsDiag/raw/master/SHA/ShaCollector/shacollector.zip" target="_blank" rel="noopener">https://github.com/CSS-Windows/WindowsDiag/raw/master/SHA/ShaCollector/shacollector.zip</a></p>
+<p><a href="https://github.com/CSS-Windows/WindowsDiag/tree/master/SHA/ShaCollector" target="_blank" rel="noopener">shacollector の使い方についてはこちら</a></p>
+<p>(注意)<br>shacollector は機能の拡張などにより内容が変更されることがあります。<br>そのため、毎回上記のダウンロード先から shacollector を取得いただき利用してください。</p>
+</li>
+<li><p>以下のコマンドを管理者権限のコマンド プロンプトから実行して、サポート情報ログを採取します。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat support all C:\mslog</span><br></pre></td></tr></table></figure>
+<p>※ 出力先フォルダー名に C:\mslog 以外のフォルダーを指定することも可能です。</p>
+</li>
+<li><p>生成されましたログの出力先フォルダーを圧縮の上、弊社までご提供ください。</p>
+</li>
+</ol>
+<p>以上です。</p>
+<p>本情報が少しでも皆様のお役に立てば幸いです。</p>
+<p>本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+
+</div>
+
+
+  <div class="book-comments">
+    
+
+
+
+
+  </div>
+
+
+
+<script src="/mslog/js/book-post.js"></script>
+
+        </div>
+      </div>
+      <div class="column col-2 hide-lg">
+        <div class="book-post-info">
+  
+    <div class="book-post-meta">
+  
+    <div class="link">
+      <a class="category-link" href="/mslog/categories/perf/">Perf</a> <a class="category-link" href="/mslog/categories/perf/%E3%83%8F%E3%83%B3%E3%82%B0%E3%82%A2%E3%83%83%E3%83%97/">ハングアップ</a>
+
+      
+    </div>
+  
+</div>
+  
+
+  <div class="book-tocbot">
+</div>
+<div class="book-tocbot-menu">
+  <a class="book-toc-expand" onclick="expand_toc()">Expand all</a>
+  <a onclick="go_top()">Back to top</a>
+  <a onclick="go_bottom()">Go to bottom</a>
+</div>
+
+
+<script src="/mslog/js/book-toc.js"></script>
+
+</div>
+      </div>
+    </div>
+  </div>
+  
+  <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
+</div>
+
+</body>
+</html>
+
+
+<script src="/mslog/js/book.js"></script>
