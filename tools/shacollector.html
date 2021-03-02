@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    
+      <link rel="icon" href="/mslog/favicon.png" />
+    
+
+    <title>
+        
+          shacollector - Windows の資料採取に関する情報公開サイト
+        
+    </title>
+
+    <!-- Spectre.css framework -->
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <!-- theme css & js -->
+    
+<link rel="stylesheet" href="/mslog/css/book.css">
+
+    
+<script src="/mslog/js/book.js"></script>
+
+
+    <!-- tocbot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+    
+    <!-- katex -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zooming/2.1.1/zooming.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const zooming = new Zooming()
+    zooming.listen('.book-content img')
+})
+</script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+<div class="book-container">
+  <div class="book-sidebar">
+    <div class="book-brand">
+  <a href="/mslog/">
+    <span>トップ ページへ</span>
+  </a>
+</div>
+    <div class="book-menu">
+  <h1 id="資料採取手順"><a href="#資料採取手順" class="headerlink" title="資料採取手順"></a>資料採取手順</h1><!-- - [アクティベーション](/mslog/categories/activation) -->
+<!-- - [BitLocker](/mslog/categories/bitlocker) -->
+<!-- - [デプロイメント](/mslog/categories/deployment) -->
+<!-- - [デバイス](/mslog/categories/device) -->
+<!-- - [セットアップ](/mslog/categories/setup) -->
+<ul>
+<li><a href="/mslog/categories/networking">ネットワーク一般</a></li>
+<li><a href="/mslog/categories/fileservices">ファイル サービス</a><!-- - [リモート アクセス](/mslog/categories/remoteaccess) -->
+<!-- - [ワイヤレス ネットワーク](/mslog/categories/wireless) --></li>
+<li><a href="/mslog/categories/cluster">クラスター</a></li>
+<li><a href="/mslog/categories/hyper-v">Hyper-V</a></li>
+<li><a href="/mslog/categories/perf">パフォーマンス</a></li>
+<li><a href="/mslog/categories/storage">ストレージ</a><!-- - [リモート デスクトップ サービス](/mslog/categories/rds) -->
+<!-- - [ユーザー インターフェースとアプリ](/mslog/categories/uiandapps) -->
+
+</li>
+</ul>
+<h1 id="リンク"><a href="#リンク" class="headerlink" title="リンク"></a>リンク</h1><ul>
+<li><a href="https://cssjpn.github.io/" target="_blank" rel="noopener">日本マイクロソフト サポート情報</a></li>
+<li><a href="https://jpwinsup.github.io/blog/">Microsoft Japan Windows Technology Support Blog</a></li>
+</ul>
+
+</div>
+
+
+<script src="/mslog/js/book-menu.js"></script>
+
+  </div>
+
+  <div class="sidebar-toggle" onclick="sidebar_toggle()" onmouseover="add_inner()" onmouseleave="remove_inner()">
+  <div class="sidebar-toggle-inner"></div>
+</div>
+
+<script>
+function add_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.add('show')  
+}
+
+function remove_inner() {
+  let inner = document.querySelector('.sidebar-toggle-inner')
+  inner.classList.remove('show')
+}
+
+function sidebar_toggle() {
+    let sidebar_toggle = document.querySelector('.sidebar-toggle')
+    let sidebar = document.querySelector('.book-sidebar')
+    let content = document.querySelector('.off-canvas-content')
+    if (sidebar_toggle.classList.contains('extend')) { // show
+        sidebar_toggle.classList.remove('extend')
+        sidebar.classList.remove('hide')
+        content.classList.remove('extend')
+    }
+    else { // hide
+        sidebar_toggle.classList.add('extend')
+        sidebar.classList.add('hide')
+        content.classList.add('extend')
+    }
+}
+</script>
+
+  <div class="off-canvas-content">
+    <div class="columns">
+      <div class="column col-10 col-lg-12">
+        <div class="book-navbar">
+          <!-- For Responsive Layout -->
+
+<header class="navbar">
+  <section class="navbar-section">
+    <a onclick="open_sidebar()">
+      <i class="icon icon-menu"></i>
+    </a>
+  </section>
+</header>
+
+        </div>
+        <div class="book-content">
+          <div class="book-post">
+  <h1 id="SYNOPSIS-shacollector"><a href="#SYNOPSIS-shacollector" class="headerlink" title="SYNOPSIS shacollector"></a>SYNOPSIS shacollector</h1><pre><code>Script Name: shacollector.bat
+Purpose:     collect support information logs related to SHA Area. 
+Version:     6.0
+Last Update: 25th Sep 2020
+Author:      Shohei Sadashima / Konan Morimoto
+Email-Alias: shsadash / t-konanm</code></pre><h2 id="DESCRIPTION"><a href="#DESCRIPTION" class="headerlink" title="DESCRIPTION"></a>DESCRIPTION</h2><p>shacollector is a tool that makes it easy to collect data for problem solving which is included in trace logs (ETW),<br>performance logs (perfmon or xperf), event logs and a lot of status information related to SHA area (Storage, Cluster and Hyper-V).</p>
+<h2 id="What’s-New-in-this-Version-6-0"><a href="#What’s-New-in-this-Version-6-0" class="headerlink" title="What’s New in this Version 6.0"></a>What’s New in this Version 6.0</h2><ul>
+<li>add get-ClusterNode command result @Konan Morimoto</li>
+<li>transport the shacollector version info to the option.txt (from lib\version.txt). @Shohei Sadashima</li>
+</ul>
+<h2 id="How-to-use-it"><a href="#How-to-use-it" class="headerlink" title="How to use it"></a>How to use it</h2><p>First, specify main options (trace, perf and support) and select sub option that specifies the information to collect.<br>Then, ‘trace’ and ‘perf’ can be specified with ‘start’ to start and ‘stop’ to stop log collection.<br>The ‘support’ option collects various status information and logs without specifying ‘start’ and ‘stop’.<br>By default, logs are saved in ‘c:\mslog’, but you can specify the output destination.</p>
+<h2 id="EXAMPLE"><a href="#EXAMPLE" class="headerlink" title="EXAMPLE"></a>EXAMPLE</h2><ul>
+<li><p>To collect trace log related I/O drivers (storport.sys, classpnp …).<br>And change the output folder to ‘d:\logs’.</p>
+<pre><code>shacollector.bat trace storage start d:\logs
+shacollector.bat trace storage stop</code></pre></li>
+<li><p>To collect multiple trace logs (ex. storport and vss). The log files are saved in ‘c:\mslog’ as the default.</p>
+<pre><code>shacollector.bat trace storport start
+shacollector.bat trace vss start
+shacollector.bat trace storport stop
+shacollector.bat trace vss stop</code></pre></li>
+<li><p>To collect trace log (ex. storport) at OS startup.</p>
+<pre><code>shacollector.bat trace storport boot
+&lt;restart OS&gt;
+shacollector.bat trace storport stop
+shacollector.bat trace storport delete</code></pre></li>
+<li><p>To collect performance monitor log. The sample interval is 15sec as the default but it can be change.</p>
+<pre><code>shacollector.bat perf perfmon start
+shacollector.bat perf perfmon stop</code></pre></li>
+<li><p>To collect performance monitor log at 1 sec as sample interval. And change the output folder to ‘d:\logs’.</p>
+<pre><code>shacollector.bat perf perfmon start d:\logs interval 0:0:1
+shacollector.bat perf perfmon stop</code></pre></li>
+<li><p>To collect xperf log for investigating the cpu load. And change the output folder to ‘d:\logs’.</p>
+<pre><code>shacollector.bat perf cpu start d:\logs
+shacollector.bat perf cpu stop</code></pre></li>
+<li><p>To collect xperf log for investigating the memory exhausion. The log files are saved in ‘c:\mslog’ as the default.</p>
+<pre><code>shacollector.bat perf memory start
+shacollector.bat perf memory stop</code></pre></li>
+<li><p>To collect xperf log for investigating the I/O load. The log files are saved in ‘c:\mslog’ as the default.</p>
+<pre><code>shacollector.bat perf disk start
+shacollector.bat perf disk stop</code></pre></li>
+<li><p>To collect all relevant support information logs such as event logs, registory, dik and network configuration and so on. And change the output folder to ‘d:\logs’.</p>
+<pre><code>shacollector.bat support all d:\logs</code></pre></li>
+<li><p>To collect specific support information logs (disk, network and event logs). </p>
+<pre><code>shacollector.bat support disk
+shacollector.bat support network
+shacollector.bat support eventlog</code></pre></li>
+</ul>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><pre><code>shacollector.bat trace [trace option] start [output folder (default c:\mslog)]
+shacollector.bat trace [trace option] stop
+shacollector.bat trace [trace option] boot [output folder (default c:\mslog)]
+shacollector.bat trace [trace option] delete
+
+shacollector.bat perf perfmon start [output folder (default c:\mslog)] interval [sample interval [hh:mm:ss] (ex. 00:00:15) default 15sec]
+shacollector.bat perf cpu start [output folder (default c:\mslog)]
+shacollector.bat perf cpu stop
+shacollector.bat perf memory start [output folder (default c:\mslog)] tag &quot;POOL TAG (ex. FMfn)&quot;
+shacollector.bat perf memory stop
+shacollector.bat perf disk start [output folder (default c:\mslog)]
+shacollector.bat perf disk stop
+shacollector.bat perf delay start [output folder (default c:\mslog)]
+shacollector.bat perf delay stop
+shacollector.bat perf heap start pid &quot;Process ID (ex. 1234)&quot; enable
+shacollector.bat perf heap start [output folder (default c:\mslog)] pid &quot;Process ID (ex. 1234)&quot; snap
+
+shacollector.bat support all [output folder (default c:\mslog)]
+shacollector.bat support basic [output folder (default c:\mslog)]
+shacollector.bat support [supportlog option] [output folder (default c:\mslog)]</code></pre><h3 id="available-trace-option"><a href="#available-trace-option" class="headerlink" title="available trace option:"></a>available trace option:</h3><pre><code>storage   collecting storage drivers trace. (ex storport.sys, classpnp.sys ...)
+storport  collecting storport driver trace.
+ntfs      collecting NTFS driver trace.
+usb       collecting USB drivers trace.
+pnp       collecting Plug and Play drivers trace.
+com       collecting COM/COM+ services trace.
+vds       collecting VDS services trace. (Windows Server 2012 or later)
+vss       collecting VSS services trace. (Windows Server 2008 R2 or later)
+wsb       collecting Windows Server Backup modules trace. (Windows Server 2008 R2 or later)
+cdrom     collecting CD/DVD modules trace.
+ata       collecting ATAPort drivers trace.
+fsrm      collecting FSRM drivers trace.
+dedup     collecting Dedup drivers trace. (Windows Server 2012 or later)
+nfs       collecting NFS services trace.
+network   collecting Network driver trace.
+iscsi     collecting iSCSI driver trace.
+csv       collecting CSV drivers trace.
+wmi       collecting WMI services trace.
+rpc       collecting RPC services trace.
+hyper-v   collecting Hyper-V modules trace.
+cluster   collecting Failover Clustering trace (included netft trace).
+space     collecting Storage Space trace.
+storagereplica     collecting Storage Replica trace.
+msdtc     collecting MSDTC trace.
+packet    collecting Network Packet Capture. (Windows Server 2008 R2 or later)
+procmon   collecting Process Monitor log of Sysinternals.
+psr       collecting Problems Steps Recorder log.</code></pre><h3 id="available-performance-option"><a href="#available-performance-option" class="headerlink" title="available performance option:"></a>available performance option:</h3><pre><code>perfmon   collecting Performance Monitor log. default sample interval is 15sec.
+cpu       collecting CPU perf logs with Xperf.
+memory    collecting Memory perf logs with Xperf.
+disk      collecting Disk perf logs with Xperf.
+delay     collecting Delay perf logs with Xperf.
+heap      collectiong Heap performance log with rdrleakdiag.</code></pre><h3 id="available-support-option"><a href="#available-support-option" class="headerlink" title="available support option:"></a>available support option:</h3><pre><code>all             collecting all support logs.
+   included cluster, disk, diskshadow, driverinfo, eventlog, fltmc, fsrm, handle, hyper-v, iscsi, network, nfs, registry, storagereplica, system, setup, taskscheduler, vss
+basic           collecting basic support logs.
+   included disk, driverinfo, eventlog, fltmc, network, system, vss
+cluster         collecting cluster information logs.
+disk            collecting disk information logs.
+diskshadow      collecting diskshadow information logs.
+driverinfo      collecting driver information logs.
+drive-space     collecting drive space information logs.
+eventlog        collecting eventlog information logs.
+fltmc           collecting filter driver information logs.
+fsrm            collecting fsrm information logs.
+handle          collecting file handle information.
+hyper-v         collecting hyper-v information logs.
+iscsi           collecting iscsi information logs.
+network         collecting network information logs.
+nfs             collecting nfs information logs.
+registry        collecting registry information logs.
+storagereplica  collecting Storage Replica information logs.
+system          collecting system information logs.
+taskscheduler   collecting task scheduler information logs.
+virtualfc       collecting virtual fc information.
+vss             collecting vss information logs.
+setup           collecting setup information logs.
+fsi             collecting file system information logs.
+crash           generate blue screen of death (BSOD).</code></pre>
+</div>
+
+
+  <div class="book-comments">
+    
+
+
+
+
+  </div>
+
+
+
+<script src="/mslog/js/book-post.js"></script>
+
+        </div>
+      </div>
+      <div class="column col-2 hide-lg">
+        <div class="book-post-info">
+  
+    <div class="book-post-meta">
+  
+    <div class="link">
+      <a class="category-link" href="/mslog/categories/tools/">Tools</a>
+
+      
+    </div>
+  
+</div>
+  
+
+  <div class="book-tocbot">
+</div>
+<div class="book-tocbot-menu">
+  <a class="book-toc-expand" onclick="expand_toc()">Expand all</a>
+  <a onclick="go_top()">Back to top</a>
+  <a onclick="go_bottom()">Go to bottom</a>
+</div>
+
+
+<script src="/mslog/js/book-toc.js"></script>
+
+</div>
+      </div>
+    </div>
+  </div>
+  
+  <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
+</div>
+
+</body>
+</html>
+
+
+<script src="/mslog/js/book.js"></script>
