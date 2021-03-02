@@ -148,8 +148,8 @@ function sidebar_toggle() {
 </ol>
 <h3 id="ログ採取について"><a href="#ログ採取について" class="headerlink" title="ログ採取について"></a>ログ採取について</h3><ol>
 <li><p>以下の URL より “shacollector.zip” をダウンロードおよび展開いただき、対象端末へ配置します。</p>
-<p>ダウンロード先:<br><a href="https://github.com/CSS-Windows/WindowsDiag/raw/master/SHA/ShaCollector/shacollector.zip" target="_blank" rel="noopener">https://github.com/CSS-Windows/WindowsDiag/raw/master/SHA/ShaCollector/shacollector.zip</a></p>
-<p><a href="https://github.com/CSS-Windows/WindowsDiag/tree/master/SHA/ShaCollector" target="_blank" rel="noopener">shacollector の使い方についてはこちら</a></p>
+<p>ダウンロード先:<br><a href="https://jpwinsup.github.io/mslog/tools/shacollector/shacollector.zip">https://jpwinsup.github.io/mslog/tools/shacollector/shacollector.zip</a></p>
+<p><a href="https://jpwinsup.github.io/mslog/tools/shacollector.html">shacollector の使い方についてはこちら</a></p>
 <p>(注意)<br>shacollector は機能の拡張などにより内容が変更されることがあります。<br>そのため、毎回上記のダウンロード先から shacollector を取得いただき利用してください。</p>
 </li>
 <li><p>コマンドプロンプトを管理者モードで起動し、shacollector.zip を展開したフォルダーのバッチファイル (shacollector.bat) を以下のオプションを指定して実行します。</p>
@@ -168,15 +168,15 @@ function sidebar_toggle() {
 <p>&lt;参考&gt; 設定画面</p>
 <img src="shutdown-delay/wpr.png" align="left">
 <br style="clear:left;">
-
-
 </li>
-</ol>
-<ol>
-<li>[Start] をクリックします。</li>
-<li>ログファイルの出力先を指定し、”Type in a detailed description of the problem” の欄に任意の文字列を入力します。<br>(ここは何を入力いただいても構いません。)</li>
-<li>[Save] をクリックします。</li>
-<li>[OK] をクリックします。</li>
+<li><p>[Start] をクリックします。</p>
+</li>
+<li><p>ログファイルの出力先を指定し、”Type in a detailed description of the problem” の欄に任意の文字列を入力します。<br>(ここは何を入力いただいても構いません。)</p>
+</li>
+<li><p>[Save] をクリックします。</p>
+</li>
+<li><p>[OK] をクリックします。</p>
+</li>
 </ol>
 <p>この後、自動的に OS の再起動が行われて、ログが収集されます。</p>
 <ol>
@@ -185,7 +185,7 @@ function sidebar_toggle() {
 <li><p>shacollector を以下のように実行してログの採取を停止します。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat perf perfmon stop</span><br></pre></td></tr></table></figure></li>
 <li><p>shacollector を support オプションを指定して実行します。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat support all &quot;出力先フォルダー名&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat support all C:\mslog</span><br></pre></td></tr></table></figure>
 <p>※ 出力先フォルダー名に C:\mslog 以外のフォルダーを指定することも可能です。</p>
 </li>
 <li><p>生成されましたログの出力先フォルダーを圧縮の上、弊社までご提供ください。</p>
@@ -197,8 +197,8 @@ function sidebar_toggle() {
 </ol>
 <h3 id="ログ採取について-1"><a href="#ログ採取について-1" class="headerlink" title="ログ採取について"></a>ログ採取について</h3><ol>
 <li><p>以下の URL より “shacollector.zip” をダウンロードおよび展開いただき、対象端末へ配置します。</p>
-<p>ダウンロード先:<br><a href="https://github.com/CSS-Windows/WindowsDiag/raw/master/SHA/ShaCollector/shacollector.zip" target="_blank" rel="noopener">https://github.com/CSS-Windows/WindowsDiag/raw/master/SHA/ShaCollector/shacollector.zip</a></p>
-<p><a href="https://github.com/CSS-Windows/WindowsDiag/tree/master/SHA/ShaCollector" target="_blank" rel="noopener">shacollector の使い方についてはこちら</a></p>
+<p>ダウンロード先:<br><a href="https://jpwinsup.github.io/mslog/tools/shacollector/shacollector.zip">https://jpwinsup.github.io/mslog/tools/shacollector/shacollector.zip</a></p>
+<p><a href="https://jpwinsup.github.io/mslog/tools/shacollector.html">shacollector の使い方についてはこちら</a></p>
 <p>(注意)<br>shacollector は機能の拡張などにより内容が変更されることがあります。<br>そのため、毎回上記のダウンロード先から shacollector を取得いただき利用してください。</p>
 </li>
 <li><p>以下のコマンドを管理者権限のコマンド プロンプトから実行して、サポート情報ログを採取します。</p>
