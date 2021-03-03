@@ -11,7 +11,7 @@
 
     <title>
         
-          Windows の資料採取に関する情報公開サイト
+          初期調査にご取得いただくログ情報 - Windows の資料採取に関する情報公開サイト
         
     </title>
 
@@ -140,42 +140,59 @@ function sidebar_toggle() {
 
         </div>
         <div class="book-content">
-          <div class='book-archive'>
-  <!-- Title -->
-  
-    <h1>仮想 FC</h1>
-  
+          <div class="book-post">
+  <h1 id="初期調査にご取得いただくログ情報"><a href="#初期調査にご取得いただくログ情報" class="headerlink" title="初期調査にご取得いただくログ情報"></a>初期調査にご取得いただくログ情報</h1><p>本記事はマイクロソフト社員によって公開されております。</p>
+<p>いつも弊社製品をご利用いただきまして誠にありがとうございます。</p>
+<p>Windows プラットフォーム サポートの石田です。</p>
+<p>弊社にお問い合わせいただく際に、事前に採取しておいたほうが良い内容についてご紹介させていただきます。</p>
+<p>今回のテーマは「初期調査にご取得いただくログ情報」です。</p>
+<p>取り急ぎ弊社へお問い合わせいただく場合や正常性確認のご依頼など、とりあえず採取していただいたほうがよい資料についてはサポートログ情報をご取得頂ければと存じます。</p>
+<h2 id="採取ファイル"><a href="#採取ファイル" class="headerlink" title="採取ファイル"></a>採取ファイル</h2><ul>
+<li>サポートログ情報 (shaclollector の support オプションのログ)</li>
+</ul>
+<h2 id="情報採取スクリプトファイルの取得について"><a href="#情報採取スクリプトファイルの取得について" class="headerlink" title="情報採取スクリプトファイルの取得について"></a>情報採取スクリプトファイルの取得について</h2><p>以下の URL より “shacollector.zip” をダウンロードおよび展開いただき、対象端末へ配置します。</p>
+<p>   ダウンロード先:<br>   <a href="https://jpwinsup.github.io/mslog/tools/shacollector/shacollector.zip">https://jpwinsup.github.io/mslog/tools/shacollector/shacollector.zip</a></p>
+<p>   <a href="https://jpwinsup.github.io/mslog/tools/shacollector.html">shacollector の使い方についてはこちら</a></p>
+<p>   (注意)<br>   shacollector は機能の拡張などにより内容が変更されることがあります。<br>   そのため、毎回上記のダウンロード先から shacollector を取得いただき利用してください。</p>
+<h2 id="資料採取の流れ"><a href="#資料採取の流れ" class="headerlink" title="資料採取の流れ"></a>資料採取の流れ</h2><ol>
+<li>採取用スクリプト (shacollector.zip) を資料採取対象のマシンの任意の場所にコピーし展開します。</li>
+<li>採取用スクリプトを利用してサポートログ情報を採取します。</li>
+</ol>
+<h2 id="サポートログ情報の採取"><a href="#サポートログ情報の採取" class="headerlink" title="サポートログ情報の採取"></a>サポートログ情報の採取</h2><p>※ バッチファイルではログファイルのコピーやコマンドを実行しております。システムに負荷をかけるような操作は実行しておりませんが、サービスへの影響が懸念される場合は、影響のない時間帯にご実行ください。</p>
+<ol>
+<li>以下のコマンドを管理者権限のコマンド プロンプトから実行して、サポート情報ログを採取します。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat support all C:\mslog</span><br></pre></td></tr></table></figure>
+※ 出力先フォルダー名に C:\mslog 以外のフォルダーを指定することも可能です。</li>
+<li>生成されましたログの出力先フォルダーを圧縮の上、弊社までご提供ください。</li>
+</ol>
+<p>本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
 
-  
-    <!-- Split post by year -->
-    
-    <!-- Split post by category -->
-    
-  
-
-  
-    <div class="category">
-        <h2>仮想 FC</h2>
-        <ul class="archive-list-item">
-        
-            <li>
-              <a href="/mslog/hyper-v/仮想-fc/virtual-fc.html">
-                仮想 FC に関する調査に必要な資料について
-              </a>
-            </li>
-        
-        </ul>
-    </div>
-  
-
-  
 </div>
+
+
+  <div class="book-comments">
+    
+
+
+
+
+  </div>
+
+
+
+<script src="/mslog/js/book-post.js"></script>
+
         </div>
       </div>
       <div class="column col-2 hide-lg">
         <div class="book-post-info">
   
     <div class="book-post-meta">
+  
+    <div class="link">
+      <a class="category-link" href="/mslog/categories/other/">Other</a> <a class="category-link" href="/mslog/categories/other/log/">Log</a>
+
+      
+    </div>
   
 </div>
   
