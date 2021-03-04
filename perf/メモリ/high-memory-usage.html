@@ -159,14 +159,17 @@ function sidebar_toggle() {
 <p>(注意)<br>shacollector は機能の拡張などにより内容が変更されることがあります。<br>そのため、毎回上記のダウンロード先から shacollector を取得いただき利用してください。</p>
 </li>
 <li><p>管理者権限のコマンド プロンプトから配置した “shacollector” フォルダーへ移動して、以下のコマンドを実行の上、トレース ログの採取を実施します。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat perf memory start C:\mslog</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat perf memory start size 8192 C:\mslog</span><br></pre></td></tr></table></figure>
+<p>※ 最大ファイルサイズは 8192 以外のサイズ (MB) を size オプションに指定することも可能です。</p>
 <p>※ 出力先フォルダー名に C:\mslog 以外のフォルダーを指定することも可能です。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat perf memory start C:\mslog tag &quot;Pool タグ名 (FMfn)&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat perf memory start size 8192 C:\mslog tag &quot;Pool タグ名 (FMfn)&quot;</span><br></pre></td></tr></table></figure>
 <p>※ サポートのガイドがあり、Pool タグを指定する場合は上記のように実行します。</p>
+<p>※ 最大ファイルサイズは 8192 以外のサイズ (MB) を size オプションに指定することも可能です。</p>
 <p>※ 出力先フォルダー名に C:\mslog 以外のフォルダーを指定することも可能です。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat perf perfmon start C:\mslog interval 0:0:5</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat perf perfmon start C:\mslog interval 0:0:5 days 3</span><br></pre></td></tr></table></figure>
 <p>※ 出力先フォルダー名に C:\mslog 以外のフォルダーを指定することも可能です。</p>
 <p>※ サンプリング インターバールは 5 秒を指定していますが interval の指定で変更することも可能です。</p>
+<p>※ パフォーマンスログを保持する日数は、3 以外の日数を days オプションに指定することも可能です。正常時からメモリー使用率が高くなるまでの期間が含まれる期間をご指定ください。</p>
 </li>
 <li><p>事象を再現させます。</p>
 </li>

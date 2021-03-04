@@ -143,18 +143,24 @@ function sidebar_toggle() {
           <div class="book-post">
   <h1 id="SYNOPSIS-shacollector"><a href="#SYNOPSIS-shacollector" class="headerlink" title="SYNOPSIS shacollector"></a>SYNOPSIS shacollector</h1><pre><code>Script Name: shacollector.bat
 Purpose:     collect support information logs related to SHA Area. 
-Version:     6.0
-Last Update: 25th Sep 2020
-Author:      Shohei Sadashima / Konan Morimoto
-Email-Alias: shsadash / t-konanm</code></pre><h2 id="DESCRIPTION"><a href="#DESCRIPTION" class="headerlink" title="DESCRIPTION"></a>DESCRIPTION</h2><p>shacollector is a tool that makes it easy to collect data for problem solving which is included in trace logs (ETW),<br>performance logs (perfmon or xperf), event logs and a lot of status information related to SHA area (Storage, Cluster and Hyper-V).</p>
-<h2 id="What’s-New-in-this-Version-6-0"><a href="#What’s-New-in-this-Version-6-0" class="headerlink" title="What’s New in this Version 6.0"></a>What’s New in this Version 6.0</h2><ul>
-<li>add get-ClusterNode command result @Konan Morimoto</li>
-<li>transport the shacollector version info to the option.txt (from lib\version.txt). @Shohei Sadashima</li>
+Version:     6.1
+Last Update: 4th Mar 2021
+Developer:      Shohei Sadashima / Konan Morimoto /Koji Ishida / Norimasa Okawa / Jun Nakayamada
+Email-Alias: shsadash / kojii / nookawa / junakaya</code></pre><h2 id="DESCRIPTION"><a href="#DESCRIPTION" class="headerlink" title="DESCRIPTION"></a>DESCRIPTION</h2><p>shacollector is a tool that makes it easy to collect data for problem solving which is included in trace logs (ETW),<br>performance logs (perfmon or xperf), event logs and a lot of status information related to SHA area (Storage, Cluster and Hyper-V).</p>
+<h2 id="What’s-New-in-this-Version-6-1"><a href="#What’s-New-in-this-Version-6-1" class="headerlink" title="What’s New in this Version 6.1"></a>What’s New in this Version 6.1</h2><ul>
+<li>implement “size” option for trace and perf mode to specify log file size. @Koji Ishida</li>
+<li>add filter manager trace. @Koji Ishida</li>
+<li>implement “days” option for perfmon to specify retention days. @Koji Ishida</li>
+<li>implement “boot” option for procmon. @Koji Ishida.</li>
+<li>add several command for support log. @Koji Ishida.</li>
 </ul>
 <h2 id="How-to-use-it"><a href="#How-to-use-it" class="headerlink" title="How to use it"></a>How to use it</h2><p>First, specify main options (trace, perf and support) and select sub option that specifies the information to collect.<br>Then, ‘trace’ and ‘perf’ can be specified with ‘start’ to start and ‘stop’ to stop log collection.<br>The ‘support’ option collects various status information and logs without specifying ‘start’ and ‘stop’.<br>By default, logs are saved in ‘c:\mslog’, but you can specify the output destination.</p>
 <h2 id="EXAMPLE"><a href="#EXAMPLE" class="headerlink" title="EXAMPLE"></a>EXAMPLE</h2><ul>
 <li><p>To collect trace log related I/O drivers (storport.sys, classpnp …).<br>And change the output folder to ‘d:\logs’.</p>
 <pre><code>shacollector.bat trace storage start d:\logs
+shacollector.bat trace storage stop</code></pre></li>
+<li><p>To specify log file size in MB. default size is 4096 MB.</p>
+<pre><code>shacollector.bat trace storage start size 1024 d:\logs
 shacollector.bat trace storage stop</code></pre></li>
 <li><p>To collect multiple trace logs (ex. storport and vss). The log files are saved in ‘c:\mslog’ as the default.</p>
 <pre><code>shacollector.bat trace storport start
@@ -172,35 +178,41 @@ shacollector.bat perf perfmon stop</code></pre></li>
 <li><p>To collect performance monitor log at 1 sec as sample interval. And change the output folder to ‘d:\logs’.</p>
 <pre><code>shacollector.bat perf perfmon start d:\logs interval 0:0:1
 shacollector.bat perf perfmon stop</code></pre></li>
+<li><p>To collect performance monitor log at 1 sec as sample interval. And change the output folder to ‘d:\logs’ And to specify 7 days as retention days (default 3 days).</p>
+<pre><code>shacollector.bat perf perfmon start d:\logs interval 0:0:1 days 7
+shacollector.bat perf perfmon stop</code></pre></li>
 <li><p>To collect xperf log for investigating the cpu load. And change the output folder to ‘d:\logs’.</p>
 <pre><code>shacollector.bat perf cpu start d:\logs
 shacollector.bat perf cpu stop</code></pre></li>
-<li><p>To collect xperf log for investigating the memory exhausion. The log files are saved in ‘c:\mslog’ as the default.</p>
+<li><p>To specify log file size 4096 MB. default size is 8192 MB.</p>
+<pre><code>shacollector.bat perf cpu start size 4096 d:\logs
+shacollector.bat perf cpu stop</code></pre></li>
+<li><p>To collect xperf log for investigating the memory exhaustion. The log files are saved in ‘c:\mslog’ as the default.</p>
 <pre><code>shacollector.bat perf memory start
 shacollector.bat perf memory stop</code></pre></li>
 <li><p>To collect xperf log for investigating the I/O load. The log files are saved in ‘c:\mslog’ as the default.</p>
 <pre><code>shacollector.bat perf disk start
 shacollector.bat perf disk stop</code></pre></li>
-<li><p>To collect all relevant support information logs such as event logs, registory, dik and network configuration and so on. And change the output folder to ‘d:\logs’.</p>
+<li><p>To collect all relevant support information logs such as event logs, registry, dik and network configuration and so on. And change the output folder to ‘d:\logs’.</p>
 <pre><code>shacollector.bat support all d:\logs</code></pre></li>
 <li><p>To collect specific support information logs (disk, network and event logs). </p>
 <pre><code>shacollector.bat support disk
 shacollector.bat support network
 shacollector.bat support eventlog</code></pre></li>
 </ul>
-<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><pre><code>shacollector.bat trace [trace option] start [output folder (default c:\mslog)]
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><pre><code>shacollector.bat trace [trace option] start size [Maximum log file size in MB (default 4096 MB)] [output folder (default c:\mslog)]
 shacollector.bat trace [trace option] stop
-shacollector.bat trace [trace option] boot [output folder (default c:\mslog)]
+shacollector.bat trace [trace option] boot size [Maximum log file size in MB (default 4096 MB)] [output folder (default c:\mslog)]
 shacollector.bat trace [trace option] delete
 
-shacollector.bat perf perfmon start [output folder (default c:\mslog)] interval [sample interval [hh:mm:ss] (ex. 00:00:15) default 15sec]
-shacollector.bat perf cpu start [output folder (default c:\mslog)]
+shacollector.bat perf perfmon start [output folder (default c:\mslog)] interval [sample interval [hh:mm:ss] (ex. 00:00:15) default 15sec] days [retention days (default 3 days)]
+shacollector.bat perf cpu start size [Maximum log file size in MB (default 8192 MB)] [output folder (default c:\mslog)]
 shacollector.bat perf cpu stop
-shacollector.bat perf memory start [output folder (default c:\mslog)] tag &quot;POOL TAG (ex. FMfn)&quot;
+shacollector.bat perf memory start size [Maximum log file size in MB (default 8192 MB)] [output folder (default c:\mslog)] tag &quot;POOL TAG (ex. FMfn)&quot;
 shacollector.bat perf memory stop
-shacollector.bat perf disk start [output folder (default c:\mslog)]
+shacollector.bat perf disk start size [Maximum log file size in MB (default 8192 MB)] [output folder (default c:\mslog)]
 shacollector.bat perf disk stop
-shacollector.bat perf delay start [output folder (default c:\mslog)]
+shacollector.bat perf delay start size [Maximum log file size in MB (default 8192 MB)] [output folder (default c:\mslog)]
 shacollector.bat perf delay stop
 shacollector.bat perf heap start pid &quot;Process ID (ex. 1234)&quot; enable
 shacollector.bat perf heap start [output folder (default c:\mslog)] pid &quot;Process ID (ex. 1234)&quot; snap
@@ -231,9 +243,10 @@ cluster   collecting Failover Clustering trace (included netft trace).
 space     collecting Storage Space trace.
 storagereplica     collecting Storage Replica trace.
 msdtc     collecting MSDTC trace.
+fltmgr    collecting Filter Manager trace.
 packet    collecting Network Packet Capture. (Windows Server 2008 R2 or later)
 procmon   collecting Process Monitor log of Sysinternals.
-psr       collecting Problems Steps Recorder log.</code></pre><h3 id="available-performance-option"><a href="#available-performance-option" class="headerlink" title="available performance option:"></a>available performance option:</h3><pre><code>perfmon   collecting Performance Monitor log. default sample interval is 15sec.
+psr       collecting Problems Steps Recorder log. (maxlogsize is 10MB)</code></pre><h3 id="available-performance-option"><a href="#available-performance-option" class="headerlink" title="available performance option:"></a>available performance option:</h3><pre><code>perfmon   collecting Performance Monitor log. default sample interval is 15sec. default retention term is 3 days.
 cpu       collecting CPU perf logs with Xperf.
 memory    collecting Memory perf logs with Xperf.
 disk      collecting Disk perf logs with Xperf.

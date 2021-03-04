@@ -171,7 +171,9 @@ function sidebar_toggle() {
 <p>(注意)<br>shacollector は機能の拡張などにより内容が変更されることがあります。<br>そのため、毎回上記のダウンロード先から shacollector を取得いただき利用してください。</p>
 </li>
 <li><p>コマンドプロンプトを管理者モードで起動し、shacollector.zip を展開したフォルダーのバッチファイル (shacollector.bat) を以下のオプションを指定して実行します。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat perf perfmon start C:\mslog interval 0:0:1</span><br><span class="line">shacollector.bat trace cluster start C:\mslog</span><br><span class="line">shacollector.bat trace packet start C:\mslog</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat perf perfmon start C:\mslog interval 0:0:1 days 3</span><br><span class="line">shacollector.bat trace cluster start size 4096 C:\mslog</span><br><span class="line">shacollector.bat trace packet start size 2048 C:\mslog</span><br></pre></td></tr></table></figure>
+<p>※ パフォーマンスログを保持する日数は、3 以外の日数を days オプションに指定することも可能です。</p>
+<p>※ 最大ファイルサイズは 4096/2048 以外のサイズ (MB) を size オプションに指定することも可能です。perfmon はサイズの指定はできません。</p>
 <p>※ 出力先フォルダー名に C:\mslog 以外のフォルダーを指定することも可能です。</p>
 </li>
 <li><p>事象を再現させます。</p>

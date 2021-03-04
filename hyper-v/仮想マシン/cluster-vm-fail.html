@@ -165,7 +165,8 @@ function sidebar_toggle() {
 <p>(注意)<br>shacollector は機能の拡張などにより内容が変更されることがあります。<br>そのため、毎回上記のダウンロード先から shacollector を取得いただき利用してください。</p>
 </li>
 <li><p>管理者権限のコマンドプロンプトから配置した “shacollector” フォルダーへ移動して、以下のコマンドを実行の上、トレース ログの採取を実施します。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat trace hyper-v start C:\mslog</span><br><span class="line">shacollector.bat trace storage start C:\mslog</span><br><span class="line">shacollector.bat trace procmon start C:\mslog</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat trace hyper-v start size 4096 C:\mslog</span><br><span class="line">shacollector.bat trace storage start size 4096 C:\mslog</span><br><span class="line">shacollector.bat trace procmon start C:\mslog</span><br></pre></td></tr></table></figure>
+<p>※ 最大ファイルサイズは 4096 以外のサイズ (MB) を size オプションに指定することも可能です。ただし、procmon はサイズの指定はできません。</p>
 <p>※ 出力先フォルダー名に C:\mslog 以外のフォルダーを指定することも可能です。</p>
 <p>※ 事象が再現するまで長時間かかる場合は、ログ量が肥大化するため procmon オプションは省略して採取を進めてください。 その場合、十分な調査が行えない可能性がございます。</p>
 </li>
