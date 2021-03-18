@@ -143,16 +143,12 @@ function sidebar_toggle() {
           <div class="book-post">
   <h1 id="SYNOPSIS-shacollector"><a href="#SYNOPSIS-shacollector" class="headerlink" title="SYNOPSIS shacollector"></a>SYNOPSIS shacollector</h1><pre><code>Script Name: shacollector.bat
 Purpose:     collect support information logs related to SHA Area. 
-Version:     6.1
-Last Update: 4th Mar 2021
+Version:     6.2
+Last Update: 24th Mar 2021
 Developer:      Shohei Sadashima / Konan Morimoto /Koji Ishida / Norimasa Okawa / Jun Nakayamada
 Email-Alias: shsadash / kojii / nookawa / junakaya</code></pre><h2 id="DESCRIPTION"><a href="#DESCRIPTION" class="headerlink" title="DESCRIPTION"></a>DESCRIPTION</h2><p>shacollector is a tool that makes it easy to collect data for problem solving which is included in trace logs (ETW),<br>performance logs (perfmon or xperf), event logs and a lot of status information related to SHA area (Storage, Cluster and Hyper-V).</p>
-<h2 id="What’s-New-in-this-Version-6-1"><a href="#What’s-New-in-this-Version-6-1" class="headerlink" title="What’s New in this Version 6.1"></a>What’s New in this Version 6.1</h2><ul>
-<li>implement “size” option for trace and perf mode to specify log file size. @Koji Ishida</li>
-<li>add filter manager trace. @Koji Ishida</li>
-<li>implement “days” option for perfmon to specify retention days. @Koji Ishida</li>
-<li>implement “boot” option for procmon. @Koji Ishida.</li>
-<li>add several command for support log. @Koji Ishida.</li>
+<h2 id="What’s-New-in-this-Version-6-2"><a href="#What’s-New-in-this-Version-6-2" class="headerlink" title="What’s New in this Version 6.2"></a>What’s New in this Version 6.2</h2><ul>
+<li>add refs driver trace. @Koji Ishida</li>
 </ul>
 <h2 id="How-to-use-it"><a href="#How-to-use-it" class="headerlink" title="How to use it"></a>How to use it</h2><p>First, specify main options (trace, perf and support) and select sub option that specifies the information to collect.<br>Then, ‘trace’ and ‘perf’ can be specified with ‘start’ to start and ‘stop’ to stop log collection.<br>The ‘support’ option collects various status information and logs without specifying ‘start’ and ‘stop’.<br>By default, logs are saved in ‘c:\mslog’, but you can specify the output destination.</p>
 <h2 id="EXAMPLE"><a href="#EXAMPLE" class="headerlink" title="EXAMPLE"></a>EXAMPLE</h2><ul>
@@ -246,7 +242,8 @@ msdtc     collecting MSDTC trace.
 fltmgr    collecting Filter Manager trace.
 packet    collecting Network Packet Capture. (Windows Server 2008 R2 or later)
 procmon   collecting Process Monitor log of Sysinternals.
-psr       collecting Problems Steps Recorder log. (maxlogsize is 10MB)</code></pre><h3 id="available-performance-option"><a href="#available-performance-option" class="headerlink" title="available performance option:"></a>available performance option:</h3><pre><code>perfmon   collecting Performance Monitor log. default sample interval is 15sec. default retention term is 3 days.
+psr       collecting Problems Steps Recorder log. (maxlogsize is 10MB)
+refs      collecting ReFS drivers trace.</code></pre><h3 id="available-performance-option"><a href="#available-performance-option" class="headerlink" title="available performance option:"></a>available performance option:</h3><pre><code>perfmon   collecting Performance Monitor log. default sample interval is 15sec. default retention term is 3 days.
 cpu       collecting CPU perf logs with Xperf.
 memory    collecting Memory perf logs with Xperf.
 disk      collecting Disk perf logs with Xperf.
