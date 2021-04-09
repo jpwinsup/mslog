@@ -187,7 +187,24 @@ function sidebar_toggle() {
 <li>[Reports] タブの [Create report] をクリックすると、ブラウザーのプロキシ構成情報が取得されます。</li>
 <li>デスクトップに作成された IEDigest フォルダーを <code>C:\MSLOG_&lt;コンピューター名&gt;</code> フォルダーに移動します。</li>
 </ol>
-<h3 id="e-資料提供"><a href="#e-資料提供" class="headerlink" title="e. 資料提供"></a>e. 資料提供</h3><ol>
+<h3 id="e-イベント-ログのエクスポート"><a href="#e-イベント-ログのエクスポート" class="headerlink" title="e. イベント ログのエクスポート"></a>e. イベント ログのエクスポート</h3><ol>
+<li>[ファイル名を指定して実行] (Windows ロゴ キー + R キーを押下) で “eventvwr” と入力し、[OK] をクリックします。</li>
+<li>[イベント ビューアー] 起動後、以下の各ログに対し、後述の手順を実施します。<ul>
+<li>[Windows ログ] システム</li>
+<li>[アプリケーションとサービス ログ] - [Microsoft] - [Windows] - [NCSI] - [Operational]</li>
+<li>[アプリケーションとサービス ログ] - [Microsoft] - [Windows] - [NetworkProfile] - [Operational]</li>
+<li>[アプリケーションとサービス ログ] - [Microsoft] - [Windows] - [NlaSvc] - [Operational]</li>
+<li>[アプリケーションとサービス ログ] - [Microsoft] - [Windows] - [Wired-AutoConfig] - [Operational]</li>
+<li>[アプリケーションとサービス ログ] - [Microsoft] - [Windows] - [WLAN-AutoConfig] - [Operational]</li>
+</ul>
+</li>
+<li>左ペインより、取得対象のログを右クリックし、[すべてのイベントに名前を付けて保存] を実行します。</li>
+<li>ファイルの種類で “イベント ファイル (*.evtx)” を選択します。</li>
+<li>端末毎にフォルダ を作成していただき、任意のファイル名を入力し [保存] を実行してファイルに保存します。</li>
+<li>同様に “テキスト（タブ区切り）(*.txt)” を選択して、別のファイルに保存します。</li>
+<li>採取いただいたファイルを任意のフォルダ(C\temp 等)に保存します。</li>
+</ol>
+<h3 id="f-資料提供"><a href="#f-資料提供" class="headerlink" title="f. 資料提供"></a>f. 資料提供</h3><ol>
 <li><code>C:\MSLOG_&lt;コンピューター名&gt;</code> フォルダーに必要な資料が保存されていますので、zip 形式で圧縮します。</li>
 <li>弊社まで資料をご提供ください。</li>
 </ol>
