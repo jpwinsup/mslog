@@ -143,12 +143,12 @@ function sidebar_toggle() {
           <div class="book-post">
   <h1 id="SYNOPSIS-shacollector"><a href="#SYNOPSIS-shacollector" class="headerlink" title="SYNOPSIS shacollector"></a>SYNOPSIS shacollector</h1><pre><code>Script Name: shacollector.bat
 Purpose:     collect support information logs related to SHA Area. 
-Version:     6.4
-Last Update: 10th Apl 2021
+Version:     6.5
+Last Update: 7th May 2021
 Developer:      Shohei Sadashima / Konan Morimoto / Koji Ishida / Norimasa Okawa / Jun Nakayamada
 Email-Alias: shsadash / kojii / nookawa / junakaya</code></pre><h2 id="DESCRIPTION"><a href="#DESCRIPTION" class="headerlink" title="DESCRIPTION"></a>DESCRIPTION</h2><p>shacollector is a tool that makes it easy to collect data for problem solving which is included in trace logs (ETW),<br>performance logs (perfmon or xperf), event logs and a lot of status information related to SHA area (Storage, Cluster and Hyper-V).</p>
-<h2 id="What’s-New-in-this-Version-6-4"><a href="#What’s-New-in-this-Version-6-4" class="headerlink" title="What’s New in this Version 6.4"></a>What’s New in this Version 6.4</h2><ul>
-<li>update the MSDTC tracelog . @Shohei Sadashima</li>
+<h2 id="What’s-New-in-this-Version-6-5"><a href="#What’s-New-in-this-Version-6-5" class="headerlink" title="What’s New in this Version 6.5"></a>What’s New in this Version 6.5</h2><ul>
+<li>add Get-ClusterSharedVolumeState to the cluster infomation. @Shohei Sadashima</li>
 </ul>
 <h2 id="How-to-use-it"><a href="#How-to-use-it" class="headerlink" title="How to use it"></a>How to use it</h2><p>First, specify main options (trace, perf and support) and select sub option that specifies the information to collect.<br>Then, ‘trace’ and ‘perf’ can be specified with ‘start’ to start and ‘stop’ to stop log collection.<br>The ‘support’ option collects various status information and logs without specifying ‘start’ and ‘stop’.<br>By default, logs are saved in ‘c:\mslog’, but you can specify the output destination.</p>
 <h2 id="EXAMPLE"><a href="#EXAMPLE" class="headerlink" title="EXAMPLE"></a>EXAMPLE</h2><ul>
