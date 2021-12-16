@@ -145,7 +145,7 @@ function sidebar_toggle() {
 <p>こんにちは。 Windows Performance チームの飯田です。</p>
 <p>本ブログでは、 OS の動作が遅延してしまう事象が発生した場合に採取いただきたい資料についてご紹介いたします。</p>
 <p>事象の再現性があるかどうかで採取いただきたい資料が変わりますので、以下、順にご説明いたします。</p>
-<h2 id="A-再現性がある場合"><a href="#A-再現性がある場合" class="headerlink" title="[A] 再現性がある場合"></a>[A] 再現性がある場合</h2><h3 id="資料採取の流れ"><a href="#資料採取の流れ" class="headerlink" title="資料採取の流れ"></a>資料採取の流れ</h3><ol>
+<h2 id="A-事象の再現性がある場合"><a href="#A-事象の再現性がある場合" class="headerlink" title="[A] 事象の再現性がある場合"></a>[A] 事象の再現性がある場合</h2><h3 id="資料採取の流れ"><a href="#資料採取の流れ" class="headerlink" title="資料採取の流れ"></a>資料採取の流れ</h3><ol>
 <li>採取用スクリプト (shacollector.zip) を資料採取対象のマシンの任意の場所にコピーし展開します。</li>
 <li>トレース情報の採取を開始します。</li>
 <li>事象が再現したことを確認します。</li>
@@ -161,8 +161,8 @@ function sidebar_toggle() {
 <p>(注意)<br>shacollector は機能の拡張などにより内容が変更されることがあります。<br>そのため、毎回上記のダウンロード先から shacollector を取得いただき利用してください。</p>
 </li>
 <li><p>管理者権限のコマンド プロンプトから配置した “shacollector” フォルダーへ移動して、以下のコマンドを実行の上、トレース ログの採取を実施します。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat trace psr start size 10 C:\mslog</span><br><span class="line">shacollector.bat perf delay start size 8196 C:\mslog</span><br><span class="line">shacollector.bat perf perfmon start C:\mslog interval 0:0:1 days 3</span><br></pre></td></tr></table></figure>
-<p>※ 最大ファイルサイズは 8192 以外のサイズ (MB) を size オプションに指定することも可能です。psr は 1MB から 10MB の範囲で size オプションに指定可能です。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat trace psr start size 10 C:\mslog</span><br><span class="line">shacollector.bat perf delay start size 10240 C:\mslog</span><br><span class="line">shacollector.bat perf perfmon start C:\mslog interval 0:0:1 days 3</span><br></pre></td></tr></table></figure>
+<p>※ 最大ファイルサイズは 10240 以外のサイズ (MB) を size オプションに指定することも可能です。psr は 1MB から 10MB の範囲で size オプションに指定可能です。</p>
 <p>※ 出力先フォルダー名に C:\mslog 以外のフォルダーを指定することも可能です。</p>
 <p>※ サンプリング インターバールは 1 秒を指定していますが interval の指定で変更することも可能です。</p>
 <p>※ パフォーマンスログを保持する日数は、3 以外の日数を days オプションに指定することも可能です。</p>
@@ -192,24 +192,9 @@ function sidebar_toggle() {
 <li><p>生成されましたログの出力先フォルダーを圧縮の上、弊社までご提供ください。</p>
 </li>
 </ol>
-<h2 id="B-1-回のみで現在は発生していない場合"><a href="#B-1-回のみで現在は発生していない場合" class="headerlink" title="[B] 1 回のみで現在は発生していない場合"></a>[B] 1 回のみで現在は発生していない場合</h2><h3 id="資料採取の流れ-1"><a href="#資料採取の流れ-1" class="headerlink" title="資料採取の流れ"></a>資料採取の流れ</h3><ol>
-<li>採取用スクリプト (shacollector.zip) を資料採取対象のマシンの任意の場所にコピーし展開します。</li>
-<li>採取用スクリプトを利用してサポートログ情報を採取します。</li>
-</ol>
-<h3 id="ログ採取について-1"><a href="#ログ採取について-1" class="headerlink" title="ログ採取について"></a>ログ採取について</h3><ol>
-<li><p>以下の URL より “shacollector.zip” をダウンロードおよび展開いただき、対象端末へ配置します。</p>
-<p>ダウンロード先:<br><a href="https://jpwinsup.github.io/mslog/other/tools/shacollector/shacollector.zip">https://jpwinsup.github.io/mslog/other/tools/shacollector/shacollector.zip</a></p>
-<p><a href="https://jpwinsup.github.io/mslog/other/tools/shacollector.html">shacollector の使い方についてはこちら</a></p>
-<p>(注意)<br>shacollector は機能の拡張などにより内容が変更されることがあります。<br>そのため、毎回上記のダウンロード先から shacollector を取得いただき利用してください。</p>
-</li>
-<li><p>管理者権限のコマンドプロンプトから配置した “shacollector” フォルダーへ移動して、以下のコマンドを実行の上、サポート情報ログの採取を実施します。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat support all C:\mslog</span><br></pre></td></tr></table></figure>
-<p>※ 出力先フォルダー名に C:\mslog 以外のフォルダーを指定することも可能です。</p>
-</li>
-<li><p>生成されましたログの出力先フォルダーを圧縮の上、弊社までご提供ください。</p>
-</li>
-</ol>
-<h3 id="その他連携いただきたい情報"><a href="#その他連携いただきたい情報" class="headerlink" title="その他連携いただきたい情報"></a>その他連携いただきたい情報</h3><ol>
+<h2 id="B-事象の再現性がない場合"><a href="#B-事象の再現性がない場合" class="headerlink" title="[B] 事象の再現性がない場合"></a>[B] 事象の再現性がない場合</h2><p>事象に再現性がない場合は、原因の特定が困難になります。システム構成やログから過去の類似事例を調査いたしますので、以下の Web ページ記載の資料採取をお願いします。</p>
+<p><a href="https://jpwinsup.github.io/mslog/other/log/initiallog.html">初期調査にご取得いただくログ情報</a></p>
+<h2 id="その他連携いただきたい情報"><a href="#その他連携いただきたい情報" class="headerlink" title="その他連携いただきたい情報"></a>その他連携いただきたい情報</h2><ol>
 <li>事象発生期間をお伝えください。</li>
 <li>OS が遅延している間を捉えたパフォーマンスに関するログがお手元にございましたら、合わせてご提供ください。</li>
 </ol>
