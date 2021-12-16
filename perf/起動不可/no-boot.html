@@ -154,40 +154,37 @@ function sidebar_toggle() {
 <li>各レジストリファイル</li>
 <li>適用している更新プログラムの情報</li>
 </ul>
-<h2 id="有効と思われる資料採取"><a href="#有効と思われる資料採取" class="headerlink" title="有効と思われる資料採取"></a>有効と思われる資料採取</h2><p>Windows OS の起動が 2 回連続して失敗した場合、通常 Windows 回復環境が立ち上がります。<br><br>この Windows 回復環境からコマンド プロンプトを立ち上げて資料採取を行います。<br><br>本資料採取手順では、2 回連続起動に失敗した際の手順となります。<br><br><br></p>
+<h2 id="有効と思われる資料採取"><a href="#有効と思われる資料採取" class="headerlink" title="有効と思われる資料採取"></a>有効と思われる資料採取</h2><p>Windows OS の起動が 2 回連続して失敗した場合、通常 Windows 回復環境が立ち上がります。この Windows 回復環境からコマンド プロンプトを立ち上げて資料採取を行います。</p>
 <ol>
 <li><p>[回復] 画面にて以下の順に選択します。</p>
 <p>[詳しい修復オプションを表示する] - [トラブルシューティング] - [詳細オプション] - [コマンド プロンプト]</p>
 </li>
 <li><p>コマンドプロンプト (cmd.exe) 画面にて、dir コマンドを用いて、C: から順に Windows フォルダの有無を確認します。</p>
 <p>※ システムが正常時に起動している際には、通常 C ドライブ配下に Windows フォルダがございます。しかし、システムが正常に起動しない際には、異なる場合がございますので、ご確認をお願いいたします。</p>
-<p>————————————<br><br>X:\Source&gt;dir D:<br><br>…<br><br>2013/08/22&nbsp;&nbsp;23:50&nbsp;&nbsp;&lt;DIR&gt;&nbsp;&nbsp;Program Files <br><br>2013/08/23&nbsp;&nbsp;00:39&nbsp;&nbsp;&lt;DIR&gt;&nbsp;&nbsp;Program Files (x86)<br><br>2018/03/26&nbsp;&nbsp;21:19&nbsp;&nbsp;&lt;DIR&gt;&nbsp;&nbsp;Users<br><br>2018/03/26&nbsp;&nbsp;21:48&nbsp;&nbsp;&lt;DIR&gt;&nbsp;&nbsp;Windows  &lt;———————–<br><br>…<br><br>————————————<br></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">X:\Source&gt;dir D:</span><br><span class="line">...</span><br><span class="line">2013&#x2F;08&#x2F;22  23:50  \&lt;DIR&gt;  Program Files </span><br><span class="line">2013&#x2F;08&#x2F;23  00:39  \&lt;DIR&gt;  Program Files (x86)</span><br><span class="line">2018&#x2F;03&#x2F;26  21:19  \&lt;DIR&gt;  Users</span><br><span class="line">2018&#x2F;03&#x2F;26  21:48  \&lt;DIR&gt;  Windows  &lt;-----------------------</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <p>※ この実行例では、D ドライブに Windows フォルダが存在するため、D ドライブがシステム ドライブです。以降の手順はシステム ドライブが D ドライブを前提にご説明させていただきます。</p>
 </li>
 <li><p>資料を保存するために、USB フラッシュ メモリなど挿入します。</p>
 </li>
 <li><p>以下のコマンドを一行ずつ実行します。</p>
-<p>—————————————–<br><br>xcopy D:\Windows\System32\winevt\Logs*.* E:\MSLogs\EventLogs<br>xcopy D:\Windows\inf\Setupapi<em>.log E:\MSLogs\SetupAPI<br>xcopy D:\Windows\Logs\CBS\</em>.* E:\MSLogs\CBS<br>xcopy D:\WINDOWS\system32\LogFiles\Srt\SrtTrail.txt E:\MSLogs\SrtTrail.txt<br><br>xcopy /h D:\pagefile.sys E:\MSLogs\pagefile.sys<br>copy  D:\Windows\memory.dmp E:\MSLogs\MEMORY.dmp<br><br>xcopy D:\Windows\Logs\WindowsUpdate E:\MSLogs\WindowsUpdate<br>xcopy D:\ProgramData\USOShared\Logs E:\MSLogs\USOShared<br>copy  D:\Windows\SoftwareDistribution\ReportingEvents.log E:\MSLogs\ReportingEvents.log<br><br>xcopy D:\Windows\Logs\DISM E:\MSLogs\DISM<br>copy D:\Windows\System32\config\SYSTEM E:\MSLogs\SYSTEM<br><br>copy D:\Windows\System32\config\SOFTWARE E:\MSLogs\SOFTWARE<br><br>copy D:\Windows\System32\config\RegBack\SYSTEM E:\MSLogs\RegBackSYSTEM<br><br>copy D:\Windows\System32\config\RegBack\SOFTWARE E:\MSLogs\RegBackSOFTWARE<br><br>dism  /image:D:\ /get-packages /ScratchDir:D:\ &gt;E:\MSLogs\Get-Packages.txt<br><br>—————————————–<br></p>
-<p>※ 上記はシステム ドライブが D: で認識され、E ドライブ (外付け HDD や、USB フラッシュ ディスクなど) にコピーする例です。<br><br>手順 2 の確認結果および外付けドライブが認識されたドライブによってドライブレターが環境によって異なりますので、環境に合わせて変更ください。<br><br>※ 実行に伴いエラーが発生した場合、一旦その内容は無視いただき採取できた資料をご提供ください。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">xcopy D:\Windows\System32\winevt\Logs\*.* E:\MSLogs\EventLogs\</span><br><span class="line">xcopy D:\Windows\inf\Setupapi*.log E:\MSLogs\SetupAPI\</span><br><span class="line">xcopy D:\Windows\Logs\CBS\*.* E:\MSLogs\CBS\</span><br><span class="line">xcopy D:\WINDOWS\system32\LogFiles\Srt\SrtTrail.txt E:\MSLogs\SrtTrail.txt</span><br><span class="line">xcopy &#x2F;h D:\pagefile.sys E:\MSLogs\pagefile.sys</span><br><span class="line">copy  D:\Windows\memory.dmp E:\MSLogs\MEMORY.dmp</span><br><span class="line">xcopy D:\Windows\Logs\WindowsUpdate E:\MSLogs\WindowsUpdate\</span><br><span class="line">xcopy D:\ProgramData\USOShared\Logs E:\MSLogs\USOShared\</span><br><span class="line">copy  D:\Windows\SoftwareDistribution\ReportingEvents.log E:\MSLogs\ReportingEvents.log</span><br><span class="line">xcopy D:\Windows\Logs\DISM E:\MSLogs\DISM\</span><br><span class="line">copy D:\Windows\System32\config\SYSTEM E:\MSLogs\SYSTEM</span><br><span class="line">copy D:\Windows\System32\config\SOFTWARE E:\MSLogs\SOFTWARE</span><br><span class="line">copy D:\Windows\System32\config\RegBack\SYSTEM E:\MSLogs\RegBackSYSTEM</span><br><span class="line">copy D:\Windows\System32\config\RegBack\SOFTWARE E:\MSLogs\RegBackSOFTWARE</span><br><span class="line">dism  &#x2F;image:D:\ &#x2F;get-packages &#x2F;ScratchDir:D:\ &gt;E:\MSLogs\Get-Packages.txt</span><br></pre></td></tr></table></figure>
+<p>※ 上記はシステム ドライブが D: で認識され、E ドライブ (外付け HDD や、USB フラッシュ ディスクなど) にコピーする例です。手順 2 の確認結果および外付けドライブが認識されたドライブによってドライブレターが環境によって異なりますので、環境に合わせて変更ください。<br>※ 実行に伴いエラーが発生した場合、一旦その内容は無視いただき採取できた資料をご提供ください。</p>
 </li>
 <li><p>ご採取いただきました資料を弊社にご提供ください。</p>
 <p>※ 上記の例の場合、E:\MSLogs に保存されますので、E:\MSLogs フォルダを圧縮いただき弊社に送付ください。</p>
-<br>
-
 </li>
 </ol>
-<p>補足)<br><br>外付けの HDD やUSB などのフラッシュメモリを用いた現地での資料採取ができない場合には、リモートのネットワーク共有フォルダを<br>コピー先に使用してデータを抽出してください。<br>回復環境は既定でネットワークが無効になっておりますので、この方法を用いる場合には、<br>共有フォルダにコピーする前に、回復環境でコマンドプロンプトを起動したのち、<br>以下のコマンドを実行しネットワークインターフェースを構成する必要があります。</p>
-<blockquote>
-<p>startnet.cmd<br>netsh interface ipv4 set address &lt;インタフェース名またはインデックス&gt; static &lt;IP アドレス&gt; &lt;サブネットマスク&gt;</p>
-</blockquote>
-<p>   インターフェース名/インデックスの確認方法</p>
-<blockquote>
-<p>netsh interface ipv4 show interfaces</p>
-</blockquote>
-<p>   ネットワークドライブへの接続</p>
-<blockquote>
-<p>net use &lt;ドライブ文字:&gt; &lt;共有フォルダのパス名&gt; /user:&lt;接続するアカウント&gt; &lt;パスワード&gt;</p>
-</blockquote>
+<h2 id="補足情報"><a href="#補足情報" class="headerlink" title="補足情報"></a>補足情報</h2><p>外付けの HDD やUSB などのフラッシュメモリを用いた現地での資料採取ができない場合には、リモートのネットワーク共有フォルダをコピー先に使用してデータを抽出してください。<br>回復環境は既定でネットワークが無効になっておりますので、この方法を用いる場合には、共有フォルダにコピーする前に、回復環境でコマンドプロンプトを起動したのち、以下のコマンドを実行しネットワークインターフェースを構成する必要があります。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">startnet.cmd</span><br><span class="line">netsh interface ipv4 set address &lt;インタフェース名またはインデックス&gt; static &lt;IP アドレス&gt; &lt;サブネットマスク&gt;</span><br></pre></td></tr></table></figure>
+
+
+<p>インターフェース名/インデックスの確認方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh interface ipv4 show interfaces</span><br></pre></td></tr></table></figure>
+
+
+<p>ネットワークドライブへの接続</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net use &lt;ドライブ文字:&gt; &lt;共有フォルダのパス名&gt; &#x2F;user:&lt;接続するアカウント&gt; &lt;パスワード&gt;</span><br></pre></td></tr></table></figure>
+
 <p>本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
 
 </div>
