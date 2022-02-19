@@ -11,7 +11,7 @@
 
     <title>
         
-          Windows の資料採取に関する情報公開サイト
+          物理メモリの使用率が高い事象の調査 - Windows の資料採取に関する情報公開サイト
         
     </title>
 
@@ -140,194 +140,69 @@ function sidebar_toggle() {
 
         </div>
         <div class="book-content">
-          <div class='book-archive'>
-  <!-- Title -->
-  
-    <h1>Perf</h1>
-  
+          <div class="book-post">
+  <h1 id="物理メモリの使用率が高い事象の調査"><a href="#物理メモリの使用率が高い事象の調査" class="headerlink" title="物理メモリの使用率が高い事象の調査"></a>物理メモリの使用率が高い事象の調査</h1><p>本記事はマイクロソフト社員によって公開されております。</p>
+<p>いつも弊社製品をご利用いただきまして誠にありがとうございます。Windows プラットフォーム サポートの栗木です。<br>本記事では、物理メモリの使用率が高い事象が発生した場合に採取いただきたい資料についてご紹介いたします。</p>
+<h2 id="資料採取の流れ"><a href="#資料採取の流れ" class="headerlink" title="資料採取の流れ"></a>資料採取の流れ</h2><ol>
+<li><a href="https://docs.microsoft.com/en-us/sysinternals/downloads/rammap" target="_blank" rel="noopener">RAMMap ツール</a> と <a href="https://jpwinsup.github.io/mslog/other/tools/shacollector.html">shacollector ツール</a> を資料採取対象のマシンの任意の場所にコピーし展開します。</li>
+<li>RAMMap ツール を実行し、実行結果を保存します。</li>
+<li>shacollector ツールを利用してサポートログ情報を採取します。</li>
+</ol>
+<h2 id="ログ採取について"><a href="#ログ採取について" class="headerlink" title="ログ採取について"></a>ログ採取について</h2><ol>
+<li><p>以下の URL より RAMMap.zip と shacollector.zip  をダウンロードおよび展開いただき、対象端末へ配置します。</p>
+<p>RAMMap:<br><a href="https://download.sysinternals.com/files/RAMMap.zip" target="_blank" rel="noopener">https://download.sysinternals.com/files/RAMMap.zip</a><br>shacollector:<br><a href="https://jpwinsup.github.io/mslog/other/tools/shacollector/shacollector.zip">https://jpwinsup.github.io/mslog/other/tools/shacollector/shacollector.zip</a></p>
+<p>(注意)<br>これらのツールは機能の拡張などにより内容が変更されることがあります。<br>そのため、毎回上記のダウンロード先から取得していただき利用してください。</p>
+</li>
+<li><p>RAMMap フォルダーにある RAMMap.exe を実行します。</p>
+<p>次のような画面が表示されるまで少しお待ちください。</p>
+<img src="high-physical-memory-usage/rammap.png" align="left">
+<br style="clear:left;">
+<br>
 
-  
-    <!-- Split post by year -->
-    
-    <!-- Split post by category -->
-    
-  
+<p>表示されましたら左上の File から Save をクリックしていただきデータを RMP ファイルとして保存します。</p>
+<img src="high-physical-memory-usage/save.png" align="left">
+<br style="clear:left;">
+<br>
 
-  
-    <div class="category">
-        <h2>メモリ</h2>
-        <ul class="archive-list-item">
-        
-            <li>
-              <a href="/mslog/perf/メモリ/high-physical-memory-usage.html">
-                物理メモリの使用率が高い事象の調査
-              </a>
-            </li>
-        
-            <li>
-              <a href="/mslog/perf/メモリ/process-memory-leak.html">
-                プロセスのメモリーリークの調査に必要な資料
-              </a>
-            </li>
-        
-            <li>
-              <a href="/mslog/perf/メモリ/high-memory-usage.html">
-                OS のメモリー使用率が高い事象の調査
-              </a>
-            </li>
-        
-        </ul>
-    </div>
-  
-    <div class="category">
-        <h2>起動不可</h2>
-        <ul class="archive-list-item">
-        
-            <li>
-              <a href="/mslog/perf/起動不可/no-boot.html">
-                OS が起動しない事象が発生した場合の調査
-              </a>
-            </li>
-        
-        </ul>
-    </div>
-  
-    <div class="category">
-        <h2>システムダウン</h2>
-        <ul class="archive-list-item">
-        
-            <li>
-              <a href="/mslog/perf/システムダウン/system-down.html">
-                予期せぬ再起動が発生した場合の調査
-              </a>
-            </li>
-        
-        </ul>
-    </div>
-  
-    <div class="category">
-        <h2>全般</h2>
-        <ul class="archive-list-item">
-        
-            <li>
-              <a href="/mslog/perf/全般/performance.html">
-                OS の Performance 調査
-              </a>
-            </li>
-        
-        </ul>
-    </div>
-  
-    <div class="category">
-        <h2>ブルースクリーン (BSOD)</h2>
-        <ul class="archive-list-item">
-        
-            <li>
-              <a href="/mslog/perf/ブルースクリーン-bsod/bsod.html">
-                ブルースクリーン (BSOD) が発生してしまった事象の調査
-              </a>
-            </li>
-        
-        </ul>
-    </div>
-  
-    <div class="category">
-        <h2>ハングアップ</h2>
-        <ul class="archive-list-item">
-        
-            <li>
-              <a href="/mslog/perf/ハングアップ/app-hang.html">
-                アプリケーションがハングアップしてしまう事象の調査
-              </a>
-            </li>
-        
-            <li>
-              <a href="/mslog/perf/ハングアップ/os-hang-hyper-v-host.html">
-                OS がハングアップしてしまう事象の調査 (Hyper-V ホスト)
-              </a>
-            </li>
-        
-            <li>
-              <a href="/mslog/perf/ハングアップ/os-hang-vm.html">
-                OS がハングアップしてしまう事象の調査 (仮想環境/サーバー OS/クライアント OS)
-              </a>
-            </li>
-        
-            <li>
-              <a href="/mslog/perf/ハングアップ/os-hang-onpre-client.html">
-                OS がハングアップしてしまう事象の調査 (物理環境/クライアント OS)
-              </a>
-            </li>
-        
-            <li>
-              <a href="/mslog/perf/ハングアップ/os-hang-onpre-server.html">
-                OS がハングアップしてしまう事象の調査 (物理環境/サーバーOS)
-              </a>
-            </li>
-        
-        </ul>
-    </div>
-  
-    <div class="category">
-        <h2>遅延</h2>
-        <ul class="archive-list-item">
-        
-            <li>
-              <a href="/mslog/perf/遅延/shutdown-delay.html">
-                OS のシャットダウンが遅延してしまう事象の調査
-              </a>
-            </li>
-        
-            <li>
-              <a href="/mslog/perf/遅延/boot-delay.html">
-                OS の起動が遅延してしまう事象の調査
-              </a>
-            </li>
-        
-            <li>
-              <a href="/mslog/perf/遅延/os-delay.html">
-                OS の動作が遅延してしまう事象の調査
-              </a>
-            </li>
-        
-        </ul>
-    </div>
-  
-    <div class="category">
-        <h2>ディスク</h2>
-        <ul class="archive-list-item">
-        
-            <li>
-              <a href="/mslog/perf/ディスク/disk-io-high.html">
-                ディスクに対する I/O 負荷が高い事象の調査
-              </a>
-            </li>
-        
-        </ul>
-    </div>
-  
-    <div class="category">
-        <h2>CPU</h2>
-        <ul class="archive-list-item">
-        
-            <li>
-              <a href="/mslog/perf/cpu/cpu-high-load.html">
-                CPU 高負荷な事象の調査
-              </a>
-            </li>
-        
-        </ul>
-    </div>
-  
+<p>保存した RMP ファイルを圧縮の上、弊社までご提供ください。<br>(注意)<br>お客様の環境によっては、稀にRMP ファイルの保存に失敗する事例が報告されております。<br>そのため、ご提供いただく前に保存した RMP ファイルをダブルクリックして開き、正常にファイルが開かれることを確認してください。</p>
+</li>
+<li><p>管理者権限のコマンド プロンプトから配置した shacollector フォルダーへ移動後、以下のコマンドを実行し、サポート情報ログを採取します。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat support all C:\mslog</span><br></pre></td></tr></table></figure>
+<p>※ 出力先フォルダー名に C:\mslog 以外のフォルダーを指定することも可能です。</p>
+</li>
+<li><p>生成されましたサポート情報ログの出力先フォルダーを圧縮の上、弊社までご提供ください。</p>
+</li>
+</ol>
+<p>以上となります。<br>本ブログが少しでも皆様のお役に立てば幸いです。</p>
+<p>本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
 
-  
 </div>
+
+
+  <div class="book-comments">
+    
+
+
+
+
+  </div>
+
+
+
+<script src="/mslog/js/book-post.js"></script>
+
         </div>
       </div>
       <div class="column col-2 hide-lg">
         <div class="book-post-info">
   
     <div class="book-post-meta">
+  
+    <div class="link">
+      <a class="category-link" href="/mslog/categories/perf/">Perf</a> <a class="category-link" href="/mslog/categories/perf/%E3%83%A1%E3%83%A2%E3%83%AA/">メモリ</a>
+
+      
+    </div>
   
 </div>
   
