@@ -143,14 +143,13 @@ function sidebar_toggle() {
           <div class="book-post">
   <h1 id="SYNOPSIS-shacollector"><a href="#SYNOPSIS-shacollector" class="headerlink" title="SYNOPSIS shacollector"></a>SYNOPSIS shacollector</h1><pre><code>Script Name: shacollector.bat
 Purpose:     collect support information logs related to SHA Area. 
-Version:     6.6
-Last Update: 4th Jun 2021
-Developer:      Shohei Sadashima / Konan Morimoto / Koji Ishida / Norimasa Okawa / Jun Nakayamada
-Email-Alias: shsadash / kojii / nookawa / junakaya</code></pre><h2 id="DESCRIPTION"><a href="#DESCRIPTION" class="headerlink" title="DESCRIPTION"></a>DESCRIPTION</h2><p>shacollector is a tool that makes it easy to collect data for problem solving which is included in trace logs (ETW),<br>performance logs (perfmon or xperf), event logs and a lot of status information related to SHA area (Storage, Cluster and Hyper-V).</p>
-<h2 id="What’s-New-in-this-Version-6-5"><a href="#What’s-New-in-this-Version-6-5" class="headerlink" title="What’s New in this Version 6.5"></a>What’s New in this Version 6.5</h2><ul>
-<li>add Get-ClusterQuorum  to the cluster infomation. @Shohei Sadashima / Update Tools @Koji Ishida</li>
+Version:     7.4
+Last Update: 25th Feb 2022
+Developer:      Shohei Sadashima / Konan Morimoto / Koji Ishida / Norimasa Okawa / Jun Nakayamada / Takahiro Aizawa
+Email-Alias: shsadash / kojii / nookawa / junakaya / taaizawa</code></pre><h2 id="DESCRIPTION"><a href="#DESCRIPTION" class="headerlink" title="DESCRIPTION"></a>DESCRIPTION</h2><p>shacollector is a tool that makes it easy to collect data for problem solving which is included in trace logs (ETW),<br>performance logs (perfmon or xperf), event logs and a lot of status information related to SHA area (Storage, Cluster and Hyper-V).</p>
+<h2 id="What’s-New-in-this-Version-7-4"><a href="#What’s-New-in-this-Version-7-4" class="headerlink" title="What’s New in this Version 7.4"></a>What’s New in this Version 7.4</h2><ul>
+<li>v7.4 add storsvc trace (Storage Sensor). @Koji Ishida<h2 id="How-to-use-it"><a href="#How-to-use-it" class="headerlink" title="How to use it"></a>How to use it</h2>First, specify main options (trace, perf and support) and select sub option that specifies the information to collect.<br>Then, ‘trace’ and ‘perf’ can be specified with ‘start’ to start and ‘stop’ to stop log collection.<br>The ‘support’ option collects various status information and logs without specifying ‘start’ and ‘stop’.<br>By default, logs are saved in ‘c:\mslog’, but you can specify the output destination.</li>
 </ul>
-<h2 id="How-to-use-it"><a href="#How-to-use-it" class="headerlink" title="How to use it"></a>How to use it</h2><p>First, specify main options (trace, perf and support) and select sub option that specifies the information to collect.<br>Then, ‘trace’ and ‘perf’ can be specified with ‘start’ to start and ‘stop’ to stop log collection.<br>The ‘support’ option collects various status information and logs without specifying ‘start’ and ‘stop’.<br>By default, logs are saved in ‘c:\mslog’, but you can specify the output destination.</p>
 <h2 id="EXAMPLE"><a href="#EXAMPLE" class="headerlink" title="EXAMPLE"></a>EXAMPLE</h2><ul>
 <li><p>To collect trace log related I/O drivers (storport.sys, classpnp …).<br>And change the output folder to ‘d:\logs’.</p>
 <pre><code>shacollector.bat trace storage start d:\logs
@@ -212,7 +211,9 @@ shacollector.bat perf delay start size [Maximum log file size in MB (default 819
 shacollector.bat perf delay stop
 shacollector.bat perf heap start pid &quot;Process ID (ex. 1234)&quot; enable
 shacollector.bat perf heap start [output folder (default c:\mslog)] pid &quot;Process ID (ex. 1234)&quot; snap
-
+shacollector.bat perf heap stop
+shacollector.bat perf boot start [output folder (default c:\mslog)] 
+shacollector.bat perf boot stop
 shacollector.bat support all [output folder (default c:\mslog)]
 shacollector.bat support basic [output folder (default c:\mslog)]
 shacollector.bat support [supportlog option] [output folder (default c:\mslog)]</code></pre><h3 id="available-trace-option"><a href="#available-trace-option" class="headerlink" title="available trace option:"></a>available trace option:</h3><pre><code>storage   collecting storage drivers trace. (ex storport.sys, classpnp.sys ...)
@@ -243,7 +244,8 @@ fltmgr    collecting Filter Manager trace.
 packet    collecting Network Packet Capture. (Windows Server 2008 R2 or later)
 procmon   collecting Process Monitor log of Sysinternals.
 psr       collecting Problems Steps Recorder log. (maxlogsize is 10MB)
-refs      collecting ReFS drivers trace.</code></pre><h3 id="available-performance-option"><a href="#available-performance-option" class="headerlink" title="available performance option:"></a>available performance option:</h3><pre><code>perfmon   collecting Performance Monitor log. default sample interval is 15sec. default retention term is 3 days.
+refs      collecting ReFS drivers trace.
+storsvc   collecting Storage Sensor Service trace.</code></pre><h3 id="available-performance-option"><a href="#available-performance-option" class="headerlink" title="available performance option:"></a>available performance option:</h3><pre><code>perfmon   collecting Performance Monitor log. default sample interval is 15sec. default retention term is 3 days.
 cpu       collecting CPU perf logs with Xperf.
 memory    collecting Memory perf logs with Xperf.
 disk      collecting Disk perf logs with Xperf.
@@ -273,7 +275,70 @@ virtualfc       collecting virtual fc information.
 vss             collecting vss information logs.
 setup           collecting setup information logs.
 fsi             collecting file system information logs.
-crash           generate blue screen of death (BSOD).</code></pre>
+crash           generate blue screen of death (BSOD).</code></pre><h3 id="Update-History"><a href="#Update-History" class="headerlink" title="Update History:"></a>Update History:</h3><pre><code>2018/07/30 v1.0 making @Koji Ishida.
+2018/09/21 v1.1 add WinRM event log @Koji Ishida.
+2018/11/12 v1.2 add Hyper-V trace @Koji Ishida.
+2018/11/15 v1.3 add Storage Space trace @Koji Ishida.
+2018/11/19 v1.4 add S2D and Network information @Koji Ishida.
+2018/12/25 v1.5 add setup logs @Koji Ishida
+2019/01/17 v1.6 add mpclaim output @Koji Ishida
+2019/02/18 v1.7 add nfs and storage replica configuration @Koji Ishida
+2019/03/27 v1.8 add Windows Firewall info in Network @Koji Ishida
+2019/03/29 v1.9 add packet capture for boot mode @Koji Ishida
+2019/03/29 v2.0 add diskshadow and autmount log @Koji Ishida
+2019/04/15 v2.1 add get VMQ config @Koji Ishida
+2019/05/27 v2.2 add FailoverClustering-Manager trace and Hyper-V information @Koji Ishida
+2019/05/31 v2.3 implement to check admin authority. @Koji Ishida
+2019/06/04 v2.4 add NFS infomation and iSCSI information @Koji Ishida
+2019/07/03 v2.5 implement to change output folder @Koji Ishida
+2019/07/09 v2.6 fix a bug @Koji Ishida
+2019/09/13 v2.7 implement to get all application and service log files @Koji Ishida
+2019/09/14 v2.8 implement showvminfo for 2008 R2/2012 of Hyper-V @Koji Ishida
+2019/09/15 v2.9 implement procmon/perfmon/xperf @Koji Ishida
+2019/09/20 v3.0 implement dir/du/fsutil/chkdsk/defrag @Jun Nakayamada
+2019/10/01 v3.1 change vmms and vmwp trace log size 64MB to 1GB.
+2019/10/04 v3.2 fix a bug @Jun Nakayamada
+2019/10/10 v3.3 add VSS logs to drive space information logs
+2019/10/16 v3.4 fix a bug for perfmon and disable collecting diskshadow @Koji Ishida
+2019/10/17 v3.5 add crash, handle and netft option @Koji Ishida
+2019/11/01 v3.5 modify vss trace flag to 0x00000fff @Koji Ishida
+2019/11/09 v3.6 modify hyper-v trace and xperf stop behavior @Koji Ishida
+2019/11/10 v3.7 implement to get eventlog files with csv type. modify pefmon/procmon. implement get-virtualfc @Koji Ishida
+2020/01/07 v4.0 new implementation @Koji Ishida
+2020/01/16 v4.1 fix a bug for perfmon @Koji Ishida
+2020/01/17 v4.2 add setup logs for support @Koji Ishida
+2020/01/22 v4.3 add RDMA Activity counter for perfmon @Koji Ishida
+2020/01/23 v4.4 add S2D information for support @Koji Ishida
+2020/01/24 v4.5 add restart task for perfmon @Koji Ishida
+2020/01/24 v4.6 fix the wrong path was specified for perfmon @Koji Ishida
+2020/02/05 v4.7 modify perfmon counter list for perfmon @Koji Ishida
+2020/03/10 v4.8 modify cdrom trace @Koji Ishida
+2020/03/23 v4.9 add support fsi option @Norimasa Okawa
+2020/03/25 v5.0 add perf heap option @Norimasa Okawa
+2020/04/16 v5.1 modify support fsi option @Koji Ishida
+2020/05/07 v5.2 add ntfs trace @Koji Ishida
+2020/05/11 v5.3 implement to avoid double execution of perfmon @Koji Ishida
+2020/05/18 v5.4 implement to avoid double execution of trace @Koji Ishida
+2020/06/18 v5.5 add virtual-fc trace in hyper-v trace @Koji Ishida
+2020/06/29 v5.6 add MSDTC trace @Shohei Sadashima
+2020/07/10 v5.7 fix the data collector set name of hyper-v trace. @Koji Ishida
+2020/07/28 v5.8 add collecting core information for support log  and supports nfs version 4 tracing. @Koji Ishida
+2020/09/01 v5.9 add get-ClusterNode command result @Konan Morimoto
+2020/09/25 v6.0 transport the shacollector version info to the option.txt. @Shohei Sadashima
+2021/03/05 v6.1 implement size option/add filter manager trace/implement boot option for procmon/implement days option for perfmon. @Koji Ishida
+2021/03/24 v6.2 implement add refs driver trace. @Koji Ishida
+2021/04/05 v6.3 fix the handling of perf memory. @Koji Ishida
+2021/04/07 v6.4 modify drive-space logs @Jun Nakayamada, Add folder option to MSDTC trace @Shohei Sadashima 
+2021/05/07 v6.5 add Get-ClusterSharedVolumeState to the cluster infomation. @Shohei Sadashima
+2021/05/28 v6.6 add Get-ClusterQuorum to the cluster infomation. @Shohei Sadashima / Update Tools @Koji Ishida
+2021/07/01 v6.7 add Dynamic Memory for Hyper-V trace @Koji Ishida
+2021/07/07 v6.8 implement EULA @Koji Ishida
+2021/11/17 v6.9 add registry information in perf/disk and add time/data information in option.txt. @Yudong Ma 
+2022/01/20 v7.0 add boot trace for performance log option@Takahiro Aizawa / implement to handle powershell execution policy @Koji Ishida
+2022/01/21 v7.1 add partmgr GUID for storage.bat / add network info for network support log. @Koji Ishida
+2022/02/22 v7.2 refresh WPT files. @Koji Ishida
+2022/02/22 v7.3 delete Zone.Identifier stream. @Koji Ishidaq
+2022/02/25 v7.4 add storsvc trace (Storage Sensor). @Koji Ishida</code></pre>
 </div>
 
 
