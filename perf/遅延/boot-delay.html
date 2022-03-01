@@ -158,35 +158,15 @@ function sidebar_toggle() {
 <p>(注意)<br>shacollector は機能の拡張などにより内容が変更されることがあります。<br>そのため、毎回上記のダウンロード先から shacollector を取得いただき利用してください。</p>
 </li>
 <li><p>コマンドプロンプトを管理者モードで起動し、shacollector.zip を展開したフォルダーのバッチファイル (shacollector.bat) を以下のオプションを指定して実行します。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat perf perfmon start C:\mslog interval 0:0:1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat perf boot start C:\mslog</span><br><span class="line">shacollector.bat perf perfmon start C:\mslog interval 0:0:1</span><br></pre></td></tr></table></figure>
 <p>※ 出力先フォルダー名に C:\mslog 以外のフォルダーを指定することも可能です。</p>
 <p>※ 既定のサンプリング インターバール (interval) の指定は 1 秒となっていますが、変更することも可能です。</p>
+<p>※ 「○○ を実行できませんでした」と表示される場合がございますが、資料採取に影響はございません。</p>
 </li>
-<li><p>shacollector.zip を展開したフォルダにて以下の実行ファイルを管理者権限で起動します。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\shacollector\libs\WPR10-x64\WPRUI.exe</span><br></pre></td></tr></table></figure></li>
-<li><p>左下の “More options” を選択します。</p>
+<li><p>OS を再起動し、事象を再現させます。</p>
 </li>
-<li><p>“Select additional profiles for performance recording” の欄にて以下にチェックを入れます。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">First level Triage</span><br><span class="line">   ┗ First level Triage (チェック)</span><br><span class="line">   Resource Analysis</span><br><span class="line">   ┣ CPU usage (チェック)</span><br><span class="line">   ┣ Disk I&#x2F;O activity (チェック)</span><br><span class="line">   ┣ File I&#x2F;O activity (チェック)</span><br><span class="line">   ┣ Registry I&#x2F;O activity</span><br><span class="line">   ┣ Networking I&#x2F;O activity</span><br><span class="line">   ┣ Heap usage</span><br><span class="line">   ┣ Pool usage</span><br><span class="line">   ┣ VirtualAlloc usage</span><br><span class="line">   ┣ Power usage</span><br><span class="line">   ┣ Handle usage</span><br><span class="line">   ┣ Desktop composition activity</span><br><span class="line">   ┗ Resident Set analysis</span><br></pre></td></tr></table></figure></li>
-<li><p>右のプルダウンメニューに以下﻿設定します。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Performance scenario - Boot</span><br><span class="line"> Detail level         - Verbose</span><br><span class="line"> Logging mode         - File</span><br><span class="line"> Number of iterations - 1</span><br></pre></td></tr></table></figure>
-<p>&lt;参考&gt; 設定画面</p>
-<img src="boot-delay/wpr.png" align="left">
-<br style="clear:left;">
-</li>
-<li><p>[Start] をクリックします。</p>
-</li>
-<li><p>ログファイルの出力先を指定し、”Type in a detailed description of the problem” の欄に任意の文字列を入力します。<br>　(ここは何を入力いただいても構いません。)</p>
-</li>
-<li><p>[Save] をクリックします。</p>
-</li>
-<li><p>[OK] をクリックします。</p>
-<p>この後、自動的に OS の再起動が行われて、ログが収集されます。</p>
-</li>
-<li><p>ログオン後、WPR ログが自動で収集されます。<br>WPRUI.exe が表示されない場合は、WPRUI.exe を管理者権限で起動し、ログの保存が開始されたことをご確認ください。</p>
-</li>
-<li><p>shacollector を以下のように実行してログの採取を停止します。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat perf perfmon stop</span><br></pre></td></tr></table></figure></li>
+<li><p>OS 起動後に事象が再現しましたら、shacollector を以下のように実行してログの採取を停止します。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat perf boot stop</span><br><span class="line">shacollector.bat perf perfmon stop</span><br></pre></td></tr></table></figure></li>
 <li><p>shacollector を support オプションを指定して実行します。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat support all C:\mslog</span><br></pre></td></tr></table></figure>
 <p>※ 出力先フォルダー名に C:\mslog 以外のフォルダーを指定することも可能です。</p>
