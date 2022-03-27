@@ -150,7 +150,7 @@ function sidebar_toggle() {
 <h2 id="作業の流れ"><a href="#作業の流れ" class="headerlink" title="作業の流れ"></a>作業の流れ</h2><ol>
 <li>Process Explorer ツールの zip ファイルをダウンロード・展開</li>
 <li>Process Explorer ツールでプロセスを特定</li>
-<li>タスク マネージャーから該当のプロセス ダンプを出力</li>
+<li>タスク マネージャーからプロセス ダンプを出力</li>
 </ol>
 <h3 id="Process-Explorer-ツールの-zip-ファイルをダウンロード・展開"><a href="#Process-Explorer-ツールの-zip-ファイルをダウンロード・展開" class="headerlink" title="Process Explorer ツールの zip ファイルをダウンロード・展開"></a>Process Explorer ツールの zip ファイルをダウンロード・展開</h3><p>以下の Web サイトから Process Explorer ツールをダウンロードし、任意のフォルダに展開します。<br>Process Explorer：<a href="https://docs.microsoft.com/en-us/sysinternals/downloads/process-explorer" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/sysinternals/downloads/process-explorer</a></p>
 <h3 id="Process-Explorer-ツールでプロセスを特定"><a href="#Process-Explorer-ツールでプロセスを特定" class="headerlink" title="Process Explorer ツールでプロセスを特定"></a>Process Explorer ツールでプロセスを特定</h3><ol>
@@ -167,7 +167,7 @@ function sidebar_toggle() {
 
 </li>
 </ol>
-<h3 id="タスク-マネージャーから該当のプロセス-ダンプを出力"><a href="#タスク-マネージャーから該当のプロセス-ダンプを出力" class="headerlink" title="タスク マネージャーから該当のプロセス ダンプを出力"></a>タスク マネージャーから該当のプロセス ダンプを出力</h3><p>タスク マネージャーの詳細タブから確認したプロセス IDをもつプロセスを右クリックし、<strong>ダンプ ファイルの作成</strong> を選択します。<br>なお、プロセス ダンプの出力が完了するまで Window は表示させたままにしておいてください。<br><img src="findprocessofwindow\ProcessDump.png" align="left"><br><br style="clear:left;"></p>
+<h3 id="タスク-マネージャーからプロセス-ダンプを出力"><a href="#タスク-マネージャーからプロセス-ダンプを出力" class="headerlink" title="タスク マネージャーからプロセス ダンプを出力"></a>タスク マネージャーからプロセス ダンプを出力</h3><p>タスク マネージャーの詳細タブから確認したプロセス IDをもつプロセスを右クリックし、<strong>ダンプ ファイルの作成</strong> を選択します。<br>なお、プロセス ダンプの出力が完了するまで Window は表示させたままにしておいてください。<br><img src="findprocessofwindow\ProcessDump.png" align="left"><br><br style="clear:left;"></p>
 <p>プロセス ダンプの作成が完了すると以下のメッセージが表示されますので、出力されたプロセス ダンプを windbg で解析すれば Window を表示させたスタックが確認できます。<br><img src="findprocessofwindow\saved.png" align="left"><br><br style="clear:left;"><br></p>
 <p>本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
 
