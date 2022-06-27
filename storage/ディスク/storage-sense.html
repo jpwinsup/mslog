@@ -157,8 +157,6 @@ function sidebar_toggle() {
 <p><a href="https://jpwinsup.github.io/mslog/other/tools/shacollector.html">shacollector の使い方についてはこちら</a></p>
 <p>(注意)<br>shacollector は機能の拡張などにより内容が変更されることがあります。<br>そのため、毎回上記のダウンロード先から shacollector を取得いただき利用してください。</p>
 </li>
-</ol>
-<ol>
 <li><p>管理者権限のコマンド プロンプトから配置した “shacollector” フォルダーへ移動して、以下のコマンドを実行の上、Process monitor 、および、ストレージセンサートレースの採取を開始します。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat trace storsvc start C:\mslog</span><br><span class="line">shacollector.bat trace procmon start C:\mslog</span><br></pre></td></tr></table></figure>
 <p>※ Process monitor 取得中は一時的に負荷がかかります。サービスへの影響が懸念される場合は、影響のない時間帯にご実行ください。<br>※ 出力先フォルダー名に C:\mslog 以外のフォルダーを指定することも可能です。<br>※ EULA (使用許諾) が表示された場合は「承諾」を押下します。  </p>
@@ -168,14 +166,14 @@ function sidebar_toggle() {
 <li><p>Powershell を管理者モードで開き、下記コマンドにて、削除したいファイルの情報を取得します。  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-Item &quot;&lt;フォルダパス&gt;\*&quot; | Format-Table -Property Name, CreationTime, LastWriteTime, LastAccessTime | Out-File C:\mslog\Get-Item.txt</span><br></pre></td></tr></table></figure>
 <p>※ ゴミ箱内のファイルが対象の場合、フォルダパスとして 以下を指定ください。  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\&#96;$RECYCLE.BIN\&lt;SID&gt;*</span><br></pre></td></tr></table></figure>
-<p>※ <SID> は エクスプローラからゴミ箱にアクセスし、アドレスバーに記載のパスから確認可能です。<br>※ 上記の通り、Powershell 内で指定する場合は、$Recycle の前に エスケープ ` が必要です。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\&#96;$RECYCLE.BIN\&lt;SID&gt;\*</span><br></pre></td></tr></table></figure>
+<p>※ SID は エクスプローラからゴミ箱にアクセスし、アドレスバーに記載のパスから確認可能です。<br>※ 上記の通り、Powershell 内で指定する場合は、$Recycle の前に エスケープ ` が必要です。</p>
 </li>
 <li><p>[Windows キー + R ] を実行し、  [ファイル名を指定して実行]  ダイアログを表示させます。  </p>
 </li>
 <li><p>名前の項目に “regedit” と入力し、 [OK] をクリックします。  </p>
 </li>
-<li><p>以下のレジストリが存在する場合、レジストリを削除します。<br>// キー名 :<br>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy<br>// 項目名 :<br>StoragePoliciesLastTrigger<br>StoragePoliciesLastFailure<br>※ 上記のレジストリが存在しない場合に、前回ストレージセンサーが実行されていないとみなされ、約 10 分以内に ストレージセンサーを実行します。</p>
+<li><p>以下のレジストリが存在する場合、レジストリを削除します(2つの項目がいずれも存在しない場合は次の手順に移動します)。<br>// キー名 :<br>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy<br>// 項目名 :<br>StoragePoliciesLastTrigger<br>StoragePoliciesLastFailure<br>※ 上記のレジストリが存在しない場合に、前回ストレージセンサーが実行されていないとみなされ、約 10 分以内に ストレージセンサーを実行します。</p>
 </li>
 <li><p>20 分待ちます。</p>
 </li>
