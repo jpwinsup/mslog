@@ -11,7 +11,7 @@
 
     <title>
         
-          Windows の資料採取に関する情報公開サイト
+          Window を表示させたプロセスを見つける - Windows の資料採取に関する情報公開サイト
         
     </title>
 
@@ -141,80 +141,66 @@ function sidebar_toggle() {
 
         </div>
         <div class="book-content">
-          <div class='book-archive'>
-  <!-- Title -->
-  
-    <h1>Other</h1>
-  
+          <div class="book-post">
+  <h1 id="Window-を表示させたプロセスを見つける"><a href="#Window-を表示させたプロセスを見つける" class="headerlink" title="Window を表示させたプロセスを見つける"></a>Window を表示させたプロセスを見つける</h1><p>本記事はマイクロソフト社員によって公開されております。</p>
+<p>いつも弊社製品をご利用いただきまして誠にありがとうございます。Windows プラットフォーム サポートの栗木です。</p>
+<p>今回は、<a href="https://docs.microsoft.com/en-us/sysinternals/downloads/process-explorer" target="_blank" rel="noopener">Process Explorer ツール</a> を利用し、表示されたWindow (エラーメッセージ等)がどのプロセスによって表示されたか確認する方法をご紹介します。また、そのプロセスが Window を表示させたスタックを確認するためにプロセス ダンプの出力方法もあわせてご紹介いたします。本記事では、例として以下のエラーメッセージを表示させたプロセスを探していきます。</p>
+<img src="findprocessofwindow\unexpected.png" align="left">
+<br style="clear:left;">
 
-  
-    <!-- Split post by year -->
-    
-    <!-- Split post by category -->
-    
-  
+<h2 id="作業の流れ"><a href="#作業の流れ" class="headerlink" title="作業の流れ"></a>作業の流れ</h2><ol>
+<li>Process Explorer ツールの zip ファイルをダウンロード・展開</li>
+<li>Process Explorer ツールでプロセスを特定し、プロセス ダンプを出力</li>
+</ol>
+<h3 id="Process-Explorer-ツールの-zip-ファイルをダウンロード・展開"><a href="#Process-Explorer-ツールの-zip-ファイルをダウンロード・展開" class="headerlink" title="Process Explorer ツールの zip ファイルをダウンロード・展開"></a>Process Explorer ツールの zip ファイルをダウンロード・展開</h3><p>以下の Web サイトから Process Explorer ツールをダウンロードし、任意のフォルダに展開します。<br>Process Explorer：<a href="https://docs.microsoft.com/en-us/sysinternals/downloads/process-explorer" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/sysinternals/downloads/process-explorer</a></p>
+<h3 id="Process-Explorer-ツールでプロセスを特定し、プロセス-ダンプを出力"><a href="#Process-Explorer-ツールでプロセスを特定し、プロセス-ダンプを出力" class="headerlink" title="Process Explorer ツールでプロセスを特定し、プロセス ダンプを出力"></a>Process Explorer ツールでプロセスを特定し、プロセス ダンプを出力</h3><ol>
+<li><p>Process Explorer を管理者として実行し、上部の黒いターゲット アイコンを確認します。</p>
+<img src="findprocessofwindow\ProcessExplorer.png" align="left">
+<br style="clear:left;"><br>
+</li>
+<li><p>ターゲット アイコンをクリックしたまま Window (エラーメッセージ等) までドラッグします。ドラッグ中は、マウス ポインタがターゲット アイコンに変化します。</p>
+<br>
+</li>
+<li><p>Window 上でドラッグを解除します。解除すると Window を表示させたプロセスが、Process Explorer 上でハイライトされます。<br>以下の例では、<strong>msgbox.exe</strong> が Window を表示させたことが確認できました。</p>
+<img src="findprocessofwindow\MsgBox.png" align="left">
+<br style="clear:left;"><br>
+</li>
+<li><p>ハイライトされている Window を表示させたプロセスを右クリックし、<strong>Create Dump</strong> -&gt; <strong>Create Full Dump</strong> を選択し、プロセス ダンプを出力します。<br>なお、プロセス ダンプを出力するまで Window は表示させたままにしておいてください。</p>
+<img src="findprocessofwindow\FullDump.png" align="left">
+<br style="clear:left;"><br>
+出力されたプロセス ダンプを windbg で解析することで Window を表示させたスタックが確認できます。
 
-  
-    <div class="category">
-        <h2>Tips &amp; Tricks</h2>
-        <ul class="archive-list-item">
-        
-            <li>
-              <a href="/mslog/other/tips-tricks/p2v.html">
-                Disk2vhd ツールを利用した P2V 化
-              </a>
-            </li>
-        
-            <li>
-              <a href="/mslog/other/tips-tricks/findprocessofwindow.html">
-                Window を表示させたプロセスを見つける
-              </a>
-            </li>
-        
-            <li>
-              <a href="/mslog/other/tips-tricks/taskscheduler.html">
-                タスク スケジューラによる資料採取
-              </a>
-            </li>
-        
-        </ul>
-    </div>
-  
-    <div class="category">
-        <h2>Log</h2>
-        <ul class="archive-list-item">
-        
-            <li>
-              <a href="/mslog/other/log/initiallog.html">
-                初期調査にご取得いただくログ情報
-              </a>
-            </li>
-        
-        </ul>
-    </div>
-  
-    <div class="category">
-        <h2>Tools</h2>
-        <ul class="archive-list-item">
-        
-            <li>
-              <a href="/mslog/other/tools/shacollector.html">
-                shacollector について
-              </a>
-            </li>
-        
-        </ul>
-    </div>
-  
+</li>
+</ol>
+<p>本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
 
-  
 </div>
+
+
+  <div class="book-comments">
+    
+
+
+
+
+  </div>
+
+
+
+<script src="/mslog/js/book-post.js"></script>
+
         </div>
       </div>
       <div class="column col-2 hide-lg">
         <div class="book-post-info">
   
     <div class="book-post-meta">
+  
+    <div class="link">
+      <a class="category-link" href="/mslog/categories/other/">Other</a> <a class="category-link" href="/mslog/categories/other/tips-tricks/">Tips & Tricks</a>
+
+      
+    </div>
   
 </div>
   
