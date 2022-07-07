@@ -144,12 +144,12 @@ function sidebar_toggle() {
           <div class="book-post">
   <h1 id="SYNOPSIS-shacollector"><a href="#SYNOPSIS-shacollector" class="headerlink" title="SYNOPSIS shacollector"></a>SYNOPSIS shacollector</h1><pre><code>Script Name: shacollector.bat
 Purpose:     collect support information logs related to SHA Area. 
-Version:     7.7
-Last Update: 24 Jun 2022
+Version:     7.8
+Last Update: 7th Jul 2022
 Developer:      Shohei Sadashima / Konan Morimoto / Koji Ishida / Norimasa Okawa / Jun Nakayamada / Takahiro Aizawa
 Email-Alias: shsadash / kojii / nookawa / junakaya / taaizawa</code></pre><h2 id="DESCRIPTION"><a href="#DESCRIPTION" class="headerlink" title="DESCRIPTION"></a>DESCRIPTION</h2><p>shacollector is a tool that makes it easy to collect data for problem solving which is included in trace logs (ETW),<br>performance logs (perfmon or xperf), event logs and a lot of status information related to SHA area (Storage, Cluster and Hyper-V).</p>
-<h2 id="What’s-New-in-this-Version-7-7"><a href="#What’s-New-in-this-Version-7-7" class="headerlink" title="What’s New in this Version 7.7"></a>What’s New in this Version 7.7</h2><ul>
-<li>v7.7 add registry information for Storage Sensor by @Shohei Sadashima.<h2 id="How-to-use-it"><a href="#How-to-use-it" class="headerlink" title="How to use it"></a>How to use it</h2>First, specify main options (trace, perf and support) and select sub option that specifies the information to collect.<br>Then, ‘trace’ and ‘perf’ can be specified with ‘start’ to start and ‘stop’ to stop log collection.<br>The ‘support’ option collects various status information and logs without specifying ‘start’ and ‘stop’.<br>By default, logs are saved in ‘c:\mslog’, but you can specify the output destination.</li>
+<h2 id="What’s-New-in-this-Version-7-8"><a href="#What’s-New-in-this-Version-7-8" class="headerlink" title="What’s New in this Version 7.8"></a>What’s New in this Version 7.8</h2><ul>
+<li>add NTFS compression info for drive-space.<h2 id="How-to-use-it"><a href="#How-to-use-it" class="headerlink" title="How to use it"></a>How to use it</h2>First, specify main options (trace, perf and support) and select sub option that specifies the information to collect.<br>Then, ‘trace’ and ‘perf’ can be specified with ‘start’ to start and ‘stop’ to stop log collection.<br>The ‘support’ option collects various status information and logs without specifying ‘start’ and ‘stop’.<br>By default, logs are saved in ‘c:\mslog’, but you can specify the output destination.</li>
 </ul>
 <h2 id="EXAMPLE"><a href="#EXAMPLE" class="headerlink" title="EXAMPLE"></a>EXAMPLE</h2><ul>
 <li><p>To collect trace log related I/O drivers (storport.sys, classpnp …).<br>And change the output folder to ‘d:\logs’.</p>
@@ -342,7 +342,8 @@ crash           generate blue screen of death (BSOD).</code></pre><h3 id="Update
 2022/02/25 v7.4 add storsvc trace (Storage Sensor). @Koji Ishida
 2022/03/03 v7.5 add Get-MpPreference in system.bat of support. @Norimasa Okawa
 2022/05/10 v7.6 change wmic and Get-WmiObject to Get-CimInstance. @Norimasa Okawa
-2022/06/24 v7.7 add registry information for Storage Sensor. @Shohei Sadashima</code></pre>
+2022/06/24 v7.7 add registry information for Storage Sensor. @Shohei Sadashima
+2022/07/07 v7.8 add NTFS compression info for drive-space. @Koji Ishida</code></pre>
 </div>
 
 
