@@ -196,7 +196,7 @@ function sidebar_toggle() {
 <p>※ 最大ファイルサイズは 10240 以外のサイズ (MB) を size オプションに指定することも可能です。</p>
 <p>※ 出力先フォルダー名に C:\mslog 以外のフォルダーを指定することも可能です。</p>
 </li>
-<li><p>CPU が高負荷な状態で 15 分間待機します。(15分より早く CPU 高負荷が解消したら、その時点で次の手順へ進んでください)</p>
+<li><p>CPU が高負荷な状態で 10 分間待機します。(15分より早く CPU 高負荷が解消したら、その時点で次の手順へ進んでください)</p>
 </li>
 <li><p>shacollector を以下のように実行してログの採取を停止します。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat perf cpu stop</span><br><span class="line">shacollector.bat perf perfmon stop</span><br></pre></td></tr></table></figure></li>
