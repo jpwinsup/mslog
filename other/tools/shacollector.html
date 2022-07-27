@@ -144,12 +144,13 @@ function sidebar_toggle() {
           <div class="book-post">
   <h1 id="SYNOPSIS-shacollector"><a href="#SYNOPSIS-shacollector" class="headerlink" title="SYNOPSIS shacollector"></a>SYNOPSIS shacollector</h1><pre><code>Script Name: shacollector.bat
 Purpose:     collect support information logs related to SHA Area. 
-Version:     7.8
-Last Update: 7th Jul 2022
+Version:     7.9
+Last Update: 27 Jul 2022
+
 Developer:      Shohei Sadashima / Konan Morimoto / Koji Ishida / Norimasa Okawa / Jun Nakayamada / Takahiro Aizawa
 Email-Alias: shsadash / kojii / nookawa / junakaya / taaizawa</code></pre><h2 id="DESCRIPTION"><a href="#DESCRIPTION" class="headerlink" title="DESCRIPTION"></a>DESCRIPTION</h2><p>shacollector is a tool that makes it easy to collect data for problem solving which is included in trace logs (ETW),<br>performance logs (perfmon or xperf), event logs and a lot of status information related to SHA area (Storage, Cluster and Hyper-V).</p>
-<h2 id="What’s-New-in-this-Version-7-8"><a href="#What’s-New-in-this-Version-7-8" class="headerlink" title="What’s New in this Version 7.8"></a>What’s New in this Version 7.8</h2><ul>
-<li>add NTFS compression info for drive-space.<h2 id="How-to-use-it"><a href="#How-to-use-it" class="headerlink" title="How to use it"></a>How to use it</h2>First, specify main options (trace, perf and support) and select sub option that specifies the information to collect.<br>Then, ‘trace’ and ‘perf’ can be specified with ‘start’ to start and ‘stop’ to stop log collection.<br>The ‘support’ option collects various status information and logs without specifying ‘start’ and ‘stop’.<br>By default, logs are saved in ‘c:\mslog’, but you can specify the output destination.</li>
+<h2 id="What’s-New-in-this-Version-7-9"><a href="#What’s-New-in-this-Version-7-9" class="headerlink" title="What’s New in this Version 7.9"></a>What’s New in this Version 7.9</h2><ul>
+<li>add nomsinfo option @Shohei Sadashima<h2 id="How-to-use-it"><a href="#How-to-use-it" class="headerlink" title="How to use it"></a>How to use it</h2>First, specify main options (trace, perf and support) and select sub option that specifies the information to collect.<br>Then, ‘trace’ and ‘perf’ can be specified with ‘start’ to start and ‘stop’ to stop log collection.<br>The ‘support’ option collects various status information and logs without specifying ‘start’ and ‘stop’.<br>By default, logs are saved in ‘c:\mslog’, but you can specify the output destination.</li>
 </ul>
 <h2 id="EXAMPLE"><a href="#EXAMPLE" class="headerlink" title="EXAMPLE"></a>EXAMPLE</h2><ul>
 <li><p>To collect trace log related I/O drivers (storport.sys, classpnp …).<br>And change the output folder to ‘d:\logs’.</p>
@@ -191,6 +192,8 @@ shacollector.bat perf memory stop</code></pre></li>
 shacollector.bat perf disk stop</code></pre></li>
 <li><p>To collect all relevant support information logs such as event logs, registry, dik and network configuration and so on. And change the output folder to ‘d:\logs’.</p>
 <pre><code>shacollector.bat support all d:\logs</code></pre></li>
+<li><p>To collect all relevant support information logs without msinfo32. And change the output folder to ‘d:\logs’.</p>
+<pre><code>shacollector.bat support nomsinfo d:\logs</code></pre></li>
 <li><p>To collect specific support information logs (disk, network and event logs). </p>
 <pre><code>shacollector.bat support disk
 shacollector.bat support network
@@ -217,7 +220,8 @@ shacollector.bat perf boot start [output folder (default c:\mslog)]
 shacollector.bat perf boot stop
 shacollector.bat support all [output folder (default c:\mslog)]
 shacollector.bat support basic [output folder (default c:\mslog)]
-shacollector.bat support [supportlog option] [output folder (default c:\mslog)]</code></pre><h3 id="available-trace-option"><a href="#available-trace-option" class="headerlink" title="available trace option:"></a>available trace option:</h3><pre><code>storage   collecting storage drivers trace. (ex storport.sys, classpnp.sys ...)
+shacollector.bat support [supportlog option] [output folder (default c:\mslog)]
+shacollector.bat support nomsinfo [output folder (default c:\mslog)]</code></pre><h3 id="available-trace-option"><a href="#available-trace-option" class="headerlink" title="available trace option:"></a>available trace option:</h3><pre><code>storage   collecting storage drivers trace. (ex storport.sys, classpnp.sys ...)
 storport  collecting storport driver trace.
 ntfs      collecting NTFS driver trace.
 usb       collecting USB drivers trace.
@@ -271,12 +275,14 @@ nfs             collecting nfs information logs.
 registry        collecting registry information logs.
 storagereplica  collecting Storage Replica information logs.
 system          collecting system information logs.
+system-nomsinfo collecting system information logs without msinfo32.
 taskscheduler   collecting task scheduler information logs.
 virtualfc       collecting virtual fc information.
 vss             collecting vss information logs.
 setup           collecting setup information logs.
 fsi             collecting file system information logs.
-crash           generate blue screen of death (BSOD).</code></pre><h3 id="Update-History"><a href="#Update-History" class="headerlink" title="Update History:"></a>Update History:</h3><pre><code>2018/07/30 v1.0 making @Koji Ishida.
+crash           generate blue screen of death (BSOD).
+nomsinfo        collecting all support logs without msinfo32.</code></pre><h3 id="Update-History"><a href="#Update-History" class="headerlink" title="Update History:"></a>Update History:</h3><pre><code>2018/07/30 v1.0 making @Koji Ishida.
 2018/09/21 v1.1 add WinRM event log @Koji Ishida.
 2018/11/12 v1.2 add Hyper-V trace @Koji Ishida.
 2018/11/15 v1.3 add Storage Space trace @Koji Ishida.
@@ -343,7 +349,8 @@ crash           generate blue screen of death (BSOD).</code></pre><h3 id="Update
 2022/03/03 v7.5 add Get-MpPreference in system.bat of support. @Norimasa Okawa
 2022/05/10 v7.6 change wmic and Get-WmiObject to Get-CimInstance. @Norimasa Okawa
 2022/06/24 v7.7 add registry information for Storage Sensor. @Shohei Sadashima
-2022/07/07 v7.8 add NTFS compression info for drive-space. @Koji Ishida</code></pre>
+2022/07/07 v7.8 add NTFS compression info for drive-space. @Koji Ishida
+2022/07/27 v7.9 add nomsinfo option @Shohei Sadashima</code></pre>
 </div>
 
 
