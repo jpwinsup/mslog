@@ -144,13 +144,13 @@ function sidebar_toggle() {
           <div class="book-post">
   <h1 id="SYNOPSIS-shacollector"><a href="#SYNOPSIS-shacollector" class="headerlink" title="SYNOPSIS shacollector"></a>SYNOPSIS shacollector</h1><pre><code>Script Name: shacollector.bat
 Purpose:     collect support information logs related to SHA Area. 
-Version:     7.9
-Last Update: 27 Jul 2022
+Version:     8.0
+Last Update: 14th Sep 2022
 
 Developer:      Shohei Sadashima / Konan Morimoto / Koji Ishida / Norimasa Okawa / Jun Nakayamada / Takahiro Aizawa
 Email-Alias: shsadash / kojii / nookawa / junakaya / taaizawa</code></pre><h2 id="DESCRIPTION"><a href="#DESCRIPTION" class="headerlink" title="DESCRIPTION"></a>DESCRIPTION</h2><p>shacollector is a tool that makes it easy to collect data for problem solving which is included in trace logs (ETW),<br>performance logs (perfmon or xperf), event logs and a lot of status information related to SHA area (Storage, Cluster and Hyper-V).</p>
-<h2 id="What’s-New-in-this-Version-7-9"><a href="#What’s-New-in-this-Version-7-9" class="headerlink" title="What’s New in this Version 7.9"></a>What’s New in this Version 7.9</h2><ul>
-<li>add nomsinfo option @Shohei Sadashima<h2 id="How-to-use-it"><a href="#How-to-use-it" class="headerlink" title="How to use it"></a>How to use it</h2>First, specify main options (trace, perf and support) and select sub option that specifies the information to collect.<br>Then, ‘trace’ and ‘perf’ can be specified with ‘start’ to start and ‘stop’ to stop log collection.<br>The ‘support’ option collects various status information and logs without specifying ‘start’ and ‘stop’.<br>By default, logs are saved in ‘c:\mslog’, but you can specify the output destination.</li>
+<h2 id="What’s-New-in-this-Version-8-0"><a href="#What’s-New-in-this-Version-8-0" class="headerlink" title="What’s New in this Version 8.0"></a>What’s New in this Version 8.0</h2><ul>
+<li>add vhd trace option @Koji Ishida<h2 id="How-to-use-it"><a href="#How-to-use-it" class="headerlink" title="How to use it"></a>How to use it</h2>First, specify main options (trace, perf and support) and select sub option that specifies the information to collect.<br>Then, ‘trace’ and ‘perf’ can be specified with ‘start’ to start and ‘stop’ to stop log collection.<br>The ‘support’ option collects various status information and logs without specifying ‘start’ and ‘stop’.<br>By default, logs are saved in ‘c:\mslog’, but you can specify the output destination.</li>
 </ul>
 <h2 id="EXAMPLE"><a href="#EXAMPLE" class="headerlink" title="EXAMPLE"></a>EXAMPLE</h2><ul>
 <li><p>To collect trace log related I/O drivers (storport.sys, classpnp …).<br>And change the output folder to ‘d:\logs’.</p>
@@ -250,7 +250,8 @@ packet    collecting Network Packet Capture. (Windows Server 2008 R2 or later)
 procmon   collecting Process Monitor log of Sysinternals.
 psr       collecting Problems Steps Recorder log. (maxlogsize is 10MB)
 refs      collecting ReFS drivers trace.
-storsvc   collecting Storage Sensor Service trace.</code></pre><h3 id="available-performance-option"><a href="#available-performance-option" class="headerlink" title="available performance option:"></a>available performance option:</h3><pre><code>perfmon   collecting Performance Monitor log. default sample interval is 15sec. default retention term is 3 days.
+storsvc   collecting Storage Sensor Service trace.
+vhd       collecting VHD trace.</code></pre><h3 id="available-performance-option"><a href="#available-performance-option" class="headerlink" title="available performance option:"></a>available performance option:</h3><pre><code>perfmon   collecting Performance Monitor log. default sample interval is 15sec. default retention term is 3 days.
 cpu       collecting CPU perf logs with Xperf.
 memory    collecting Memory perf logs with Xperf.
 disk      collecting Disk perf logs with Xperf.
@@ -350,7 +351,8 @@ nomsinfo        collecting all support logs without msinfo32.</code></pre><h3 id
 2022/05/10 v7.6 change wmic and Get-WmiObject to Get-CimInstance. @Norimasa Okawa
 2022/06/24 v7.7 add registry information for Storage Sensor. @Shohei Sadashima
 2022/07/07 v7.8 add NTFS compression info for drive-space. @Koji Ishida
-2022/07/27 v7.9 add nomsinfo option @Shohei Sadashima</code></pre>
+2022/07/27 v7.9 add nomsinfo option @Shohei Sadashima
+2022/09/14 v8.0 add vhd trace option @Koji Ishida</code></pre>
 </div>
 
 
