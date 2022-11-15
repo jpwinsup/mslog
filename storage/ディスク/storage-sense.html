@@ -164,12 +164,13 @@ function sidebar_toggle() {
 <li><p>事象を再現させます。</p>
 <ol>
 <li><p>Powershell を管理者モードで開き、下記コマンドにて、削除したいファイルの情報を取得します。  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-Item &quot;&lt;フォルダパス&gt;\*&quot; | Format-Table -Property Name, CreationTime, LastWriteTime, LastAccessTime | Out-File C:\mslog\Get-Item.txt</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-Item &quot;&lt;フォルダパス&gt;\*&quot; | Format-Table -Property Name, CreationTime, LastWriteTime, LastAccessTime | Out-File C:\mslog\Get-Item-Before.txt</span><br></pre></td></tr></table></figure>
 <p>※ ゴミ箱内のファイルが対象の場合、フォルダパスとして 以下を指定ください。  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\&#96;$RECYCLE.BIN\&lt;SID&gt;\*</span><br></pre></td></tr></table></figure>
-<p>※ SID は エクスプローラからゴミ箱にアクセスし、アドレスバーに記載のパスから確認可能です。<br>※ 上記の通り、Powershell 内で指定する場合は、$Recycle の前に エスケープ ` が必要です。</p>
+<p>※ 上記の通り、Powershell 内で指定する場合は、$Recycle の前に エスケープ ` が必要です。<br>※ SID は 以下の手順でご確認いただくことが可能です。<br>(1) エクスプローラーを起動し、[表示] タブの [オプション]からフォルダーオプションを開き、<br>　　[表示]タブから [保護されたオペレーティングシステムファイルを表示しない(推奨)] のチェックを外します。[OK]で閉じます。<br>(2) エクスプローラーの[表示] タブから [隠しファイル] のチェックを入れます。<br>(3) エクスプローラーから Cドライブ ＞ $Recycle.Bin &gt; ごみ箱 へアクセスし、アドレスバーをクリックし、フォルダーパスをご確認ください。</p>
+<p>フォルダーパスの例：<br>　　C:$Recycle.Bin\S-1-5-21-0000000000-0000000000-0000000000-0000<br>　PowerShellでの指定例：<br>　　“C:`$RECYCLE.BIN\S-1-5-21-0000000000-0000000000-0000000000-0000*“</p>
 </li>
-<li><p>[Windows キー + R ] を実行し、  [ファイル名を指定して実行]  ダイアログを表示させます。  </p>
+<li><p>[Windows キー + R ] を実行し、  [ファイル名を指定して実行]  ダイアログを表示させます。</p>
 </li>
 <li><p>名前の項目に “regedit” と入力し、 [OK] をクリックします。  </p>
 </li>
@@ -177,6 +178,8 @@ function sidebar_toggle() {
 </li>
 <li><p>20 分待ちます。</p>
 </li>
+<li><p>20分後経過後、3-aと同様の手順で、Powershell を管理者モードで開き、下記コマンドにて、削除したいファイルの情報を取得します。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-Item &quot;&lt;フォルダパス&gt;\*&quot; | Format-Table -Property Name, CreationTime, LastWriteTime, LastAccessTime | Out-File C:\mslog\Get-Item-After.txt</span><br></pre></td></tr></table></figure></li>
 </ol>
 </li>
 <li><p>shacollector を以下のように実行して Process monitor 、および、ストレージセンサー トレースの採取を停止します。</p>
