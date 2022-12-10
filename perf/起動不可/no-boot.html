@@ -143,22 +143,29 @@ function sidebar_toggle() {
         <div class="book-content">
           <div class="book-post">
   <h2 id="OS-が起動しない事象が発生した場合の調査"><a href="#OS-が起動しない事象が発生した場合の調査" class="headerlink" title="OS が起動しない事象が発生した場合の調査"></a>OS が起動しない事象が発生した場合の調査</h2><p>本記事はマイクロソフト社員によって公開されております。</p>
-<p>いつも弊社製品をご利用いただきまして誠にありがとうございます。<br>Windows プラットフォーム サポートの大川です。<br>弊社にお問い合わせいただく際に、事前に採取しておいたほうが良い内容についてご紹介させていただきます。<br>今回のテーマは「OS が起動しない事象が発生した場合の調査について」です。</p>
-<h3 id="採取ファイル"><a href="#採取ファイル" class="headerlink" title="採取ファイル"></a>採取ファイル</h3><ul>
-<li>イベントログ</li>
-<li>Setup ログ</li>
-<li>CBS ログ</li>
-<li>起動ログ</li>
-<li>ページファイル</li>
-<li>Windows Update 関連ログ</li>
-<li>DISM ログ</li>
-<li>各レジストリファイル</li>
-<li>適用している更新プログラムの情報</li>
-</ul>
-<h2 id="有効と思われる資料採取"><a href="#有効と思われる資料採取" class="headerlink" title="有効と思われる資料採取"></a>有効と思われる資料採取</h2><p>Windows OS の起動が 2 回連続して失敗した場合、通常 Windows 回復環境が立ち上がります。この Windows 回復環境からコマンド プロンプトを立ち上げて資料採取を行います。</p>
+<p>いつも弊社製品をご利用いただきまして誠にありがとうございます。<br>Windows プラットフォーム サポートの栗木です。<br>弊社にお問い合わせいただく際に、発生事象の確認項目と事前に採取しておいたほうがよい資料についてご紹介させていただきます。<br>今回のテーマは「OS が起動しない事象が発生した場合の調査について」です。</p>
+<h2 id="確認項目"><a href="#確認項目" class="headerlink" title="確認項目"></a>確認項目</h2><p>起動しなくなった端末の状況を把握するため、以下をご確認してください。</p>
 <ol>
-<li><p>[回復] 画面にて以下の順に選択します。</p>
-<p>[詳しい修復オプションを表示する] - [トラブルシューティング] - [詳細オプション] - [コマンド プロンプト]</p>
+<li><p>OS 起動が止まった画面 (<a href="#OS-起動画面の例">OS 起動画面の例</a>)</p>
+</li>
+<li><p>OS のバージョン (Windows 10,11、Windows Server 2012,2016,2019,2022等)</p>
+</li>
+<li><p>物理環境 or 仮想環境 (Azure、VMWare等)</p>
+</li>
+<li><p>起動しなくなった端末のバックアップの有無</p>
+</li>
+<li><p>起動しなくなる前に実施した作業内容とシステムへの変更点</p>
+</li>
+<li><p>適用した更新プログラム（更新プログラム適用後に起動できなくなった場合）</p>
+</li>
+</ol>
+<h2 id="資料採取"><a href="#資料採取" class="headerlink" title="資料採取"></a>資料採取</h2><p>Windows 回復環境からコマンド プロンプトを立ち上げて資料採取を行います。コマンド プロンプトは、Windows OS のインストール メディアから起動し、Shift+F10 キーを入力しても起動できます。</p>
+<p>回復環境での作業ができない仮想環境の場合は、起動可能な他の仮想マシンに起動しなくなった端末のディスクをマウントして、起動可能な他の仮想マシンでコマンド プロンプトを実行し、作業を進めてください。</p>
+<ol>
+<li><p>[オプションの選択] 画面にて以下の順に選択します。</p>
+<p>[トラブルシューティング] - [詳細オプション] - [コマンド プロンプト]</p>
+<img src="no-boot/re.png" align="left">
+<br style="clear:left;"><br>
 </li>
 <li><p>コマンドプロンプト (cmd.exe) 画面にて、dir コマンドを用いて、C: から順に Windows フォルダの有無を確認します。</p>
 <p>※ システムが正常時に起動している際には、通常 C ドライブ配下に Windows フォルダがございます。しかし、システムが正常に起動しない際には、異なる場合がございますので、ご確認をお願いいたします。</p>
@@ -167,12 +174,40 @@ function sidebar_toggle() {
 </li>
 <li><p>資料を保存するために、USB フラッシュ メモリなど挿入します。</p>
 </li>
-<li><p>以下のコマンドを一行ずつ実行します。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">bcdedit &#x2F;enum &gt; E:\MSLogs\bcdedit.txt</span><br><span class="line">bcdedit &#x2F;enum &#x2F;v &gt; E:\MSLogs\bcdedit-v.txt</span><br><span class="line">bcdedit &#x2F;enum all &gt; E:\MSLogs\bcdeditAll.txt</span><br><span class="line">bcdedit &#x2F;enum all &#x2F;v &gt; E:\MSLogs\bcdeditAll-v.txt</span><br><span class="line">echo list dis | diskpart &gt; E:\MSLogs\diskpart.txt</span><br><span class="line">echo list vol | diskpart &gt;&gt; E:\MSLogs\diskpart.txt</span><br><span class="line">dir &#x2F;t:c &#x2F;a &#x2F;s &#x2F;c &#x2F;n D:\ &gt; E:\MSLogs\dir-systemdrive.log</span><br><span class="line">xcopy D:\Windows\System32\winevt\Logs\*.* E:\MSLogs\EventLogs\</span><br><span class="line">xcopy D:\Windows\inf\Setupapi*.log E:\MSLogs\SetupAPI\</span><br><span class="line">xcopy D:\Windows\Logs\CBS\*.* E:\MSLogs\CBS\</span><br><span class="line">xcopy D:\WINDOWS\system32\LogFiles\Srt\SrtTrail.txt E:\MSLogs\SrtTrail.txt</span><br><span class="line">xcopy &#x2F;h D:\pagefile.sys E:\MSLogs\pagefile.sys</span><br><span class="line">copy  D:\Windows\memory.dmp E:\MSLogs\MEMORY.dmp</span><br><span class="line">xcopy D:\Windows\Logs\WindowsUpdate E:\MSLogs\WindowsUpdate\</span><br><span class="line">xcopy D:\ProgramData\USOShared\Logs E:\MSLogs\USOShared\</span><br><span class="line">copy  D:\Windows\SoftwareDistribution\ReportingEvents.log E:\MSLogs\ReportingEvents.log</span><br><span class="line">xcopy D:\Windows\Logs\DISM E:\MSLogs\DISM\</span><br><span class="line">copy D:\Windows\System32\config\SYSTEM E:\MSLogs\SYSTEM</span><br><span class="line">copy D:\Windows\System32\config\SOFTWARE E:\MSLogs\SOFTWARE</span><br><span class="line">copy D:\Windows\System32\config\RegBack\SYSTEM E:\MSLogs\RegBackSYSTEM</span><br><span class="line">copy D:\Windows\System32\config\RegBack\SOFTWARE E:\MSLogs\RegBackSOFTWARE</span><br><span class="line">dism  &#x2F;image:D:\ &#x2F;get-packages &#x2F;ScratchDir:D:\ &gt;E:\MSLogs\Get-Packages.txt</span><br></pre></td></tr></table></figure>
-<p>※ 上記はシステム ドライブが D: で認識され、E ドライブ (外付け HDD や、USB フラッシュ ディスクなど) にコピーする例です。手順 2 の確認結果および外付けドライブが認識されたドライブによってドライブレターが環境によって異なりますので、環境に合わせて変更ください。<br>※ 実行に伴いエラーが発生した場合、一旦その内容は無視いただき採取できた資料をご提供ください。</p>
+<li><p>以下のコマンドを実行します。<br>これらのコマンドにより、ブート設定、ディスク情報、システム ファイル情報、イベントログ、Setup ログ、CBS ログ、起動ログ、Windows Update 関連ログ、DISM ログ、レジストリファイル、適用している更新プログラムの情報、ページファイル、メモリ ダンプが取得できます。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">bcdedit &#x2F;enum &gt; E:\MSLogs\bcdedit.txt</span><br><span class="line">bcdedit &#x2F;enum &#x2F;v &gt; E:\MSLogs\bcdedit-v.txt</span><br><span class="line">bcdedit &#x2F;enum all &gt; E:\MSLogs\bcdeditAll.txt</span><br><span class="line">bcdedit &#x2F;enum all &#x2F;v &gt; E:\MSLogs\bcdeditAll-v.txt</span><br><span class="line">echo list dis | diskpart &gt; E:\MSLogs\diskpart.txt</span><br><span class="line">echo list vol | diskpart &gt;&gt; E:\MSLogs\diskpart.txt</span><br><span class="line">dir &#x2F;t:c &#x2F;a &#x2F;s &#x2F;c &#x2F;n D:\ &gt; E:\MSLogs\dir-systemdrive.log</span><br><span class="line">xcopy D:\Windows\System32\winevt\Logs\*.* E:\MSLogs\EventLogs\</span><br><span class="line">xcopy D:\Windows\inf\Setupapi*.log E:\MSLogs\SetupAPI\</span><br><span class="line">xcopy D:\Windows\Logs\CBS\*.* E:\MSLogs\CBS\</span><br><span class="line">xcopy D:\WINDOWS\system32\LogFiles\Srt\SrtTrail.txt E:\MSLogs\SrtTrail.txt</span><br><span class="line">xcopy D:\Windows\Logs\WindowsUpdate E:\MSLogs\WindowsUpdate\</span><br><span class="line">xcopy D:\ProgramData\USOShared\Logs E:\MSLogs\USOShared\</span><br><span class="line">xcopy D:\Windows\Logs\DISM E:\MSLogs\DISM\</span><br><span class="line">copy D:\Windows\SoftwareDistribution\ReportingEvents.log E:\MSLogs\ReportingEvents.log</span><br><span class="line">copy D:\Windows\System32\config\SYSTEM E:\MSLogs\SYSTEM</span><br><span class="line">copy D:\Windows\System32\config\SOFTWARE E:\MSLogs\SOFTWARE</span><br><span class="line">copy D:\Windows\System32\config\RegBack\SYSTEM E:\MSLogs\RegBackSYSTEM</span><br><span class="line">copy D:\Windows\System32\config\RegBack\SOFTWARE E:\MSLogs\RegBackSOFTWARE</span><br><span class="line">dism &#x2F;image:D:\ &#x2F;get-packages &#x2F;ScratchDir:D:\ &#x2F;format:table &gt; E:\MSLogs\Get-Packages.txt</span><br><span class="line">注：pagefile.sys や MEMORY.dmp のパス設定を変更している場合は、パスを変更してください。以下はデフォルトのパス設定例になります。</span><br><span class="line">xcopy &#x2F;h D:\pagefile.sys E:\MSLogs\pagefile.sys</span><br><span class="line">copy D:\Windows\memory.dmp E:\MSLogs\MEMORY.dmp</span><br></pre></td></tr></table></figure>
+<p>※ 上記はシステム ドライブが D: で認識され、E ドライブ (外付け HDD や、USB フラッシュ ディスクなど) にコピーする例になります。手順 2 の確認結果および外付けドライブが認識されたドライブによってドライブレターが環境によって異なりますので、環境に合わせて変更ください。<br>※ コマンド実行に伴いエラーが発生した場合、一旦その内容は無視いただき採取できた資料をご提供ください。可能であればエラー画面のスクリーンショットをご提供ください。</p>
 </li>
 <li><p>ご採取いただきました資料を弊社にご提供ください。</p>
 <p>※ 上記の例の場合、E:\MSLogs に保存されますので、E:\MSLogs フォルダを圧縮いただき弊社に送付ください。</p>
+</li>
+</ol>
+<h2 id="OS-起動画面の例"><a href="#OS-起動画面の例" class="headerlink" title="OS 起動画面の例"></a>OS 起動画面の例</h2><ol>
+<li><p>なにも表示されていない黒い画面</p>
+<img src="no-boot/black.png" align="left">
+<br style="clear:left;">
+</li>
+<li><p>Logo と Progress Circle が表示されている画面 (Logo は、端末のメーカーが表示される場合があります。)</p>
+<img src="no-boot/LogoAndCircle.png" align="left">
+<br style="clear:left;">
+</li>
+<li><p>黒い背景に Progress Circle が表示されている画面</p>
+<img src="no-boot/circle.png" align="left">
+<br style="clear:left;">
+</li>
+<li><p>お待ちくださいと Progress Circle が表示されている画面</p>
+<img src="no-boot/wait.png" align="left">
+<br style="clear:left;">
+</li>
+<li><p>Blue Screen of Death (BSoD、ブルースクリーン)</p>
+<img src="no-boot/bsod.png" align="left">
+<br style="clear:left;">
+</li>
+<li><p>回復環境（OS の起動が複数回連続して失敗した後、回復環境で起動する場合があります。）</p>
+<img src="no-boot/re.png" align="left">
+<br style="clear:left;">
+
+
 </li>
 </ol>
 <h2 id="補足情報"><a href="#補足情報" class="headerlink" title="補足情報"></a>補足情報</h2><p>外付けの HDD やUSB などのフラッシュメモリを用いた現地での資料採取ができない場合には、リモートのネットワーク共有フォルダをコピー先に使用してデータを抽出してください。<br>回復環境は既定でネットワークが無効になっておりますので、この方法を用いる場合には、共有フォルダにコピーする前に、回復環境でコマンドプロンプトを起動したのち、以下のコマンドを実行しネットワークインターフェースを構成する必要があります。</p>
