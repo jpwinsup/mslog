@@ -145,7 +145,7 @@ function sidebar_toggle() {
   <h1 id="Disk2vhd-ツールを利用した-P2V-化"><a href="#Disk2vhd-ツールを利用した-P2V-化" class="headerlink" title="Disk2vhd ツールを利用した P2V 化"></a>Disk2vhd ツールを利用した P2V 化</h1><p>本記事はマイクロソフト社員によって公開されております。</p>
 <p>いつも弊社製品をご利用いただきまして誠にありがとうございます。Windows プラットフォーム サポートの栗木です。</p>
 <p>今回は、<a href="https://docs.microsoft.com/en-us/sysinternals/downloads/disk2vhd" target="_blank" rel="noopener">Disk2vhd ツール</a> を利用し、物理環境の物理ディスクから Hyper-V で使用できる仮想ディスクを作成する P2V 化についてご紹介いたします。仮想環境で実行することにより、ハードウェア要因の問題を切り分けられたり、問題を引き起こしている可能性のあるソフトウェアのアンインストールが容易になり、問題解決がスムーズに達成できる可能性がございます。</p>
-<p>Disk2vhd ツールは VSS に対応しているため、OS を起動させた状態で実行可能ではございますが、VSS に対応していないアプリケーションや実行時の負荷などを考慮すると、Windows PE/RE (プレインストール環境/回復環境)で実施いただいたほうが安全ため、本記事では Windows PE/RE での P2V 化の手順をご紹介いたします。</p>
+<p>Disk2vhd ツールは VSS に対応しているため、OS を起動させた状態で実行可能ではございますが、VSS に対応していないアプリケーションや実行時の負荷などを考慮すると、Windows PE/RE (プレインストール環境/回復環境)で実施いただいたほうが安全ため、本記事では Windows PE/RE での P2V 化の手順をご紹介いたします。回復環境が利用できない場合は、後述する <a href="#回復環境が利用できない環境での変換方法">回復環境が利用できない環境での変換方法</a> より仮想ディスクを作成してください。</p>
 <p>Windows プレインストール環境 (Windows PE)<br><a href="https://docs.microsoft.com/ja-jp/windows-hardware/manufacture/desktop/winpe-intro" target="_blank" rel="noopener">https://docs.microsoft.com/ja-jp/windows-hardware/manufacture/desktop/winpe-intro</a></p>
 <p>Windows 回復環境 (Windows RE)<br><a href="https://docs.microsoft.com/ja-jp/windows-hardware/manufacture/desktop/windows-recovery-environment--windows-re--technical-reference" target="_blank" rel="noopener">https://docs.microsoft.com/ja-jp/windows-hardware/manufacture/desktop/windows-recovery-environment--windows-re--technical-reference</a></p>
 <p>注意点:<br>本記事は検証目的として Disk2vhd による P2V 化手順をご案内しております。Disk2vhd ツールは Windows 標準ツールではございませんのでサポート内容については使用許諾をご確認いただきご理解いただいた上でご利用ください。</p>
@@ -173,7 +173,7 @@ function sidebar_toggle() {
 <h3 id="4-Disk2vhd-ツールで仮想ディスクを作成"><a href="#4-Disk2vhd-ツールで仮想ディスクを作成" class="headerlink" title="4. Disk2vhd ツールで仮想ディスクを作成"></a>4. Disk2vhd ツールで仮想ディスクを作成</h3><ol>
 <li><p>Windows PE/RE で、コマンド プロンプトを実行<br>Windows PE は、自動的にコマンド プロンプトが起動し、wpeinit の自動実行が完了するとプロンプトが戻ります。プロンプトが戻るまで、5～10 分程かかる場合がございます。<br>Windows RE では、トラブルシューティング -&gt; コマンド プロンプトを選択することにより、コマンドプロンプトを実行できます。</p>
 </li>
-<li><p>Disk2vhd ツールを実行し、設定を変更<br>※実行時には使用許諾が表示されますので、同意 (Agree) していただいた上でご利用ください。<br><br>・ “Use Volume Shadow Copy” のチェックを外します。<br>・ “VHD File name” にvhdx の保存先とファイル名を指定します。<br>・ 仮想ディスクに変換したいボリュームにチェックをつけます。<br><br>名前が、\\?\Volume から始まるボリュームがある場合は、必ずチェックをお願いします。上述いたしましたが、OS を通常起動した場合とドライブ レターが異なる場合がありますので <strong>Label</strong> を参考に必要なボリュームを選択してください。例えば、システム ディスクである C ドライブが D ドライブにアサインされていることがあります。<br>出力先にネットワークドライブを指定したい場合は、後述の <a href="#Windows-PE-PE-でネットワークドライブにドライブレターを割り当てる方法">ネットワークドライブにドライブレターを割り当てる方法</a> を参考に IP アドレスの設定とファイルサーバーへの接続を先に実行してください。</p>
+<li><p>Disk2vhd ツールを実行し、設定を変更<br>※実行時には使用許諾が表示されますので、同意 (Agree) していただいた上でご利用ください。<br><br>・ “Use Vhdx” のチェックをつけます。<br>・ “Use Volume Shadow Copy” のチェックを外します。<br>・ “VHD File name” にvhdx の保存先とファイル名を指定します。<br>・ 仮想ディスクに変換したいボリュームにチェックをつけます。<br><br>名前が、\\?\Volume から始まるボリュームがある場合は、必ずチェックをお願いします。上述いたしましたが、OS を通常起動した場合とドライブ レターが異なる場合がありますので <strong>Label</strong> を参考に必要なボリュームを選択してください。例えば、システム ディスクである C ドライブが D ドライブにアサインされていることがあります。<br>出力先にネットワークドライブを指定したい場合は、後述の <a href="#Windows-PE-PE-でネットワークドライブにドライブレターを割り当てる方法">ネットワークドライブにドライブレターを割り当てる方法</a> を参考に IP アドレスの設定とファイルサーバーへの接続を先に実行してください。</p>
 <img src="p2v/disk2vhd_pe.png" align="left">
 <br style="clear:left;"><br>
 </li>
@@ -211,6 +211,16 @@ function sidebar_toggle() {
 <li><p>ブート ファイルの作成<br>コマンド プロンプトで <code>bcdboot (Windows のドライブレター)\Windows /s (システム パーティションのドライブ レター):</code> でブート ファイルを作成します。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">X:\windows\system32&gt;bcdboot c:\Windows &#x2F;s e:</span><br><span class="line">Boot files successfully created.</span><br></pre></td></tr></table></figure>
 <p>これで作業は完了したので、<code>wpeutil shutdown</code> コマンドを実行してシステムをシャットダウンします。<br>ISO イメージをアンマウントし、Hyper-V 仮想マシンが起動できるか確認してください。</p>
+</li>
+</ol>
+<h2 id="回復環境が利用できない環境での変換方法"><a href="#回復環境が利用できない環境での変換方法" class="headerlink" title="回復環境が利用できない環境での変換方法"></a>回復環境が利用できない環境での変換方法</h2><ol>
+<li><p>以下の Web サイトから Disk2vhd ツールをダウンロードし、任意のパスに展開します。<br>Disk2vhd：<a href="https://docs.microsoft.com/en-us/sysinternals/downloads/disk2vhd" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/sysinternals/downloads/disk2vhd</a></p>
+</li>
+<li><p>disk2vhd64.exe を実行し、設定を変更<br>※実行時には使用許諾が表示されますので、同意 (Agree) していただいた上でご利用ください。<br><br>・ “Use Vhdx” のチェックをつけます。<br>・ “Use Volume Shadow Copy” のチェックをつけます。<br>・ “VHD File name” にvhdx の保存先とファイル名を指定します。<br>・ 仮想ディスクに変換したいボリュームにチェックをつけます。<br><br>名前が、\\?\Volume から始まるボリュームがある場合は、必ずチェックをお願いします。</p>
+<img src="p2v/disk2vhd_os.png" align="left">
+<br style="clear:left;"><br>
+</li>
+<li><p>Create をクリックして、仮想ディスクを作成<br>選択したボリュームが複数の物理ディスクにある場合は、複数の仮想ディスクが連番のファイル名で作成されます。<br>正常に完了しましたら、Close をクリックし、ツールを終了させます。</p>
 </li>
 </ol>
 <h2 id="Windows-PE-PE-でネットワークドライブにドライブレターを割り当てる方法"><a href="#Windows-PE-PE-でネットワークドライブにドライブレターを割り当てる方法" class="headerlink" title="Windows PE/PE でネットワークドライブにドライブレターを割り当てる方法"></a>Windows PE/PE でネットワークドライブにドライブレターを割り当てる方法</h2><p>ネットワークドライブに保存するためには、IP アドレスの設定を行った上で、接続を行います。ただし、システムに搭載されているネットワークインターフェースカード (NIC) が WinPE に含まれている標準ドライバーで認識できる必要がございます。認識されない場合は、個別にハードウェアベンダー様より提供されているドライバーを適用した状態で Windows PE メディアを作成してください。</p>
