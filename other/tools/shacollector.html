@@ -150,8 +150,71 @@ Last Update: 14th Sep 2022
 Developer:      Shohei Sadashima / Konan Morimoto / Koji Ishida / Norimasa Okawa / Jun Nakayamada / Takahiro Aizawa
 Email-Alias: shsadash / kojii / nookawa / junakaya / taaizawa</code></pre><h2 id="DESCRIPTION"><a href="#DESCRIPTION" class="headerlink" title="DESCRIPTION"></a>DESCRIPTION</h2><p>shacollector is a tool that makes it easy to collect data for problem solving which is included in trace logs (ETW),<br>performance logs (perfmon or xperf), event logs and a lot of status information related to SHA area (Storage, Cluster and Hyper-V).</p>
 <h2 id="What’s-New-in-this-Version-8-0"><a href="#What’s-New-in-this-Version-8-0" class="headerlink" title="What’s New in this Version 8.0"></a>What’s New in this Version 8.0</h2><ul>
-<li>add vhd trace option @Koji Ishida<h2 id="How-to-use-it"><a href="#How-to-use-it" class="headerlink" title="How to use it"></a>How to use it</h2>First, specify main options (trace, perf and support) and select sub option that specifies the information to collect.<br>Then, ‘trace’ and ‘perf’ can be specified with ‘start’ to start and ‘stop’ to stop log collection.<br>The ‘support’ option collects various status information and logs without specifying ‘start’ and ‘stop’.<br>By default, logs are saved in ‘c:\mslog’, but you can specify the output destination.</li>
+<li>add vhd trace option @Koji Ishida</li>
 </ul>
+<h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><p>Q. 資料採取時の負荷、および、ログサイズの目安を教えてほしい。</p>
+<blockquote>
+<p>A. スペックにも依存するため一概にお伝えすることができませんが、弊社内での確認結果 (参考値) を以下に記載します。<br>下記をもとに採取をご検討いただきますようお願い申し上げます。</p>
+<ol>
+<li><p>トレースログ</p>
+<ul>
+<li>CPU/メモリ負荷<ul>
+<li>実行前<ul>
+<li>CPU (プロセッサ数 2 ): 約 2 ~ 4 % 使用  </li>
+<li>メモリ(4 GB): 約 10 % 使用  </li>
+</ul>
+</li>
+<li>ログ採取時<ul>
+<li>CPU (プロセッサ数 2 ): ピークで約 10 ～ 15 %上昇 (平均 5 % 程度上昇)</li>
+<li>メモリ(4 GB): 約 3 % 上昇        </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ログサイズ : 約 3.6 GB　</li>
+</ul>
+</li>
+<li><p>サポート ログ (support all オプション)</p>
+<ul>
+<li>CPU/メモリ負荷<ul>
+<li>実行前<ul>
+<li>CPU (プロセッサ数 2 ): 約 2 ~ 4 % 使用</li>
+<li>メモリ(4 GB): 約 15 % 使用</li>
+</ul>
+</li>
+<li>ログ採取時<ul>
+<li>CPU (プロセッサ数 2 ): ピークで 約10 ～ 15 % 上昇 (平均 5 ％程度上昇）</li>
+<li>メモリ(4 GB): 約 4 % 上昇</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ログサイズ：約 4 GB　</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<p>Q. support all の取得時間について教えてほしい</p>
+<blockquote>
+<p>A. 大半のケースにおいては 1 時間以内で完了するものの、取得時間は環境に大きく依存するため、正確な時間をお伝えすることができません。</p>
+</blockquote>
+<p>Q. support all の取得の際、msinfo32 の取得に時間がかかる場合の回避策について教えてほしい</p>
+<blockquote>
+<p>A. support all ではなく、support nomsinfo オプションをご利用ください。<br>support nomsinfo オプションは msinfo32 の取得のみを省略しており、msinfo32 以外は support all と同じログを取得します。<br>shacollector.bat support nomsinfo &lt;保存先&gt;</p>
+</blockquote>
+<p>Q. support all 取得中に途中で終了したい場合はどうすればいいか教えてほしい</p>
+<blockquote>
+<p>A. support all を実行しているコマンドプロンプトで Ctrl + C を入力し、<br>”バッチ ジョブを終了しますか (Y/N)?” に Y で応答してください。<br>なお、msinfo 取得中に強制終了したい場合は、タスクマネージャーを開き、msinfo32.exe を強制終了してください。</p>
+</blockquote>
+<p>Q. support all の取得が完了したことを確認する方法を教えてほしい</p>
+<blockquote>
+<p>A. コマンドプロンプト上、”Start msinfo32 … done” まで記録されていれば、support all の最後まで取得が完了しています。</p>
+</blockquote>
+<p>Q. 資料採取時に一時ファイルは作成されますか？</p>
+<blockquote>
+<p>A. はい、support all オプションでイベントログを取得の際、以下のパスに一時ファイルが作成されるケースが報告されています。<br>  C:\Windows\ServiceProfiles\LocalService\AppDate\Local\Temp\<br>大きなイベントログが存在する場合、上記の一時ファイルの容量も大きくなるため、容量に余裕が無い場合には、support all の出力先として他のドライブを保存先として指定することをご検討ください。<br>shacollector.bat support all &lt;出力先&gt; </p>
+</blockquote>
+<h2 id="How-to-use-it"><a href="#How-to-use-it" class="headerlink" title="How to use it"></a>How to use it</h2><p>First, specify main options (trace, perf and support) and select sub option that specifies the information to collect.<br>Then, ‘trace’ and ‘perf’ can be specified with ‘start’ to start and ‘stop’ to stop log collection.<br>The ‘support’ option collects various status information and logs without specifying ‘start’ and ‘stop’.<br>By default, logs are saved in ‘c:\mslog’, but you can specify the output destination.</p>
 <h2 id="EXAMPLE"><a href="#EXAMPLE" class="headerlink" title="EXAMPLE"></a>EXAMPLE</h2><ul>
 <li><p>To collect trace log related I/O drivers (storport.sys, classpnp …).<br>And change the output folder to ‘d:\logs’.</p>
 <pre><code>shacollector.bat trace storage start d:\logs
