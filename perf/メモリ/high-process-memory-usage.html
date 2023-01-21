@@ -11,7 +11,7 @@
 
     <title>
         
-          Windows の資料採取に関する情報公開サイト
+          プロセスのメモリ使用量が多い事象の調査 - Windows の資料採取に関する情報公開サイト
         
     </title>
 
@@ -141,60 +141,74 @@ function sidebar_toggle() {
 
         </div>
         <div class="book-content">
-          <div class='book-archive'>
-  <!-- Title -->
-  
-    <h1>メモリ</h1>
-  
+          <div class="book-post">
+  <h1 id="物理メモリの使用率が高い事象の調査"><a href="#物理メモリの使用率が高い事象の調査" class="headerlink" title="物理メモリの使用率が高い事象の調査"></a>物理メモリの使用率が高い事象の調査</h1><p>本記事はマイクロソフト社員によって公開されております。</p>
+<p>いつも弊社製品をご利用いただきまして誠にありがとうございます。Windows プラットフォーム サポートの栗木です。<br>本記事では、プロセスのメモリ使用量が多い事象が発生した場合に採取いただきたい資料についてご紹介いたします。</p>
+<h2 id="資料採取の流れ"><a href="#資料採取の流れ" class="headerlink" title="資料採取の流れ"></a>資料採取の流れ</h2><ol>
+<li><a href="https://learn.microsoft.com/en-us/sysinternals/downloads/vmmap" target="_blank" rel="noopener">VMMap ツール</a> と <a href="https://jpwinsup.github.io/mslog/other/tools/shacollector.html">shacollector ツール</a> を資料採取対象のマシンの任意の場所にコピーし展開します。</li>
+<li>VMMap ツール を実行し、実行結果を保存します。</li>
+<li>shacollector ツールを利用してサポートログ情報を採取します。</li>
+</ol>
+<h2 id="ログ採取について"><a href="#ログ採取について" class="headerlink" title="ログ採取について"></a>ログ採取について</h2><ol>
+<li><p>以下の URL より VMMap.zip と shacollector.zip  をダウンロードおよび展開いただき、対象端末へ配置します。</p>
+<p>VMMap:<br><a href="https://download.sysinternals.com/files/VMMap.zip" target="_blank" rel="noopener">https://download.sysinternals.com/files/VMMap.zip</a><br>shacollector:<br><a href="https://jpwinsup.github.io/mslog/other/tools/shacollector/shacollector.zip">https://jpwinsup.github.io/mslog/other/tools/shacollector/shacollector.zip</a></p>
+<p>(注意)<br>これらのツールは機能の拡張などにより内容が変更されることがあります。<br>そのため、毎回上記のダウンロード先から取得していただき利用してください。</p>
+</li>
+<li><p>VMMap フォルダーにある VMMap64.exe を管理者権限で実行します。</p>
+<p>次のような画面が表示されるので調査対象であるメモリ使用量の多いプロセスを選択してください。</p>
+<img src="high-process-memory-usage/select.png" align="left">
+<br style="clear:left;">
+<br>
 
-  
-    <!-- Split post by year -->
-    
-    <!-- Split post by category -->
-    
-  
+<p>次のようなメモリ使用状況が表示されるまで少しお待ちください。</p>
+<img src="high-process-memory-usage/vmmap.png" align="left">
+<br style="clear:left;">
+<br>
 
-  
-    <div class="category">
-        <h2>メモリ</h2>
-        <ul class="archive-list-item">
-        
-            <li>
-              <a href="/mslog/perf/メモリ/high-physical-memory-usage.html">
-                物理メモリの使用率が高い事象の調査
-              </a>
-            </li>
-        
-            <li>
-              <a href="/mslog/perf/メモリ/high-process-memory-usage.html">
-                プロセスのメモリ使用量が多い事象の調査
-              </a>
-            </li>
-        
-            <li>
-              <a href="/mslog/perf/メモリ/high-memory-usage.html">
-                OS のメモリ使用量が増加する事象の調査
-              </a>
-            </li>
-        
-            <li>
-              <a href="/mslog/perf/メモリ/process-memory-leak.html">
-                プロセスのメモリーリークの調査に必要な資料
-              </a>
-            </li>
-        
-        </ul>
-    </div>
-  
+<p>表示されましたら左上の File から Save をクリックしていただきデータを mmp ファイルとして保存します。</p>
+<img src="high-process-memory-usage/save.png" align="left">
+<br style="clear:left;">
+<br>
 
-  
+<p>保存した mmp ファイルを圧縮の上、弊社までご提供ください。<br>(注意)<br>管理者権限でなくとも VMMap は、実行可能ですが、確認できるプロセスに制限があるため、管理者権限で実行してください。</p>
+</li>
+<li><p>管理者権限のコマンド プロンプトから配置した shacollector フォルダーへ移動後、以下のコマンドを実行し、サポート情報ログを採取します。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat support all C:\mslog</span><br></pre></td></tr></table></figure>
+<p>※ 出力先フォルダー名に C:\mslog 以外のフォルダーを指定することも可能です。</p>
+</li>
+<li><p>生成されましたサポート情報ログの出力先フォルダーを圧縮の上、弊社までご提供ください。</p>
+</li>
+</ol>
+<p>以上となります。<br>本ブログが少しでも皆様のお役に立てば幸いです。</p>
+<p>本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+
 </div>
+
+
+  <div class="book-comments">
+    
+
+
+
+
+  </div>
+
+
+
+<script src="/mslog/js/book-post.js"></script>
+
         </div>
       </div>
       <div class="column col-2 hide-lg">
         <div class="book-post-info">
   
     <div class="book-post-meta">
+  
+    <div class="link">
+      <a class="category-link" href="/mslog/categories/perf/">Perf</a> <a class="category-link" href="/mslog/categories/perf/%E3%83%A1%E3%83%A2%E3%83%AA/">メモリ</a>
+
+      
+    </div>
   
 </div>
   
