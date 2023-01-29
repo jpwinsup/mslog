@@ -11,7 +11,7 @@
 
     <title>
         
-          初期調査にご取得いただくログ情報 - Windows の資料採取に関する情報公開サイト
+          UWPアプリがログイン時にインストールされない事象の調査 - Windows の資料採取に関する情報公開サイト
         
     </title>
 
@@ -142,8 +142,8 @@ function sidebar_toggle() {
         </div>
         <div class="book-content">
           <div class="book-post">
-  <h1 id="初期調査にご取得いただくログ情報"><a href="#初期調査にご取得いただくログ情報" class="headerlink" title="初期調査にご取得いただくログ情報"></a>初期調査にご取得いただくログ情報</h1><p>本記事はマイクロソフト社員によって公開されております。</p>
-<p>こんにちは。 Windows Performance チームの栗木です。<br>UWP アプリ（設定、電卓、付箋、フォト等）に問題が発生し、弊社にお問い合わせいただく際に、事前に採取しておいたほうが良い資料についてご紹介させていただきます。</p>
+  <h1 id="UWPアプリがログイン時にインストールされない事象の調査"><a href="#UWPアプリがログイン時にインストールされない事象の調査" class="headerlink" title="UWPアプリがログイン時にインストールされない事象の調査"></a>UWPアプリがログイン時にインストールされない事象の調査</h1><p>本記事はマイクロソフト社員によって公開されております。</p>
+<p>こんにちは。 Windows Performance チームの栗木です。<br>本ブログでは、ユーザー ログイン時にUWP アプリ（設定、電卓、付箋、フォト等）が自動的にインストールされない事象が発生した場合に採取いただきたい資料についてご紹介いたします。</p>
 <h2 id="情報採取スクリプトファイルの取得について"><a href="#情報採取スクリプトファイルの取得について" class="headerlink" title="情報採取スクリプトファイルの取得について"></a>情報採取スクリプトファイルの取得について</h2><p>以下の URL より “TSSv2.zip” をダウンロードおよび展開いただき、対象端末へ配置します。</p>
 <p>   ダウンロード先: <a href="http://aka.ms/getTSSv2" target="_blank" rel="noopener">http://aka.ms/getTSSv2</a></p>
 <p>   (注意)<br>   TSSv2 は機能の拡張などにより内容が変更されることがあります。<br>   そのため、毎回上記のダウンロード先から TSSv2 を取得いただき使用してください。</p>
@@ -154,8 +154,22 @@ function sidebar_toggle() {
 <li><p>TSSv2を展開したパスに移動します。</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd <span class="string">"C:\path\to\TSSv2"</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>以下のコマンドより、資料採取を実行します。</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\TSSv2.ps1 <span class="literal">-CollectLog</span> UEX_AppX <span class="literal">-BasicLog</span> <span class="literal">-LogFolderPath</span> <span class="string">"C:\MS_DATA"</span></span><br></pre></td></tr></table></figure>
+<li><p>以下のコマンドを実行し、次回 OS 起動時に自動的に資料採取を開始するように設定します。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\TSSv2.ps1 <span class="literal">-StartAutoLogger</span> <span class="literal">-UEX_Logon</span> <span class="literal">-UEX_AppX</span> <span class="literal">-UEX_COM</span> <span class="literal">-UEX_Shell</span> <span class="literal">-WPR</span> General <span class="literal">-Procmon</span> <span class="literal">-BasicLog</span> <span class="literal">-LogFolderPath</span> <span class="string">"C:\MS_DATA"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>以下のコマンドより、PCを再起動します。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Restart-Computer</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>再起動後、事象が発生しているユーザーでログインします。</p>
+</li>
+<li><p>管理者としてPowerShell を実行し、以下のコマンドより、再度スクリプトの実行を許可します。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set-ExecutionPolicy</span> <span class="literal">-ExecutionPolicy</span> RemoteSigned <span class="literal">-Scope</span> <span class="keyword">Process</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>TSSv2を展開したパスに移動します。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd <span class="string">"C:\path\to\TSSv2"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>以下のコマンドより、資料採取を終了します。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\TSSv2.ps1 <span class="literal">-Stop</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>C:\MS_DATAフォルダに資料(Zipファイル)が出力されておりますので、弊社へご提供ください。</p>
 </li>
