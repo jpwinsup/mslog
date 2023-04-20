@@ -157,7 +157,7 @@ function sidebar_toggle() {
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd <span class="string">"C:\path\to\TSSv2"</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>以下のコマンドを実行し、資料採取を開始します。</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\TSSv2.ps1 <span class="literal">-Start</span> <span class="literal">-UEX_AppX</span> <span class="literal">-UEX_COM</span> <span class="literal">-Procmon</span> <span class="literal">-BasicLog</span> <span class="literal">-PSR</span> <span class="literal">-LogFolderPath</span> <span class="string">"C:\MS_DATA"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\TSSv2.ps1 <span class="literal">-Start</span> <span class="literal">-PRF_AppX</span> <span class="literal">-PRF_COM</span> <span class="literal">-Procmon</span> <span class="literal">-BasicLog</span> <span class="literal">-PSR</span> <span class="literal">-LogFolderPath</span> <span class="string">"C:\MS_DATA"</span></span><br></pre></td></tr></table></figure>
 <p>画面の指示にそって進み、以下のメッセージが出力されるまで待ちます。<br>Reproduce the issue and enter ‘Y’ key AFTER finishing the repro (with window focus here) [Y]?<br><br></p>
 </li>
 <li><p>管理者権限ではない PowerShell を別に起動し、該当のアプリを以下のコマンドにより、インストールします。</p>
