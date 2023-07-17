@@ -144,45 +144,76 @@ function sidebar_toggle() {
           <div class="book-post">
   <h1 id="ディスクに対する-I-O-負荷が高い事象の調査"><a href="#ディスクに対する-I-O-負荷が高い事象の調査" class="headerlink" title="ディスクに対する I/O 負荷が高い事象の調査"></a>ディスクに対する I/O 負荷が高い事象の調査</h1><p>本記事はマイクロソフト社員によって公開されております。</p>
 <p>こんにちは。 Windows Performance チームの飯田です。<br>本ブログでは、 システムでディスク I/O 負荷が高い事象が発生した場合に採取いただきたい資料についてご紹介いたします。<br>システムで ディスク I/O 負荷が高い事象が発生した場合は、事象の再現性があるかどうかで採取いただきたい資料が変わりますので、以下、順にご説明いたします。</p>
-<h2 id="A-事象の再現性がある場合"><a href="#A-事象の再現性がある場合" class="headerlink" title="[A] 事象の再現性がある場合"></a>[A] 事象の再現性がある場合</h2><h3 id="資料採取の流れ"><a href="#資料採取の流れ" class="headerlink" title="資料採取の流れ"></a>資料採取の流れ</h3><ol>
-<li>採取用スクリプト (shacollector.zip) を資料採取対象のマシンの任意の場所にコピーし展開します。</li>
+<h2 id="A-事象の再現方法が確立している場合"><a href="#A-事象の再現方法が確立している場合" class="headerlink" title="[A] 事象の再現方法が確立している場合"></a>[A] 事象の再現方法が確立している場合</h2><h3 id="資料採取の流れ"><a href="#資料採取の流れ" class="headerlink" title="資料採取の流れ"></a>資料採取の流れ</h3><ol>
+<li>採取用スクリプト (TSS.zip) を資料採取対象のマシンの任意の場所にコピーし展開します。</li>
 <li>トレース情報の採取を開始します。</li>
 <li>事象が再現したことを確認します。</li>
 <li>トレース情報の採取を停止します。</li>
-<li>採取用スクリプトを利用してサポートログ情報を採取します。</li>
 </ol>
 <p>※ 比較調査のため、現象発生時のパターンと正常時のパターンの 2 パターンの採取をお願いいたします。</p>
 <h3 id="ログ採取について"><a href="#ログ採取について" class="headerlink" title="ログ採取について"></a>ログ採取について</h3><ol>
-<li><p>以下の URL より “shacollector.zip” をダウンロードおよび展開いただき、対象端末へ配置します。</p>
-<p>ダウンロード先:<br><a href="https://jpwinsup.github.io/mslog/other/tools/shacollector/shacollector.zip">https://jpwinsup.github.io/mslog/other/tools/shacollector/shacollector.zip</a></p>
-<p><a href="https://jpwinsup.github.io/mslog/other/tools/shacollector.html">shacollector の使い方についてはこちら</a></p>
-<p>(注意)<br>shacollector は機能の拡張などにより内容が変更されることがあります。<br>そのため、毎回上記のダウンロード先から shacollector を取得いただき利用してください。</p>
-</li>
-<li><p>管理者権限のコマンド プロンプトから配置した “shacollector” フォルダーへ移動して、以下のコマンドを実行の上、トレース ログの採取を実施します。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat perf disk start size 10240 C:\mslog</span><br><span class="line">shacollector.bat perf perfmon start C:\mslog interval 0:0:1 days 3</span><br></pre></td></tr></table></figure>
-<p>※ 最大ファイルサイズは 10240 以外のサイズ (MB) を size オプションに指定することも可能です。</p>
-<p>※ 出力先フォルダー名に C:\mslog 以外のフォルダーを指定することも可能です。</p>
-<p>※ サンプリング インターバールは 1 秒を指定していますが interval の指定で変更することも可能です。</p>
-<p>※ パフォーマンスログを保持する日数は、3 以外の日数を days オプションに指定することも可能です。</p>
-</li>
-<li><p>事象を再現させます。<br>※ 事象の発生条件が不明で、事象発生後に資料採取を開始している場合は、5分待機した後に次の手順に進んでください。</p>
-</li>
-<li><p>shacollector を以下のように実行してログの採取を停止します。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat perf disk stop</span><br><span class="line">shacollector.bat perf perfmon stop</span><br></pre></td></tr></table></figure></li>
-<li><p>以下のコマンドを管理者権限のコマンド プロンプトから実行して、サポート情報ログを採取します。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shacollector.bat support all C:\mslog</span><br></pre></td></tr></table></figure>
-<p>※ 出力先フォルダー名に C:\mslog 以外のフォルダーを指定することも可能です。</p>
-</li>
-<li><p>生成されましたログの出力先フォルダーを圧縮の上、弊社までご提供ください。</p>
+<li><p><a href="http://aka.ms/getTSS" target="_blank" rel="noopener">http://aka.ms/getTSS</a> から “TSS.zip” をダウンロードし、調査対象端末の任意のフォルダに解凍します。</p>
+<p>注意：TSS は機能の拡張などにより内容が変更されることがあるため、毎回上記のダウンロード先から取得してください。</p>
 </li>
 </ol>
-<h2 id="B-事象の再現性がない場合"><a href="#B-事象の再現性がない場合" class="headerlink" title="[B] 事象の再現性がない場合"></a>[B] 事象の再現性がない場合</h2><p>事象に再現性がない場合は、原因の特定が困難になります。システム構成やログから過去の類似事例を調査いたしますので、以下の Web ページ記載の資料採取をお願いします。</p>
-<p><a href="https://jpwinsup.github.io/mslog/other/log/initiallog.html">初期調査にご取得いただくログ情報</a></p>
-<h2 id="その他連携いただきたい情報"><a href="#その他連携いただきたい情報" class="headerlink" title="その他連携いただきたい情報"></a>その他連携いただきたい情報</h2><ol>
+<ol start="2">
+<li><p>Windows PowerShell (powershell.exe) を<strong>管理者として実行</strong>し、<strong>cd</strong>コマンドで解凍した TSS フォルダーへ移動後、以下のコマンドでログ取得を開始します。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set-ExecutionPolicy</span> bypass <span class="literal">-Scope</span> <span class="keyword">Process</span> <span class="literal">-Force</span></span><br><span class="line">.\TSS.ps1 <span class="literal">-PerfMon</span> ALL <span class="literal">-PerfIntervalSec</span> <span class="number">1</span> <span class="literal">-Xperf</span> Disk <span class="literal">-XPerfMaxFileMB</span> <span class="number">16384</span> <span class="literal">-Basiclog</span> <span class="literal">-StartNoWait</span> <span class="literal">-LogFolderPath</span> C:\MS_DATA</span><br></pre></td></tr></table></figure>
+<p>※ 最大ファイルサイズは 16384 以外のサイズ (MB) を XPerfMaxFileMB オプションに指定することも可能です。</p>
+<p>※ 出力先フォルダー名に C:\MS_DATA 以外のフォルダーを指定することも可能です。</p>
+</li>
+</ol>
+<ol start="3">
+<li>事象を再現させます。</li>
+</ol>
+<ol start="4">
+<li>TSS を以下のように実行してログの採取を停止します。<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\TSS.ps1 <span class="literal">-Stop</span></span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+<ol start="5">
+<li>指定したログの出力先フォルダーに zip ファイルが作成されておりますので、そのファイルを弊社までご提供ください。</li>
+</ol>
+<h3 id="その他連携いただきたい情報"><a href="#その他連携いただきたい情報" class="headerlink" title="その他連携いただきたい情報"></a>その他連携いただきたい情報</h3><ol>
 <li>事象発生日時をお伝えください。</li>
 <li>ディスクの I/O 負荷を捉えたパフォーマンスに関するログがお手元にございましたら、合わせてご提供ください。</li>
 </ol>
-<p>以上となります。<br>本ブログが少しでも皆様のお役に立てば幸いです。</p>
+<h2 id="B-不定期に事象が再現する場合"><a href="#B-不定期に事象が再現する場合" class="headerlink" title="[B] 不定期に事象が再現する場合"></a>[B] 不定期に事象が再現する場合</h2><h3 id="資料採取の流れ-1"><a href="#資料採取の流れ-1" class="headerlink" title="資料採取の流れ"></a>資料採取の流れ</h3><ol>
+<li>採取用スクリプト (TSS.zip) を資料採取対象のマシンの任意の場所にコピーし展開します。</li>
+<li>事象が再現したことを確認します。</li>
+<li>トレース情報の採取を開始します。</li>
+<li>ディスクに対する I/Oが高い状態で 10 分間待機します。</li>
+<li>トレース情報の採取を停止します。</li>
+</ol>
+<p>※ 比較調査のため、現象発生時のパターンと正常時のパターンの 2 パターンの採取をお願いいたします。</p>
+<ol>
+<li><p><a href="http://aka.ms/getTSS" target="_blank" rel="noopener">http://aka.ms/getTSS</a> から “TSS.zip” をダウンロードし、調査対象端末の任意のフォルダに解凍します。</p>
+<p>注意：TSS は機能の拡張などにより内容が変更されることがあるため、毎回上記のダウンロード先から取得してください。</p>
+</li>
+<li><p>ディスクに対する I/O 高負荷を確認します。</p>
+</li>
+<li><p>Windows PowerShell (powershell.exe) を<strong>管理者として実行</strong>し、<strong>cd</strong>コマンドで解凍した TSS フォルダーへ移動後、以下のコマンドでログ取得を開始します。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set-ExecutionPolicy</span> bypass <span class="literal">-Scope</span> <span class="keyword">Process</span> <span class="literal">-Force</span></span><br><span class="line">.\TSS.ps1 <span class="literal">-PerfMon</span> ALL <span class="literal">-PerfIntervalSec</span> <span class="number">1</span> <span class="literal">-Xperf</span> Disk <span class="literal">-XPerfMaxFileMB</span> <span class="number">16384</span> <span class="literal">-Basiclog</span> <span class="literal">-StartNoWait</span> <span class="literal">-LogFolderPath</span> C:\MS_DATA</span><br></pre></td></tr></table></figure>
+<p>※ 最大ファイルサイズは 16384 以外のサイズ (MB) を XPerfMaxFileMB オプションに指定することも可能です。</p>
+<p>※ 出力先フォルダー名に C:\MS_DATA 以外のフォルダーを指定することも可能です。</p>
+</li>
+</ol>
+<ol start="4">
+<li>ディスクに対する I/O 負荷が高い事象で 10 分間待機します。(10分より早く ディスクに対する I/O 高負荷が解消したら、その時点で次の手順へ進んでください)</li>
+</ol>
+<ol start="5">
+<li>TSS を以下のように実行してログの採取を停止します。<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\TSS.ps1 <span class="literal">-Stop</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="その他連携いただきたい情報-1"><a href="#その他連携いただきたい情報-1" class="headerlink" title="その他連携いただきたい情報"></a>その他連携いただきたい情報</h3><ol>
+<li>事象発生日時をお伝えください。</li>
+<li>ディスクの I/O 負荷を捉えたパフォーマンスに関するログがお手元にございましたら、合わせてご提供ください。</li>
+</ol>
+<h2 id="C-事象の再現性がない場合"><a href="#C-事象の再現性がない場合" class="headerlink" title="[C] 事象の再現性がない場合"></a>[C] 事象の再現性がない場合</h2><p>事象に再現性がない場合は、原因の特定が困難になります。システム構成やログから過去の類似事例を調査いたしますので、以下の Web ページ記載の資料採取をお願いします。</p>
+<p><a href="https://jpwinsup.github.io/mslog/other/log/initiallog.html">初期調査にご取得いただくログ情報</a></p>
+<p>以上となります。本ブログが少しでも皆様のお役に立てば幸いです。</p>
 <p>本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
 
 </div>

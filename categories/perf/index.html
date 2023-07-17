@@ -156,12 +156,24 @@ function sidebar_toggle() {
 
   
     <div class="category">
-        <h2>起動不可</h2>
+        <h2>遅延</h2>
         <ul class="archive-list-item">
         
             <li>
-              <a href="/mslog/perf/起動不可/no-boot.html">
-                OS が起動しない事象が発生した場合の調査
+              <a href="/mslog/perf/遅延/os-delay.html">
+                OS の動作が遅延してしまう事象の調査
+              </a>
+            </li>
+        
+            <li>
+              <a href="/mslog/perf/遅延/boot-delay.html">
+                OS の起動が遅延してしまう事象の調査
+              </a>
+            </li>
+        
+            <li>
+              <a href="/mslog/perf/遅延/shutdown-delay.html">
+                OS のシャットダウンが遅延してしまう事象の調査
               </a>
             </li>
         
@@ -171,6 +183,12 @@ function sidebar_toggle() {
     <div class="category">
         <h2>メモリ</h2>
         <ul class="archive-list-item">
+        
+            <li>
+              <a href="/mslog/perf/メモリ/high-memory-usage.html">
+                OS のメモリ使用量が増加する事象の調査
+              </a>
+            </li>
         
             <li>
               <a href="/mslog/perf/メモリ/high-physical-memory-usage.html">
@@ -185,14 +203,47 @@ function sidebar_toggle() {
             </li>
         
             <li>
-              <a href="/mslog/perf/メモリ/high-memory-usage.html">
-                OS のメモリ使用量が増加する事象の調査
+              <a href="/mslog/perf/メモリ/process-memory-leak.html">
+                プロセスのメモリーリークの調査に必要な資料
               </a>
             </li>
         
+        </ul>
+    </div>
+  
+    <div class="category">
+        <h2>ディスク</h2>
+        <ul class="archive-list-item">
+        
             <li>
-              <a href="/mslog/perf/メモリ/process-memory-leak.html">
-                プロセスのメモリーリークの調査に必要な資料
+              <a href="/mslog/perf/ディスク/disk-io-high.html">
+                ディスクに対する I/O 負荷が高い事象の調査
+              </a>
+            </li>
+        
+        </ul>
+    </div>
+  
+    <div class="category">
+        <h2>CPU</h2>
+        <ul class="archive-list-item">
+        
+            <li>
+              <a href="/mslog/perf/cpu/cpu-high-load.html">
+                CPU 高負荷な事象の調査
+              </a>
+            </li>
+        
+        </ul>
+    </div>
+  
+    <div class="category">
+        <h2>起動不可</h2>
+        <ul class="archive-list-item">
+        
+            <li>
+              <a href="/mslog/perf/起動不可/no-boot.html">
+                OS が起動しない事象が発生した場合の調査
               </a>
             </li>
         
@@ -269,57 +320,6 @@ function sidebar_toggle() {
             <li>
               <a href="/mslog/perf/ハングアップ/os-hang-onpre-server.html">
                 OS がハングアップしてしまう事象の調査 (物理環境/サーバーOS)
-              </a>
-            </li>
-        
-        </ul>
-    </div>
-  
-    <div class="category">
-        <h2>遅延</h2>
-        <ul class="archive-list-item">
-        
-            <li>
-              <a href="/mslog/perf/遅延/shutdown-delay.html">
-                OS のシャットダウンが遅延してしまう事象の調査
-              </a>
-            </li>
-        
-            <li>
-              <a href="/mslog/perf/遅延/boot-delay.html">
-                OS の起動が遅延してしまう事象の調査
-              </a>
-            </li>
-        
-            <li>
-              <a href="/mslog/perf/遅延/os-delay.html">
-                OS の動作が遅延してしまう事象の調査
-              </a>
-            </li>
-        
-        </ul>
-    </div>
-  
-    <div class="category">
-        <h2>ディスク</h2>
-        <ul class="archive-list-item">
-        
-            <li>
-              <a href="/mslog/perf/ディスク/disk-io-high.html">
-                ディスクに対する I/O 負荷が高い事象の調査
-              </a>
-            </li>
-        
-        </ul>
-    </div>
-  
-    <div class="category">
-        <h2>CPU</h2>
-        <ul class="archive-list-item">
-        
-            <li>
-              <a href="/mslog/perf/cpu/cpu-high-load.html">
-                CPU 高負荷な事象の調査
               </a>
             </li>
         
