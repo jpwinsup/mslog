@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OS がハングアップしてしまう事象の調査 (仮想環境/サーバー OS/クライアント OS)</title>
+    
+    <link rel="icon" href="https://jpwinsup.github.io/mslog/images/favicon.ico" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+        integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    <link rel="stylesheet" href="https://jpwinsup.github.io/mslog/css/style.min.6dfb5280fd5c3bdf4b0ef814a028c2d285a9e1833ad9bb2dce4762ca9f6291e8.css" integrity="sha256-bftSgP1cO99LDvgUoCjC0oWp4YM62bstzkdiyp9ikeg=" crossorigin="anonymous">
+    
+</head>
+
+<body>
+    <header class="header header-color">
+    <nav class="navbar">
+        <ul class="navbar-list">
+            
+            <li class="navbar-item"><a href="https://jpwinsup.github.io/mslog/"><img class="navbar-logo" src="https://jpwinsup.github.io/mslog/images/Microsoft-logo_rgb_c-wht.webp"
+                        alt="Microsoft Logo"></a></li>
+            <li class="navbar-item"><a class="navbar-item-style" href="https://jpwinsup.github.io/mslog/">ホーム</a></li>
+            <li class="navbar-item"><a class="navbar-item-style" href="https://cssjpn.github.io/"
+                    target="_blank">サポート情報</a>
+            </li>
+            <li class="navbar-item"><a class="navbar-item-style" href="https://jpwinsup.github.io/blog/"
+                    target="_blank">サポート ブログ</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+    
+<div class="page-wrapper">
+    <div class="sidebar sidebar-color">
+    <h3 class="sidebar-header sidebar-header-style">カテゴリー</h3>
+    
+    
+    <ul class="sidebar-list">
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/directory-service/">Directory Service</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/hyper-v/">Hyper-V</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/cluster/">クラスター</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/storage/">ストレージ</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-accent-style"
+                href="https://jpwinsup.github.io/mslog/performance/">パフォーマンス</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/networking/">ネットワーク一般</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/wireless/">ワイヤレス ネットワーク</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/file-services/">ファイル サービス</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/uwp/">UWP</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/rdp/">リモートアクセス</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/core/">コア</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/other/">その他</a></li>
+        
+    </ul>
+    
+</div>
+    <div class="content content-color">
+        <article>
+            <h1>OS がハングアップしてしまう事象の調査 (仮想環境/サーバー OS/クライアント OS)</h1>
+            <h3>目次</h3>
+            
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#a-事象の再現性がある場合">[A] 事象の再現性がある場合</a>
+      <ul>
+        <li><a href="#hyper-v-ホストが-windows-server-20082008-r22012-の場合">Hyper-V ホストが Windows Server 2008/2008 R2/2012 の場合</a></li>
+        <li><a href="#hyper-v-ホストが-windows-server-2012-r2-以降の場合">Hyper-V ホストが Windows Server 2012 R2 以降の場合</a></li>
+        <li><a href="#azure-仮想マシンの場合">Azure 仮想マシンの場合</a></li>
+      </ul>
+    </li>
+    <li><a href="#b-事象の再現性がない場合">[B] 事象の再現性がない場合</a></li>
+  </ul>
+</nav>
+            <p>本記事はマイクロソフト社員によって公開されております。</p>
+<p>いつも弊社製品をご利用いただきまして誠にありがとうございます。
+Windows プラットフォーム サポートの石田です。
+弊社にお問い合わせいただく際に、事前に採取しておいたほうが良い内容についてご紹介させていただきます。
+今回のテーマは「仮想化環境のサーバーおよびクライアント OS がハングアップする事象が発生した際に、採取すべき資料について」です。</p>
+<ul>
+<li>採取いただく資料
+<ul>
+<li>メモリダンプファイル (%systemroot%\Memory.dmp) ※ 再現性がある場合</li>
+<li>サポートログ情報 (shaclollector の support オプションのログ) ※ Hyper-V 環境の場合は、Hyper-V ホスト OS と対象のゲスト OS の両方で採取</li>
+</ul>
+</li>
+</ul>
+<h2 id="a-事象の再現性がある場合">[A] 事象の再現性がある場合</h2>
+<ol>
+<li>
+<p>完全メモリーダンプの設定を行います。</p>
+<ol>
+<li>
+<p>PageFile の大きさを 物理メモリ + 400 Mbyte 以上の大きさに設定します。</p>
+<p>例えば、物理メモリ 8192 MB（ 8 GB）を搭載の場合は、初期サイズに 8592 MB 以上を設定します。</p>
+<p>a) [スタート] - [コンピュータ] を右クリックし [プロパティ(R)] をクリックします。</p>
+<p>b) [システムの詳細設定(A)] をクリックします。</p>
+<p>c) [詳細設定] タブの [パフォーマンス] にある [設定(S)] をクリックします。</p>
+<p>d) [詳細設定] タブの [仮想メモリ] の項目にある [変更(C)] ボタンをクリックします。</p>
+<p>e) この画面にて、[すべてのドライブのページング ファイルのサイズを自動的に管理する(A)] オプションを外します。</p>
+<p>f) システムボリューム (通常 C: ) をクリックします。</p>
+<p>g) [カスタムサイズ] にチェックを付け、[初期サイズ]、[最大サイズ] の両方に物理メモリ + 400 Mbyte 以上の値を入力します。</p>
+<p>h) その後 [設定] ボタンをクリックし設定を反映させ [OK] ボタンをクリックします。</p>
+<p>i) &ldquo;変更結果はコンピューターを再起動しなければ有効になりません。&rdquo; というポップアップが表示されますので、[OK] ボタンをクリックします。</p>
+<p>j) &ldquo;パフォーマンス オプション&rdquo; のウィンドウも [OK] ボタンにて閉じます。</p>
+</li>
+<li>
+<p>完全メモリ ダンプ (Full Dump) を取得するためのレジストリを設定します。</p>
+</li>
+</ol>
+<p>a) コマンドプロンプトを管理者モードで起動します。</p>
+<p>b) レジストリの設定を行うため、以下のコマンドを実行します。</p>
+<pre><code>  ※ reg コマンドは１行ずつ正確に実行してください。
+  ```
+  reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl /v CrashDumpEnabled /t REG_DWORD /d 0x1
+  ```
+  ※ Windows Server 2008/2008 R2　および Windows 7 の場合は NMICrashDump も設定します。
+  ```
+  reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl /v NMICrashDump /t REG_DWORD /d 0x1
+  ```
+  ※ クライアント OS の場合は AlwaysKeepMemoryDump も設定します。
+  ```
+  reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CrashControl /v AlwaysKeepMemoryDump /t REG_DWORD /d 0x1
+  ```
+</code></pre>
+<ol>
+<li>OS を再起動し、上記設定変更を反映させます。</li>
+</ol>
+</li>
+<li>
+<p>現象が発生しましたら、仮想化基盤側よりダンプスイッチ (NMI) を対象の仮想マシンへ送信します。</p>
+<p>※ ダンプスイッチ (NMI) の送信方法はご利用の仮想化基盤製品ごとに異なりますので、Hyper-V および Azure 環境以外をご利用の場合は仮想マシンに対して NMI を送信する方法について対象の製品サポートベンダー様へご確認の上、ご実施をお願いいたします。</p>
+<p>以下、Hyper-V ホストおよび Azure 環境での操作方法となります。</p>
+<h3 id="hyper-v-ホストが-windows-server-20082008-r22012-の場合">Hyper-V ホストが Windows Server 2008/2008 R2/2012 の場合</h3>
+<ol>
+<li>
+<p>以下 URL の DumpVM.txt をコピーし拡張子を vbs へ変更し、ホスト OS の適当な場所 (デスクトップなど) に保存します。</p>
+<p><a href="https://jpwinsup.github.io/blog/2021/02/15/Performance/Hang_BSOD/ForcingSystemCrash/DumpVM.txt"  target="_blank" >https://jpwinsup.github.io/blog/2021/02/15/Performance/Hang_BSOD/ForcingSystemCrash/DumpVM.txt</a></p>
+</li>
+<li>
+<p>Hyper-V ホスト OS にて管理者権限のあるコマンドプロンプトを起動し以下のスクリプトを実行します。</p>
+<p>※ DumpVM.vbs をデスクトップに保存した場合の実行例</p>
+<div class="highlight"><pre tabindex="0" style="color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>cd %userprofile%\desktop
+</span></span><span style="display:flex;"><span>cscript DumpVM.vbs  -v &#34;ダンプを取得する仮想マシン名&#34;
+</span></span></code></pre></div><p>※ 仮想マシン名にスペースを含む場合はダブル コーテーションで括ってください。DumpVM.vbs 実施後、ゲスト OS はブルースクリーンになり、完全メモリーダンプが取得されます。</p>
+</li>
+<li>
+<p>ゲスト OS でブルースクリーンが発生し再起動しましたら、完全メモリー (既定: C:Windows\MEMORY.DMP) をご取得ください。</p>
+</li>
+</ol>
+<h3 id="hyper-v-ホストが-windows-server-2012-r2-以降の場合">Hyper-V ホストが Windows Server 2012 R2 以降の場合</h3>
+<ol>
+<li>Hyper-V ホスト OS にて管理者権限のある PowerShell プロンプトを起動し、以下のように Debug-VM コマンドレットを実行し NMI をゲスト OS へ送信します。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>Debug-VM -name &#34;ダンプを取得する仮想マシン名&#34; -InjectNonMaskableInterrupt -Confirm:$false -Force
+</span></span></code></pre></div><ol>
+<li>ゲスト OS でブルースクリーンが発生し再起動しましたら、完全メモリー (既定: C:Windows\MEMORY.DMP) をご取得ください。</li>
+</ol>
+<h3 id="azure-仮想マシンの場合">Azure 仮想マシンの場合</h3>
+<ol>
+<li>以下の公開情報をご参考に完全メモリーダンプを採取します。</li>
+</ol>
+<p>Azure VM (Windows) で完全メモリ ダンプを採取する方法
+<a href="https://blogs.technet.microsoft.com/jpaztech/2018/08/27/how_to_get_a_complete_memory_dump/"  target="_blank" >https://blogs.technet.microsoft.com/jpaztech/2018/08/27/how_to_get_a_complete_memory_dump/</a></p>
+</li>
+<li>
+<p>再起動しましたら、以下の URL より &ldquo;shacollector.zip&rdquo; をダウンロードおよび展開いただき、対象端末へ配置します。</p>
+<p>※ Hyper-V 環境の場合は、Hyper-V ホスト OS と対象のゲスト OS の両方に対して以下の同様の手順で採取します。</p>
+<p>ダウンロード先:
+<a href="https://jpwinsup.github.io/mslog/other/tools/shacollector.zip" >shacollector.zip</a></p>
+<p><a href="https://jpwinsup.github.io/mslog/other/tools/shacollector.html"  target="_blank" >shacollector の使い方についてはこちら</a></p>
+<p>(注意)
+shacollector は機能の拡張などにより内容が変更されることがあります。
+そのため、毎回上記のダウンロード先から shacollector を取得いただき利用してください。</p>
+</li>
+<li>
+<p>管理者権限のコマンドプロンプトから配置した &ldquo;shacollector&rdquo; フォルダーへ移動して、以下のコマンドを実行の上、サポート情報ログの採取を実施します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>shacollector.bat support all C:\mslog
+</span></span></code></pre></div><p>※ 出力先フォルダー名に C:\mslog 以外のフォルダーを指定することも可能です。</p>
+</li>
+<li>
+<p>作成された完全メモリーダンプファイル (MEMORY.DMP) と生成されましたログの出力先フォルダーを圧縮の上、弊社までご提供ください。</p>
+</li>
+</ol>
+<h2 id="b-事象の再現性がない場合">[B] 事象の再現性がない場合</h2>
+<p>事象に再現性がない場合は、原因の特定が困難になります。システム構成やログから過去の類似事例を調査いたしますので、以下の Web ページ記載の資料採取をお願いします。</p>
+<p><a href="https://jpwinsup.github.io/mslog/other/log/initiallog.html"  target="_blank" >初期調査にご取得いただくログ情報</a></p>
+<p>本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+
+        </article>
+    </div>
+</div>
+
+
+    <footer class="footer footer-color">
+    <div class="footer-container">
+        
+        <img class="footer-logo" src="https://jpwinsup.github.io/mslog/images/Microsoft-logo_rgb_c-wht.webp" alt="Microsoft Logo">
+        <nav class="footer-links">
+            <ul class="footer-links-list">
+                <li class="footer-links-item"><a class="footer-links-style" href="https://jpwinsup.github.io/mslog/">ホーム</a></li>
+                <li class="footer-links-item"><a class="footer-links-style" href="https://cssjpn.github.io/"
+                        target="_blank">サポート情報</a></li>
+                <li class="footer-links-item"><a class="footer-links-style" href="https://jpwinsup.github.io/blog/"
+                        target="_blank">サポート ブログ</a></li>
+            </ul>
+        </nav>
+    </div>
+    <p class="footer-copy footer-copy-style">© 2023 Microsoft Japan Windows サポート チーム</p>
+</footer>
+
+</body>
+
+</html>

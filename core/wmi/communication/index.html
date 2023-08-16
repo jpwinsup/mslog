@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WMI を経由したリモート サーバーとの通信で問題が発生した場合</title>
+    
+    <link rel="icon" href="https://jpwinsup.github.io/mslog/images/favicon.ico" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+        integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    <link rel="stylesheet" href="https://jpwinsup.github.io/mslog/css/style.min.6dfb5280fd5c3bdf4b0ef814a028c2d285a9e1833ad9bb2dce4762ca9f6291e8.css" integrity="sha256-bftSgP1cO99LDvgUoCjC0oWp4YM62bstzkdiyp9ikeg=" crossorigin="anonymous">
+    
+</head>
+
+<body>
+    <header class="header header-color">
+    <nav class="navbar">
+        <ul class="navbar-list">
+            
+            <li class="navbar-item"><a href="https://jpwinsup.github.io/mslog/"><img class="navbar-logo" src="https://jpwinsup.github.io/mslog/images/Microsoft-logo_rgb_c-wht.webp"
+                        alt="Microsoft Logo"></a></li>
+            <li class="navbar-item"><a class="navbar-item-style" href="https://jpwinsup.github.io/mslog/">ホーム</a></li>
+            <li class="navbar-item"><a class="navbar-item-style" href="https://cssjpn.github.io/"
+                    target="_blank">サポート情報</a>
+            </li>
+            <li class="navbar-item"><a class="navbar-item-style" href="https://jpwinsup.github.io/blog/"
+                    target="_blank">サポート ブログ</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+    
+<div class="page-wrapper">
+    <div class="sidebar sidebar-color">
+    <h3 class="sidebar-header sidebar-header-style">カテゴリー</h3>
+    
+    
+    <ul class="sidebar-list">
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/directory-service/">Directory Service</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/hyper-v/">Hyper-V</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/cluster/">クラスター</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/storage/">ストレージ</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/performance/">パフォーマンス</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/networking/">ネットワーク一般</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/wireless/">ワイヤレス ネットワーク</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/file-services/">ファイル サービス</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/uwp/">UWP</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/rdp/">リモートアクセス</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-accent-style"
+                href="https://jpwinsup.github.io/mslog/core/">コア</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/other/">その他</a></li>
+        
+    </ul>
+    
+</div>
+    <div class="content content-color">
+        <article>
+            <h1>WMI を経由したリモート サーバーとの通信で問題が発生した場合</h1>
+            <h3>目次</h3>
+            
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#情報採取スクリプトファイルの取得について">情報採取スクリプトファイルの取得について</a>
+      <ul>
+        <li><a href="#注意">注意</a></li>
+      </ul>
+    </li>
+    <li><a href="#資料採取手順">資料採取手順</a>
+      <ul>
+        <li><a href="#手順-1-から-手順-5-はクライアントとリモート-サーバーの両方で実施した後に手順-6-を実施">手順 1 から 手順 5 はクライアントとリモート サーバーの両方で実施した後に手順 6 を実施</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+            <h2 id="情報採取スクリプトファイルの取得について">情報採取スクリプトファイルの取得について</h2>
+<p>以下の URL より &ldquo;TSS.zip&rdquo; をダウンロードおよび展開いただき、対象端末へ配置します。</p>
+<p>ダウンロード先: <a href="https://aka.ms/getTSS"  target="_blank" >https://aka.ms/getTSS</a></p>
+<h3 id="注意">注意</h3>
+<p>TSS (Trouble Shooting Script) は、機能の拡張などにより内容が変更されることがあります。
+そのため毎回上記のダウンロード先から &ldquo;TSS.zip&rdquo; をダウンロードいただき使用してください。
+また、上記のダウンロード先にアクセスできない場合は、以下のサイトに記載されているダウンロード先からダウンロードして使用してください。   <br>
+<a href="https://learn.microsoft.com/en-us/troubleshoot/windows-client/windows-troubleshooters/introduction-to-troubleshootingscript-toolset-tss"  target="_blank" >https://learn.microsoft.com/en-us/troubleshoot/windows-client/windows-troubleshooters/introduction-to-troubleshootingscript-toolset-tss</a></p>
+<h2 id="資料採取手順">資料採取手順</h2>
+<h3 id="手順-1-から-手順-5-はクライアントとリモート-サーバーの両方で実施した後に手順-6-を実施">手順 1 から 手順 5 はクライアントとリモート サーバーの両方で実施した後に手順 6 を実施</h3>
+<ol>
+<li>
+<p>管理者として PowerShell を実行し、以下のコマンドより、スクリプトの実行を許可します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope <span style="color:#ff7b72">Process</span>
+</span></span></code></pre></div><h5 id="-クライアントとリモート-サーバーの両方で実施">※ クライアントとリモート サーバーの両方で実施</h5>
+</li>
+<li>
+<p>&ldquo;TSS.zip&rdquo; を展開したパスに移動します。(例では C:\TSS)</p>
+<div class="highlight"><pre tabindex="0" style="color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>cd <span style="color:#a5d6ff">&#34;C:\TSS&#34;</span>
+</span></span></code></pre></div><h5 id="-クライアントとリモート-サーバーの両方で実施-1">※ クライアントとリモート サーバーの両方で実施</h5>
+</li>
+<li>
+<p>以下のコマンドより、資料採取を実行します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>ipconfig /flushdns
+</span></span><span style="display:flex;"><span>nbtstat /r
+</span></span><span style="display:flex;"><span>.\TSS.<span style="color:#79c0ff">ps1</span> -Start -PSR -Video -Procmon -Netsh -UEX_Auth -UEX_Logon -UEX_COM -UEX_WMI -BasicLog
+</span></span></code></pre></div><h5 id="-クライアントとリモート-サーバーの両方で実施-2">※ クライアントとリモート サーバーの両方で実施</h5>
+</li>
+<li>
+<p>使用許諾の確認 (End User License Agreement) のメッセージが表示された場合は、ご一読いただき同意いただける場合は [Accept] をクリックし、画面キャプチャーの取得に関する警告メッセージが表示されたら、[Y] を入力します。</p>
+</li>
+<li>
+<p>以下のメッセージが表示されたら PowerShell のプロンプトは操作せず手順 6 を実施します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Reproduce the issue and enter <span style="color:#a5d6ff">&#39;Y&#39;</span> key AFTER finishing the repro (with window focus here) [<span style="color:#79c0ff;font-weight:bold">Y</span>]?
+</span></span></code></pre></div><h5 id="-クライアントとリモート-サーバーの両方で実施-3">※ クライアントとリモート サーバーの両方で実施</h5>
+</li>
+<li>
+<p>問題が発生する手順を実施します。</p>
+</li>
+<li>
+<p>手順 5 の PowerShell に戻り [Y] を入力します。</p>
+<h5 id="-クライアントとリモート-サーバーの両方で実施-4">※ クライアントとリモート サーバーの両方で実施</h5>
+</li>
+<li>
+<p>C:\MS_DATA に TSS_&lt;コンピューター名&gt;<em>&lt;日付&gt;.&lt;時間&gt;</em>.zip が生成されるため、弊社のエンジニアから案内されたサイトにアップロードします。</p>
+<h5 id="-クライアントとリモート-サーバーの両方で実施-5">※ クライアントとリモート サーバーの両方で実施</h5>
+</li>
+</ol>
+
+        </article>
+    </div>
+</div>
+
+
+    <footer class="footer footer-color">
+    <div class="footer-container">
+        
+        <img class="footer-logo" src="https://jpwinsup.github.io/mslog/images/Microsoft-logo_rgb_c-wht.webp" alt="Microsoft Logo">
+        <nav class="footer-links">
+            <ul class="footer-links-list">
+                <li class="footer-links-item"><a class="footer-links-style" href="https://jpwinsup.github.io/mslog/">ホーム</a></li>
+                <li class="footer-links-item"><a class="footer-links-style" href="https://cssjpn.github.io/"
+                        target="_blank">サポート情報</a></li>
+                <li class="footer-links-item"><a class="footer-links-style" href="https://jpwinsup.github.io/blog/"
+                        target="_blank">サポート ブログ</a></li>
+            </ul>
+        </nav>
+    </div>
+    <p class="footer-copy footer-copy-style">© 2023 Microsoft Japan Windows サポート チーム</p>
+</footer>
+
+</body>
+
+</html>

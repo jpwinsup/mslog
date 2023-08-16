@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shacollector について</title>
+    
+    <link rel="icon" href="https://jpwinsup.github.io/mslog/images/favicon.ico" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+        integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    
+    <link rel="stylesheet" href="https://jpwinsup.github.io/mslog/css/style.min.6dfb5280fd5c3bdf4b0ef814a028c2d285a9e1833ad9bb2dce4762ca9f6291e8.css" integrity="sha256-bftSgP1cO99LDvgUoCjC0oWp4YM62bstzkdiyp9ikeg=" crossorigin="anonymous">
+    
+</head>
+
+<body>
+    <header class="header header-color">
+    <nav class="navbar">
+        <ul class="navbar-list">
+            
+            <li class="navbar-item"><a href="https://jpwinsup.github.io/mslog/"><img class="navbar-logo" src="https://jpwinsup.github.io/mslog/images/Microsoft-logo_rgb_c-wht.webp"
+                        alt="Microsoft Logo"></a></li>
+            <li class="navbar-item"><a class="navbar-item-style" href="https://jpwinsup.github.io/mslog/">ホーム</a></li>
+            <li class="navbar-item"><a class="navbar-item-style" href="https://cssjpn.github.io/"
+                    target="_blank">サポート情報</a>
+            </li>
+            <li class="navbar-item"><a class="navbar-item-style" href="https://jpwinsup.github.io/blog/"
+                    target="_blank">サポート ブログ</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+    
+<div class="page-wrapper">
+    <div class="sidebar sidebar-color">
+    <h3 class="sidebar-header sidebar-header-style">カテゴリー</h3>
+    
+    
+    <ul class="sidebar-list">
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/directory-service/">Directory Service</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/hyper-v/">Hyper-V</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/cluster/">クラスター</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/storage/">ストレージ</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/performance/">パフォーマンス</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/networking/">ネットワーク一般</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/wireless/">ワイヤレス ネットワーク</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/file-services/">ファイル サービス</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/uwp/">UWP</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/rdp/">リモートアクセス</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-style"
+                href="https://jpwinsup.github.io/mslog/core/">コア</a></li>
+        
+        
+        <li class="sidebar-list-item sidebar-list-item-style"><a
+                class="sidebar-list-link-accent-style"
+                href="https://jpwinsup.github.io/mslog/other/">その他</a></li>
+        
+    </ul>
+    
+</div>
+    <div class="content content-color">
+        <article>
+            <h1>shacollector について</h1>
+            <h3>目次</h3>
+            
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#description">DESCRIPTION</a></li>
+    <li><a href="#whats-new-in-this-version-80">What&rsquo;s New in this Version 8.0</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#how-to-use-it">How to use it</a></li>
+    <li><a href="#example">EXAMPLE</a></li>
+    <li><a href="#usage">Usage</a>
+      <ul>
+        <li><a href="#available-trace-option">available trace option:</a></li>
+        <li><a href="#available-performance-option">available performance option:</a></li>
+        <li><a href="#available-support-option">available support option:</a></li>
+        <li><a href="#update-history">Update History:</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+            <pre><code>Script Name: shacollector.bat
+Purpose:     collect support information logs related to SHA Area. 
+Version:     8.0
+Last Update: 14th Sep 2022
+
+Developer:      Shohei Sadashima / Konan Morimoto / Koji Ishida / Norimasa Okawa / Jun Nakayamada / Takahiro Aizawa
+Email-Alias: shsadash / kojii / nookawa / junakaya / taaizawa
+</code></pre>
+<h2 id="description">DESCRIPTION</h2>
+<p>shacollector is a tool that makes it easy to collect data for problem solving which is included in trace logs (ETW),
+performance logs (perfmon or xperf), event logs and a lot of status information related to SHA area (Storage, Cluster and Hyper-V).</p>
+<h2 id="whats-new-in-this-version-80">What&rsquo;s New in this Version 8.0</h2>
+<ul>
+<li>add vhd trace option @Koji Ishida</li>
+</ul>
+<h2 id="faq">FAQ</h2>
+<p>Q. 資料採取時の負荷、および、ログサイズの目安を教えてほしい。</p>
+<blockquote>
+<p>A. スペックにも依存するため一概にお伝えすることができませんが、弊社内での確認結果 (参考値) を以下に記載します。<br>
+下記をもとに採取をご検討いただきますようお願い申し上げます。</p>
+<ol>
+<li>
+<p>トレースログ</p>
+<ul>
+<li>CPU/メモリ負荷
+<ul>
+<li>実行前
+<ul>
+<li>CPU (プロセッサ数 2 ): 約 2 ~ 4 % 使用</li>
+<li>メモリ(4 GB): 約 10 % 使用</li>
+</ul>
+</li>
+<li>ログ採取時
+<ul>
+<li>CPU (プロセッサ数 2 ): ピークで約 10 ～ 15 %上昇 (平均 5 % 程度上昇)</li>
+<li>メモリ(4 GB): 約 3 % 上昇</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ログサイズ : 約 3.6 GB　</li>
+</ul>
+</li>
+<li>
+<p>サポート ログ (support all オプション)</p>
+<ul>
+<li>CPU/メモリ負荷
+<ul>
+<li>実行前
+<ul>
+<li>CPU (プロセッサ数 2 ): 約 2 ~ 4 % 使用</li>
+<li>メモリ(4 GB): 約 15 % 使用</li>
+</ul>
+</li>
+<li>ログ採取時
+<ul>
+<li>CPU (プロセッサ数 2 ): ピークで 約10 ～ 15 % 上昇 (平均 5 ％程度上昇）</li>
+<li>メモリ(4 GB): 約 4 % 上昇</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ログサイズ：約 4 GB　</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<p>Q. support all の取得時間について教えてほしい</p>
+<blockquote>
+<p>A. 大半のケースにおいては 1 時間以内で完了するものの、取得時間は環境に大きく依存するため、正確な時間をお伝えすることができません。</p>
+</blockquote>
+<p>Q. support all の取得の際、msinfo32 の取得に時間がかかる場合の回避策について教えてほしい</p>
+<blockquote>
+<p>A. support all ではなく、support nomsinfo オプションをご利用ください。<br>
+support nomsinfo オプションは msinfo32 の取得のみを省略しており、msinfo32 以外は support all と同じログを取得します。<br>
+shacollector.bat support nomsinfo &lt;保存先&gt;</p>
+</blockquote>
+<p>Q. support all 取得中に途中で終了したい場合はどうすればいいか教えてほしい</p>
+<blockquote>
+<p>A. support all を実行しているコマンドプロンプトで Ctrl + C を入力し、<br>
+”バッチ ジョブを終了しますか (Y/N)?” に Y で応答してください。<br>
+なお、msinfo 取得中に強制終了したい場合は、タスクマネージャーを開き、msinfo32.exe を強制終了してください。</p>
+</blockquote>
+<p>Q. support all の取得が完了したことを確認する方法を教えてほしい</p>
+<blockquote>
+<p>A. コマンドプロンプト上、&ldquo;Start msinfo32 &hellip; done&rdquo; まで記録されていれば、support all の最後まで取得が完了しています。</p>
+</blockquote>
+<p>Q. 資料採取時に一時ファイルは作成されますか？</p>
+<blockquote>
+<p>A. はい、support all オプションでイベントログを取得の際、以下のパスに一時ファイルが作成されるケースが報告されています。<br>
+C:\Windows\ServiceProfiles\LocalService\AppDate\Local\Temp\<br>
+大きなイベントログが存在する場合、上記の一時ファイルの容量も大きくなるため、容量に余裕が無い場合には、support all の出力先として他のドライブを保存先として指定することをご検討ください。<br>
+shacollector.bat support all &lt;出力先&gt;</p>
+</blockquote>
+<h2 id="how-to-use-it">How to use it</h2>
+<p>First, specify main options (trace, perf and support) and select sub option that specifies the information to collect.
+Then, &rsquo;trace&rsquo; and &lsquo;perf&rsquo; can be specified with &lsquo;start&rsquo; to start and &lsquo;stop&rsquo; to stop log collection.
+The &lsquo;support&rsquo; option collects various status information and logs without specifying &lsquo;start&rsquo; and &lsquo;stop&rsquo;.
+By default, logs are saved in &lsquo;c:\mslog&rsquo;, but you can specify the output destination.</p>
+<h2 id="example">EXAMPLE</h2>
+<ul>
+<li>
+<p>To collect trace log related I/O drivers (storport.sys, classpnp &hellip;).
+And change the output folder to &rsquo;d:\logs&rsquo;.</p>
+<pre><code>shacollector.bat trace storage start d:\logs
+shacollector.bat trace storage stop
+</code></pre>
+</li>
+<li>
+<p>To specify log file size in MB. default size is 4096 MB.</p>
+<pre><code>shacollector.bat trace storage start size 1024 d:\logs
+shacollector.bat trace storage stop
+</code></pre>
+</li>
+<li>
+<p>To collect multiple trace logs (ex. storport and vss). The log files are saved in &lsquo;c:\mslog&rsquo; as the default.</p>
+<pre><code>shacollector.bat trace storport start
+shacollector.bat trace vss start
+shacollector.bat trace storport stop
+shacollector.bat trace vss stop
+</code></pre>
+</li>
+<li>
+<p>To collect trace log (ex. storport) at OS startup.</p>
+<pre><code>shacollector.bat trace storport boot
+&lt;restart OS&gt;
+shacollector.bat trace storport stop
+shacollector.bat trace storport delete
+</code></pre>
+</li>
+<li>
+<p>To collect performance monitor log. The sample interval is 15sec as the default but it can be change.</p>
+<pre><code>shacollector.bat perf perfmon start
+shacollector.bat perf perfmon stop
+</code></pre>
+</li>
+<li>
+<p>To collect performance monitor log at 1 sec as sample interval. And change the output folder to &rsquo;d:\logs&rsquo;.</p>
+<pre><code>shacollector.bat perf perfmon start d:\logs interval 0:0:1
+shacollector.bat perf perfmon stop
+</code></pre>
+</li>
+<li>
+<p>To collect performance monitor log at 1 sec as sample interval. And change the output folder to &rsquo;d:\logs&rsquo; And to specify 7 days as retention days (default 3 days).</p>
+<pre><code>shacollector.bat perf perfmon start d:\logs interval 0:0:1 days 7
+shacollector.bat perf perfmon stop
+</code></pre>
+</li>
+<li>
+<p>To collect xperf log for investigating the cpu load. And change the output folder to &rsquo;d:\logs&rsquo;.</p>
+<pre><code>shacollector.bat perf cpu start d:\logs
+shacollector.bat perf cpu stop
+</code></pre>
+</li>
+<li>
+<p>To specify log file size 4096 MB. default size is 8192 MB.</p>
+<pre><code>shacollector.bat perf cpu start size 4096 d:\logs
+shacollector.bat perf cpu stop
+</code></pre>
+</li>
+<li>
+<p>To collect xperf log for investigating the memory exhaustion. The log files are saved in &lsquo;c:\mslog&rsquo; as the default.</p>
+<pre><code>shacollector.bat perf memory start
+shacollector.bat perf memory stop
+</code></pre>
+</li>
+<li>
+<p>To collect xperf log for investigating the I/O load. The log files are saved in &lsquo;c:\mslog&rsquo; as the default.</p>
+<pre><code>shacollector.bat perf disk start
+shacollector.bat perf disk stop
+</code></pre>
+</li>
+<li>
+<p>To collect all relevant support information logs such as event logs, registry, dik and network configuration and so on. And change the output folder to &rsquo;d:\logs&rsquo;.</p>
+<pre><code>shacollector.bat support all d:\logs
+</code></pre>
+</li>
+<li>
+<p>To collect all relevant support information logs without msinfo32. And change the output folder to &rsquo;d:\logs&rsquo;.</p>
+<pre><code>shacollector.bat support nomsinfo d:\logs
+</code></pre>
+</li>
+<li>
+<p>To collect specific support information logs (disk, network and event logs).</p>
+<pre><code>shacollector.bat support disk
+shacollector.bat support network
+shacollector.bat support eventlog
+</code></pre>
+</li>
+</ul>
+<h2 id="usage">Usage</h2>
+<pre><code>shacollector.bat trace [trace option] start size [Maximum log file size in MB (default 4096 MB)] [output folder (default c:\mslog)]
+shacollector.bat trace [trace option] stop
+shacollector.bat trace [trace option] boot size [Maximum log file size in MB (default 4096 MB)] [output folder (default c:\mslog)]
+shacollector.bat trace [trace option] delete
+
+shacollector.bat perf perfmon start [output folder (default c:\mslog)] interval [sample interval [hh:mm:ss] (ex. 00:00:15) default 15sec] days [retention days (default 3 days)]
+shacollector.bat perf cpu start size [Maximum log file size in MB (default 8192 MB)] [output folder (default c:\mslog)]
+shacollector.bat perf cpu stop
+shacollector.bat perf memory start size [Maximum log file size in MB (default 8192 MB)] [output folder (default c:\mslog)] tag &quot;POOL TAG (ex. FMfn)&quot;
+shacollector.bat perf memory stop
+shacollector.bat perf disk start size [Maximum log file size in MB (default 8192 MB)] [output folder (default c:\mslog)]
+shacollector.bat perf disk stop
+shacollector.bat perf delay start size [Maximum log file size in MB (default 8192 MB)] [output folder (default c:\mslog)]
+shacollector.bat perf delay stop
+shacollector.bat perf heap start pid &quot;Process ID (ex. 1234)&quot; enable
+shacollector.bat perf heap start [output folder (default c:\mslog)] pid &quot;Process ID (ex. 1234)&quot; snap
+shacollector.bat perf heap stop
+shacollector.bat perf boot start [output folder (default c:\mslog)] 
+shacollector.bat perf boot stop
+shacollector.bat support all [output folder (default c:\mslog)]
+shacollector.bat support basic [output folder (default c:\mslog)]
+shacollector.bat support [supportlog option] [output folder (default c:\mslog)]
+shacollector.bat support nomsinfo [output folder (default c:\mslog)]
+</code></pre>
+<h3 id="available-trace-option">available trace option:</h3>
+<pre><code>  storage   collecting storage drivers trace. (ex storport.sys, classpnp.sys ...)
+  storport  collecting storport driver trace.
+  ntfs      collecting NTFS driver trace.
+  usb       collecting USB drivers trace.
+  pnp       collecting Plug and Play drivers trace.
+  com       collecting COM/COM+ services trace.
+  vds       collecting VDS services trace. (Windows Server 2012 or later)
+  vss       collecting VSS services trace. (Windows Server 2008 R2 or later)
+  wsb       collecting Windows Server Backup modules trace. (Windows Server 2008 R2 or later)
+  cdrom     collecting CD/DVD modules trace.
+  ata       collecting ATAPort drivers trace.
+  fsrm      collecting FSRM drivers trace.
+  dedup     collecting Dedup drivers trace. (Windows Server 2012 or later)
+  nfs       collecting NFS services trace.
+  network   collecting Network driver trace.
+  iscsi     collecting iSCSI driver trace.
+  csv       collecting CSV drivers trace.
+  wmi       collecting WMI services trace.
+  rpc       collecting RPC services trace.
+  hyper-v   collecting Hyper-V modules trace.
+  cluster   collecting Failover Clustering trace (included netft trace).
+  space     collecting Storage Space trace.
+  storagereplica     collecting Storage Replica trace.
+  msdtc     collecting MSDTC trace.
+  fltmgr    collecting Filter Manager trace.
+  packet    collecting Network Packet Capture. (Windows Server 2008 R2 or later)
+  procmon   collecting Process Monitor log of Sysinternals.
+  psr       collecting Problems Steps Recorder log. (maxlogsize is 10MB)
+  refs      collecting ReFS drivers trace.
+  storsvc   collecting Storage Sensor Service trace.
+  vhd       collecting VHD trace.
+</code></pre>
+<h3 id="available-performance-option">available performance option:</h3>
+<pre><code>  perfmon   collecting Performance Monitor log. default sample interval is 15sec. default retention term is 3 days.
+  cpu       collecting CPU perf logs with Xperf.
+  memory    collecting Memory perf logs with Xperf.
+  disk      collecting Disk perf logs with Xperf.
+  delay     collecting Delay perf logs with Xperf.
+  heap      collectiong Heap performance log with rdrleakdiag.
+</code></pre>
+<h3 id="available-support-option">available support option:</h3>
+<pre><code>  all             collecting all support logs.
+     included cluster, disk, diskshadow, driverinfo, eventlog, fltmc, fsrm, handle, hyper-v, iscsi, network, nfs, registry, storagereplica, system, setup, taskscheduler, vss
+  basic           collecting basic support logs.
+     included disk, driverinfo, eventlog, fltmc, network, system, vss
+  cluster         collecting cluster information logs.
+  disk            collecting disk information logs.
+  diskshadow      collecting diskshadow information logs.
+  driverinfo      collecting driver information logs.
+  drive-space     collecting drive space information logs.
+  eventlog        collecting eventlog information logs.
+  fltmc           collecting filter driver information logs.
+  fsrm            collecting fsrm information logs.
+  handle          collecting file handle information.
+  hyper-v         collecting hyper-v information logs.
+  iscsi           collecting iscsi information logs.
+  network         collecting network information logs.
+  nfs             collecting nfs information logs.
+  registry        collecting registry information logs.
+  storagereplica  collecting Storage Replica information logs.
+  system          collecting system information logs.
+  system-nomsinfo collecting system information logs without msinfo32.
+  taskscheduler   collecting task scheduler information logs.
+  virtualfc       collecting virtual fc information.
+  vss             collecting vss information logs.
+  setup           collecting setup information logs.
+  fsi             collecting file system information logs.
+  crash           generate blue screen of death (BSOD).
+  nomsinfo        collecting all support logs without msinfo32.
+</code></pre>
+<h3 id="update-history">Update History:</h3>
+<pre><code>2018/07/30 v1.0 making @Koji Ishida.
+2018/09/21 v1.1 add WinRM event log @Koji Ishida.
+2018/11/12 v1.2 add Hyper-V trace @Koji Ishida.
+2018/11/15 v1.3 add Storage Space trace @Koji Ishida.
+2018/11/19 v1.4 add S2D and Network information @Koji Ishida.
+2018/12/25 v1.5 add setup logs @Koji Ishida
+2019/01/17 v1.6 add mpclaim output @Koji Ishida
+2019/02/18 v1.7 add nfs and storage replica configuration @Koji Ishida
+2019/03/27 v1.8 add Windows Firewall info in Network @Koji Ishida
+2019/03/29 v1.9 add packet capture for boot mode @Koji Ishida
+2019/03/29 v2.0 add diskshadow and autmount log @Koji Ishida
+2019/04/15 v2.1 add get VMQ config @Koji Ishida
+2019/05/27 v2.2 add FailoverClustering-Manager trace and Hyper-V information @Koji Ishida
+2019/05/31 v2.3 implement to check admin authority. @Koji Ishida
+2019/06/04 v2.4 add NFS infomation and iSCSI information @Koji Ishida
+2019/07/03 v2.5 implement to change output folder @Koji Ishida
+2019/07/09 v2.6 fix a bug @Koji Ishida
+2019/09/13 v2.7 implement to get all application and service log files @Koji Ishida
+2019/09/14 v2.8 implement showvminfo for 2008 R2/2012 of Hyper-V @Koji Ishida
+2019/09/15 v2.9 implement procmon/perfmon/xperf @Koji Ishida
+2019/09/20 v3.0 implement dir/du/fsutil/chkdsk/defrag @Jun Nakayamada
+2019/10/01 v3.1 change vmms and vmwp trace log size 64MB to 1GB.
+2019/10/04 v3.2 fix a bug @Jun Nakayamada
+2019/10/10 v3.3 add VSS logs to drive space information logs
+2019/10/16 v3.4 fix a bug for perfmon and disable collecting diskshadow @Koji Ishida
+2019/10/17 v3.5 add crash, handle and netft option @Koji Ishida
+2019/11/01 v3.5 modify vss trace flag to 0x00000fff @Koji Ishida
+2019/11/09 v3.6 modify hyper-v trace and xperf stop behavior @Koji Ishida
+2019/11/10 v3.7 implement to get eventlog files with csv type. modify pefmon/procmon. implement get-virtualfc @Koji Ishida
+2020/01/07 v4.0 new implementation @Koji Ishida
+2020/01/16 v4.1 fix a bug for perfmon @Koji Ishida
+2020/01/17 v4.2 add setup logs for support @Koji Ishida
+2020/01/22 v4.3 add RDMA Activity counter for perfmon @Koji Ishida
+2020/01/23 v4.4 add S2D information for support @Koji Ishida
+2020/01/24 v4.5 add restart task for perfmon @Koji Ishida
+2020/01/24 v4.6 fix the wrong path was specified for perfmon @Koji Ishida
+2020/02/05 v4.7 modify perfmon counter list for perfmon @Koji Ishida
+2020/03/10 v4.8 modify cdrom trace @Koji Ishida
+2020/03/23 v4.9 add support fsi option @Norimasa Okawa
+2020/03/25 v5.0 add perf heap option @Norimasa Okawa
+2020/04/16 v5.1 modify support fsi option @Koji Ishida
+2020/05/07 v5.2 add ntfs trace @Koji Ishida
+2020/05/11 v5.3 implement to avoid double execution of perfmon @Koji Ishida
+2020/05/18 v5.4 implement to avoid double execution of trace @Koji Ishida
+2020/06/18 v5.5 add virtual-fc trace in hyper-v trace @Koji Ishida
+2020/06/29 v5.6 add MSDTC trace @Shohei Sadashima
+2020/07/10 v5.7 fix the data collector set name of hyper-v trace. @Koji Ishida
+2020/07/28 v5.8 add collecting core information for support log  and supports nfs version 4 tracing. @Koji Ishida
+2020/09/01 v5.9 add get-ClusterNode command result @Konan Morimoto
+2020/09/25 v6.0 transport the shacollector version info to the option.txt. @Shohei Sadashima
+2021/03/05 v6.1 implement size option/add filter manager trace/implement boot option for procmon/implement days option for perfmon. @Koji Ishida
+2021/03/24 v6.2 implement add refs driver trace. @Koji Ishida
+2021/04/05 v6.3 fix the handling of perf memory. @Koji Ishida
+2021/04/07 v6.4 modify drive-space logs @Jun Nakayamada, Add folder option to MSDTC trace @Shohei Sadashima 
+2021/05/07 v6.5 add Get-ClusterSharedVolumeState to the cluster infomation. @Shohei Sadashima
+2021/05/28 v6.6 add Get-ClusterQuorum to the cluster infomation. @Shohei Sadashima / Update Tools @Koji Ishida
+2021/07/01 v6.7 add Dynamic Memory for Hyper-V trace @Koji Ishida
+2021/07/07 v6.8 implement EULA @Koji Ishida
+2021/11/17 v6.9 add registry information in perf/disk and add time/data information in option.txt. @Yudong Ma 
+2022/01/20 v7.0 add boot trace for performance log option@Takahiro Aizawa / implement to handle powershell execution policy @Koji Ishida
+2022/01/21 v7.1 add partmgr GUID for storage.bat / add network info for network support log. @Koji Ishida
+2022/02/22 v7.2 refresh WPT files. @Koji Ishida
+2022/02/22 v7.3 delete Zone.Identifier stream. @Koji Ishidaq
+2022/02/25 v7.4 add storsvc trace (Storage Sensor). @Koji Ishida
+2022/03/03 v7.5 add Get-MpPreference in system.bat of support. @Norimasa Okawa
+2022/05/10 v7.6 change wmic and Get-WmiObject to Get-CimInstance. @Norimasa Okawa
+2022/06/24 v7.7 add registry information for Storage Sensor. @Shohei Sadashima
+2022/07/07 v7.8 add NTFS compression info for drive-space. @Koji Ishida
+2022/07/27 v7.9 add nomsinfo option @Shohei Sadashima
+2022/09/14 v8.0 add vhd trace option @Koji Ishida
+</code></pre>
+
+        </article>
+    </div>
+</div>
+
+
+    <footer class="footer footer-color">
+    <div class="footer-container">
+        
+        <img class="footer-logo" src="https://jpwinsup.github.io/mslog/images/Microsoft-logo_rgb_c-wht.webp" alt="Microsoft Logo">
+        <nav class="footer-links">
+            <ul class="footer-links-list">
+                <li class="footer-links-item"><a class="footer-links-style" href="https://jpwinsup.github.io/mslog/">ホーム</a></li>
+                <li class="footer-links-item"><a class="footer-links-style" href="https://cssjpn.github.io/"
+                        target="_blank">サポート情報</a></li>
+                <li class="footer-links-item"><a class="footer-links-style" href="https://jpwinsup.github.io/blog/"
+                        target="_blank">サポート ブログ</a></li>
+            </ul>
+        </nav>
+    </div>
+    <p class="footer-copy footer-copy-style">© 2023 Microsoft Japan Windows サポート チーム</p>
+</footer>
+
+</body>
+
+</html>
