@@ -1,18 +1,1 @@
-<ul>
-    
-        <li>
-            <a href="https://jpwinsup.github.io/mslog/storage/file-system/filesystem-limitation/">ファイルシステムの制限に達してしまった事象の調査</a>
-            
-        </li>
-    
-        <li>
-            <a href="https://jpwinsup.github.io/mslog/storage/file-system/file-operation-fail/">ファイルの作成や削除が失敗してしまう事象の調査</a>
-            
-        </li>
-    
-        <li>
-            <a href="https://jpwinsup.github.io/mslog/storage/file-system/capacity-depletion/">意図せず空き容量が枯渇してしまった事象の調査</a>
-            
-        </li>
-    
-</ul>
+<ul><li><a href="https://jpwinsup.github.io/mslog/storage/file-system/filesystem-limitation/">ファイルシステムの制限に達してしまった事象の調査</a></li><li><a href="https://jpwinsup.github.io/mslog/storage/file-system/file-operation-fail/">ファイルの作成や削除が失敗してしまう事象の調査</a></li><li><a href="https://jpwinsup.github.io/mslog/storage/file-system/capacity-depletion/">意図せず空き容量が枯渇してしまった事象の調査</a></li></ul>

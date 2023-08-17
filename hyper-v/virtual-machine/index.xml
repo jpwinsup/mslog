@@ -1,18 +1,1 @@
-<ul>
-    
-        <li>
-            <a href="https://jpwinsup.github.io/mslog/hyper-v/virtual-machine/cluster-vm-fail/">Hyper-V クラスターの仮想マシンリソースが失敗してしまう事象の調査</a>
-            
-        </li>
-    
-        <li>
-            <a href="https://jpwinsup.github.io/mslog/hyper-v/virtual-machine/vm-stop/">仮想マシン (Hyper-V) が予期せず停止してしまった事象の調査</a>
-            
-        </li>
-    
-        <li>
-            <a href="https://jpwinsup.github.io/mslog/hyper-v/virtual-machine/vm-start-fail/">仮想マシン (Hyper-V) が起動しない事象の調査</a>
-            
-        </li>
-    
-</ul>
+<ul><li><a href="https://jpwinsup.github.io/mslog/hyper-v/virtual-machine/cluster-vm-fail/">Hyper-V クラスターの仮想マシンリソースが失敗してしまう事象の調査</a></li><li><a href="https://jpwinsup.github.io/mslog/hyper-v/virtual-machine/vm-stop/">仮想マシン (Hyper-V) が予期せず停止してしまった事象の調査</a></li><li><a href="https://jpwinsup.github.io/mslog/hyper-v/virtual-machine/vm-start-fail/">仮想マシン (Hyper-V) が起動しない事象の調査</a></li></ul>

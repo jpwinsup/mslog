@@ -1,293 +1,41 @@
-<!DOCTYPE html>
-<html lang="ja" data-theme="light">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>証明書ベースの認証に失敗する事象の調査</title>
-    
-    <link rel="icon" href="https://jpwinsup.github.io/mslog/images/favicon.ico" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
-        integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-    
-    <link rel="stylesheet" href="https://jpwinsup.github.io/mslog/css/style.min.6dfb5280fd5c3bdf4b0ef814a028c2d285a9e1833ad9bb2dce4762ca9f6291e8.css" integrity="sha256-bftSgP1cO99LDvgUoCjC0oWp4YM62bstzkdiyp9ikeg=" crossorigin="anonymous">
-    
-</head>
-
-<body>
-    <header class="header header-color">
-    <nav class="navbar">
-        <ul class="navbar-list">
-            
-            <li class="navbar-item"><a href="https://jpwinsup.github.io/mslog/"><img class="navbar-logo" src="https://jpwinsup.github.io/mslog/images/Microsoft-logo_rgb_c-wht.webp"
-                        alt="Microsoft Logo"></a></li>
-            <li class="navbar-item"><a class="navbar-item-style" href="https://jpwinsup.github.io/mslog/">ホーム</a></li>
-            <li class="navbar-item"><a class="navbar-item-style" href="https://cssjpn.github.io/"
-                    target="_blank">サポート情報</a>
-            </li>
-            <li class="navbar-item"><a class="navbar-item-style" href="https://jpwinsup.github.io/blog/"
-                    target="_blank">サポート ブログ</a>
-            </li>
-        </ul>
-    </nav>
-</header>
-
-    
-<div class="page-wrapper">
-    <div class="sidebar sidebar-color">
-    <h3 class="sidebar-header sidebar-header-style">カテゴリー</h3>
-    
-    
-    <ul class="sidebar-list">
-        
-        
-        <li class="sidebar-list-item sidebar-list-item-style"><a
-                class="sidebar-list-link-accent-style"
-                href="https://jpwinsup.github.io/mslog/directory-service/">Directory Service</a></li>
-        
-        
-        <li class="sidebar-list-item sidebar-list-item-style"><a
-                class="sidebar-list-link-style"
-                href="https://jpwinsup.github.io/mslog/hyper-v/">Hyper-V</a></li>
-        
-        
-        <li class="sidebar-list-item sidebar-list-item-style"><a
-                class="sidebar-list-link-style"
-                href="https://jpwinsup.github.io/mslog/cluster/">クラスター</a></li>
-        
-        
-        <li class="sidebar-list-item sidebar-list-item-style"><a
-                class="sidebar-list-link-style"
-                href="https://jpwinsup.github.io/mslog/storage/">ストレージ</a></li>
-        
-        
-        <li class="sidebar-list-item sidebar-list-item-style"><a
-                class="sidebar-list-link-style"
-                href="https://jpwinsup.github.io/mslog/performance/">パフォーマンス</a></li>
-        
-        
-        <li class="sidebar-list-item sidebar-list-item-style"><a
-                class="sidebar-list-link-style"
-                href="https://jpwinsup.github.io/mslog/networking/">ネットワーク一般</a></li>
-        
-        
-        <li class="sidebar-list-item sidebar-list-item-style"><a
-                class="sidebar-list-link-style"
-                href="https://jpwinsup.github.io/mslog/wireless/">ワイヤレス ネットワーク</a></li>
-        
-        
-        <li class="sidebar-list-item sidebar-list-item-style"><a
-                class="sidebar-list-link-style"
-                href="https://jpwinsup.github.io/mslog/file-services/">ファイル サービス</a></li>
-        
-        
-        <li class="sidebar-list-item sidebar-list-item-style"><a
-                class="sidebar-list-link-style"
-                href="https://jpwinsup.github.io/mslog/uwp/">UWP</a></li>
-        
-        
-        <li class="sidebar-list-item sidebar-list-item-style"><a
-                class="sidebar-list-link-style"
-                href="https://jpwinsup.github.io/mslog/rdp/">リモートアクセス</a></li>
-        
-        
-        <li class="sidebar-list-item sidebar-list-item-style"><a
-                class="sidebar-list-link-style"
-                href="https://jpwinsup.github.io/mslog/core/">コア</a></li>
-        
-        
-        <li class="sidebar-list-item sidebar-list-item-style"><a
-                class="sidebar-list-link-style"
-                href="https://jpwinsup.github.io/mslog/other/">その他</a></li>
-        
-    </ul>
-    
-</div>
-    <div class="content content-color">
-        <article>
-            <h1>証明書ベースの認証に失敗する事象の調査</h1>
-            <h3>目次</h3>
-            
-            <nav id="TableOfContents">
-  <ul>
-    <li><a href="#本資料が有効なシナリオ">本資料が有効なシナリオ</a></li>
-    <li><a href="#採取いただく資料">採取いただく資料</a></li>
-    <li><a href="#資料採取時の影響について">資料採取時の影響について</a></li>
-    <li><a href="#対象機器">対象機器</a></li>
-    <li><a href="#事前準備-および-情報採取手順">事前準備 および 情報採取手順</a>
-      <ul>
-        <li><a href="#スマートカードログオンの場合">スマートカードログオンの場合</a></li>
-        <li><a href="#証明書を使用した無線lan認証の場合">証明書を使用した無線LAN認証の場合</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-            <p>本記事はマイクロソフト社員によって公開されております。<br>
-いつも弊社製品をご利用いただきまして誠にありがとうございます。<br>
-本サイトでは弊社にお問い合わせいただく際に、事前に採取しておいたほうが良い内容についてご紹介しております。<br>
-このページでは「証明書ベースの認証に失敗する事象の調査」に必要な資料採取についてご紹介いたします。</p>
-<h2 id="本資料が有効なシナリオ">本資料が有効なシナリオ</h2>
-<hr>
-<ul>
-<li>スマートカードによる認証に失敗する</li>
-<li>証明書を使用した無線LAN認証に失敗する</li>
-</ul>
-<h2 id="採取いただく資料">採取いただく資料</h2>
-<hr>
-<ul>
-<li>パケット キャプチャー</li>
-<li>OS 構成情報</li>
-<li>イベント ログ</li>
-<li>認証関連トレース ログ</li>
-<li>証明書ストア情報</li>
-<li>問題ステップ記録ツール</li>
-</ul>
-<p>など</p>
-<h2 id="資料採取時の影響について">資料採取時の影響について</h2>
-<hr>
-<p>ログ採取中は各種リソースに多少の負荷がかかる可能性がございますが、通常実影響はございません。<br>
-ログ採取にあたり再起動の必要はございません。</p>
-<h2 id="対象機器">対象機器</h2>
-<hr>
-<ul>
-<li>認証元となるクライアント端末</li>
-<li>ドメイン コントローラー全台</li>
-<li>NPSサーバー全台 (証明書を使用した無線LAN認証の場合)</li>
-</ul>
-<h2 id="事前準備-および-情報採取手順">事前準備 および 情報採取手順</h2>
-<hr>
-<p>採取対象機器にて、以下の流れで情報採取を実施していただきますようお願いいたします。</p>
-<h3 id="スマートカードログオンの場合">スマートカードログオンの場合</h3>
-<h4 id="1-事象再現時のログ採取">1. 事象再現時のログ採取</h4>
-<p>採取対象機器：</p>
-<ul>
-<li>認証を行うクライアント端末</li>
-<li>認証を行うユーザーが所属するドメインのドメインコントローラー全台</li>
-</ul>
-<p>採取手順：
-採取対象機器にて、以下のリンクを参考に情報採取を実施していただきますようお願いいたします。<br>
-<a href="https://jpwinsup.github.io/mslog/directoryservice/manuals/tss_normal_auth/" >TSS 情報採取手順</a></p>
-<ol start="0">
-<li>[0] の事前準備を実施します。</li>
-<li>管理者ユーザーでクライアント端末にログオンし、[1] の情報採取を開始します。</li>
-<li>[ユーザーの切り替え] から事象発生ユーザーにてログオンを行います。
-この時、以下の情報をメモとして残してください。
-<ul>
-<li>ユーザー名</li>
-<li>できる限り正確なログオンをした時刻</li>
-</ul>
-</li>
-<li>[2] のユーザー情報採取を実施します。</li>
-<li>管理者ユーザーで再度クライアント端末にログオンし、[3] の情報採取を停止操作を行い、[4] の採取を行います。</li>
-<li>アップロードサイトに情報をお寄せいただきます。</li>
-<li>以下の情報と併せて弊社にご一報ください。
-<ul>
-<li>ユーザー名</li>
-<li>できる限り正確なログオンをした時刻</li>
-</ul>
-</li>
-</ol>
-<h4 id="2-事象再現後のログ採取">2. 事象再現後のログ採取</h4>
-<p>採取対象機器:</p>
-<ul>
-<li>認証を行うクライアント端末</li>
-<li>認証を行うユーザーが所属するドメインのドメインコントローラー全台</li>
-</ul>
-<p>採取手順：
-以下のコマンドを実行して出力されるテキストファイルを圧縮して弊社までお寄せください。<br>
-c:\MS_DATA\CertInfo というフォルダを作成して、その中に出力されるようにしておりますが出力先は適宜変更いただいても問題ございません。</p>
-<div class="highlight"><pre tabindex="0" style="color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>    md c:\MS_DATA\CertInfo
-</span></span><span style="display:flex;"><span>    certutil -v -store ROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-root.txt
-</span></span><span style="display:flex;"><span>    certutil -v -store AUTHROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-authroot.txt
-</span></span><span style="display:flex;"><span>    certutil -v -store -enterprise ROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-ent-root.txt
-</span></span><span style="display:flex;"><span>    certutil -v -store -enterprise NTAUTH &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-ent-ntauth.txt
-</span></span><span style="display:flex;"><span>    certutil -v -store -enterprise AUTHROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-ent-authroot.txt
-</span></span><span style="display:flex;"><span>    certutil -v -store -grouppolicy AUTHROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-gp-authroot.txt
-</span></span><span style="display:flex;"><span>    certutil -v -store CA &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-ca.txt
-</span></span><span style="display:flex;"><span>    certutil -v -store -enterprise CA &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-ent-ca.txt
-</span></span><span style="display:flex;"><span>    certutil -v -store -grouppolicy CA &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-gp-ca.txt
-</span></span><span style="display:flex;"><span>    certutil -v -store my &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-my.txt
-</span></span><span style="display:flex;"><span>    certutil -v -user -store ROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-user-root.txt
-</span></span><span style="display:flex;"><span>    certutil -v -user -store AUTHROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-user-authroot.txt
-</span></span><span style="display:flex;"><span>    certutil -v -user -store -grouppolicy AUTHROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-user-gp-authroot.txt
-</span></span><span style="display:flex;"><span>    certutil -v -user -store CA &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-user-ca.txt
-</span></span><span style="display:flex;"><span>    certutil -v -user -store -grouppolicy CA &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-user-gp-ca.txt
-</span></span><span style="display:flex;"><span>    certutil -v -user -store my &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-user-my.txt
-</span></span><span style="display:flex;"><span>    certutil -verifystore my &gt; %COMPUTERNAME%_verifystore_my.txt
-</span></span><span style="display:flex;"><span>    certutil -dcinfo verify &gt; certutil_dcinfo_verify.txt
-</span></span></code></pre></div><h3 id="証明書を使用した無線lan認証の場合">証明書を使用した無線LAN認証の場合</h3>
-<h4 id="1-事象再現時のログ採取-1">1. 事象再現時のログ採取</h4>
-<p>採取対象機器：</p>
-<ul>
-<li>認証を行うクライアント端末</li>
-<li>NPSサーバー全台</li>
-<li>NPSサーバーが所属するドメインのドメインコントローラー全台</li>
-</ul>
-<p>採取手順：
-採取対象機器にて、以下のリンクを参考に情報採取を実施していただきますようお願いいたします。<br>
-<a href="https://jpwinsup.github.io/mslog/directoryservice/manuals/tss_normal_auth/" >TSS 情報採取手順</a></p>
-<ol start="0">
-<li>[0] の事前準備を実施します。</li>
-<li>管理者ユーザーで端末にログオンし、[1] の情報採取を開始します。</li>
-<li>事象を再現します。</li>
-<li>[3] の情報採取を停止操作を行います。</li>
-<li>アップロードサイトに情報をお寄せいただきます</li>
-</ol>
-<h4 id="2-事象再現後のログ採取-1">2. 事象再現後のログ採取</h4>
-<p>採取対象機器：</p>
-<ul>
-<li>認証を行うクライアント端末</li>
-<li>NPSサーバー全台</li>
-<li>NPSサーバーが所属するドメインのドメインコントローラー全台</li>
-</ul>
-<p>採取手順：<br>
-以下のコマンドを実行して出力されるテキストファイルを圧縮して弊社までお寄せください。<br>
-c:\MS_DATA\CertInfo というフォルダを作成して、その中に出力されるようにしておりますが出力先は適宜変更いただいても問題ございません。</p>
-<div class="highlight"><pre tabindex="0" style="color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>    md c:\MS_DATA\CertInfo
-</span></span><span style="display:flex;"><span>    certutil -v -store ROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-root.txt
-</span></span><span style="display:flex;"><span>    certutil -v -store AUTHROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-authroot.txt
-</span></span><span style="display:flex;"><span>    certutil -v -store -enterprise ROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-ent-root.txt
-</span></span><span style="display:flex;"><span>    certutil -v -store -enterprise NTAUTH &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-ent-ntauth.txt
-</span></span><span style="display:flex;"><span>    certutil -v -store -enterprise AUTHROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-ent-authroot.txt
-</span></span><span style="display:flex;"><span>    certutil -v -store -grouppolicy AUTHROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-gp-authroot.txt
-</span></span><span style="display:flex;"><span>    certutil -v -store CA &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-ca.txt
-</span></span><span style="display:flex;"><span>    certutil -v -store -enterprise CA &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-ent-ca.txt
-</span></span><span style="display:flex;"><span>    certutil -v -store -grouppolicy CA &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-gp-ca.txt
-</span></span><span style="display:flex;"><span>    certutil -v -store my &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-my.txt
-</span></span><span style="display:flex;"><span>    certutil -v -user -store ROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-user-root.txt
-</span></span><span style="display:flex;"><span>    certutil -v -user -store AUTHROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-user-authroot.txt
-</span></span><span style="display:flex;"><span>    certutil -v -user -store -grouppolicy AUTHROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-user-gp-authroot.txt
-</span></span><span style="display:flex;"><span>    certutil -v -user -store CA &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-user-ca.txt
-</span></span><span style="display:flex;"><span>    certutil -v -user -store -grouppolicy CA &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-user-gp-ca.txt
-</span></span><span style="display:flex;"><span>    certutil -v -user -store my &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-user-my.txt
-</span></span></code></pre></div><p>手順は以上でございます。<br>
-本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
-
-        </article>
-    </div>
-</div>
-
-
-    <footer class="footer footer-color">
-    <div class="footer-container">
-        
-        <img class="footer-logo" src="https://jpwinsup.github.io/mslog/images/Microsoft-logo_rgb_c-wht.webp" alt="Microsoft Logo">
-        <nav class="footer-links">
-            <ul class="footer-links-list">
-                <li class="footer-links-item"><a class="footer-links-style" href="https://jpwinsup.github.io/mslog/">ホーム</a></li>
-                <li class="footer-links-item"><a class="footer-links-style" href="https://cssjpn.github.io/"
-                        target="_blank">サポート情報</a></li>
-                <li class="footer-links-item"><a class="footer-links-style" href="https://jpwinsup.github.io/blog/"
-                        target="_blank">サポート ブログ</a></li>
-            </ul>
-        </nav>
-    </div>
-    <p class="footer-copy footer-copy-style">© 2023 Microsoft Japan Windows サポート チーム</p>
-</footer>
-
-</body>
-
-</html>
+<!doctype html><html lang=ja data-theme=light><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>証明書ベースの認証に失敗する事象の調査</title><link rel=icon href=https://jpwinsup.github.io/mslog/images/favicon.ico><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin=anonymous referrerpolicy=no-referrer><link rel=stylesheet href=https://jpwinsup.github.io/mslog/css/style.min.2cf2d83b70054c6a1f941ece9e04f670c1ca9e5d7906b9f613c2128026f68c85.css integrity="sha256-LPLYO3AFTGoflB7OngT2cMHKnl15Brn2E8ISgCb2jIU=" crossorigin=anonymous></head><body><header class="header header-color"><nav class=navbar><ul class=navbar-list><li class=navbar-item><a href=https://jpwinsup.github.io/mslog/><img class=navbar-logo src=https://jpwinsup.github.io/mslog/images/Microsoft-logo_rgb_c-wht.webp alt="Microsoft Logo"></a></li><li class=navbar-item><a class=navbar-item-style href=https://jpwinsup.github.io/mslog/>ホーム</a></li><li class=navbar-item><a class=navbar-item-style href=https://cssjpn.github.io/ target=_blank>サポート情報</a></li><li class=navbar-item><a class=navbar-item-style href=https://jpwinsup.github.io/blog/ target=_blank>サポート ブログ</a></li></ul></nav></header><div class=page-wrapper><div class="sidebar sidebar-color"><h3 class="sidebar-header sidebar-header-style">カテゴリー</h3><ul class=sidebar-list><li class="sidebar-list-item sidebar-list-item-style"><a class=sidebar-list-link-accent-style href=https://jpwinsup.github.io/mslog/directory-service/>Directory Service</a></li><li class="sidebar-list-item sidebar-list-item-style"><a class=sidebar-list-link-style href=https://jpwinsup.github.io/mslog/hyper-v/>Hyper-V</a></li><li class="sidebar-list-item sidebar-list-item-style"><a class=sidebar-list-link-style href=https://jpwinsup.github.io/mslog/cluster/>クラスター</a></li><li class="sidebar-list-item sidebar-list-item-style"><a class=sidebar-list-link-style href=https://jpwinsup.github.io/mslog/storage/>ストレージ</a></li><li class="sidebar-list-item sidebar-list-item-style"><a class=sidebar-list-link-style href=https://jpwinsup.github.io/mslog/performance/>パフォーマンス</a></li><li class="sidebar-list-item sidebar-list-item-style"><a class=sidebar-list-link-style href=https://jpwinsup.github.io/mslog/networking/>ネットワーク一般</a></li><li class="sidebar-list-item sidebar-list-item-style"><a class=sidebar-list-link-style href=https://jpwinsup.github.io/mslog/wireless/>ワイヤレス ネットワーク</a></li><li class="sidebar-list-item sidebar-list-item-style"><a class=sidebar-list-link-style href=https://jpwinsup.github.io/mslog/file-services/>ファイル サービス</a></li><li class="sidebar-list-item sidebar-list-item-style"><a class=sidebar-list-link-style href=https://jpwinsup.github.io/mslog/uwp/>UWP</a></li><li class="sidebar-list-item sidebar-list-item-style"><a class=sidebar-list-link-style href=https://jpwinsup.github.io/mslog/rdp/>リモートアクセス</a></li><li class="sidebar-list-item sidebar-list-item-style"><a class=sidebar-list-link-style href=https://jpwinsup.github.io/mslog/core/>コア</a></li><li class="sidebar-list-item sidebar-list-item-style"><a class=sidebar-list-link-style href=https://jpwinsup.github.io/mslog/other/>その他</a></li></ul></div><div class="content content-color"><article><h1>証明書ベースの認証に失敗する事象の調査</h1><h3>目次</h3><nav id=TableOfContents><ul><li><a href=#本資料が有効なシナリオ>本資料が有効なシナリオ</a></li><li><a href=#採取いただく資料>採取いただく資料</a></li><li><a href=#資料採取時の影響について>資料採取時の影響について</a></li><li><a href=#対象機器>対象機器</a></li><li><a href=#事前準備-および-情報採取手順>事前準備 および 情報採取手順</a><ul><li><a href=#スマートカードログオンの場合>スマートカードログオンの場合</a></li><li><a href=#証明書を使用した無線lan認証の場合>証明書を使用した無線LAN認証の場合</a></li></ul></li></ul></nav><p>本記事はマイクロソフト社員によって公開されております。<br>いつも弊社製品をご利用いただきまして誠にありがとうございます。<br>本サイトでは弊社にお問い合わせいただく際に、事前に採取しておいたほうが良い内容についてご紹介しております。<br>このページでは「証明書ベースの認証に失敗する事象の調査」に必要な資料採取についてご紹介いたします。</p><h2 id=本資料が有効なシナリオ>本資料が有効なシナリオ</h2><hr><ul><li>スマートカードによる認証に失敗する</li><li>証明書を使用した無線LAN認証に失敗する</li></ul><h2 id=採取いただく資料>採取いただく資料</h2><hr><ul><li>パケット キャプチャー</li><li>OS 構成情報</li><li>イベント ログ</li><li>認証関連トレース ログ</li><li>証明書ストア情報</li><li>問題ステップ記録ツール</li></ul><p>など</p><h2 id=資料採取時の影響について>資料採取時の影響について</h2><hr><p>ログ採取中は各種リソースに多少の負荷がかかる可能性がございますが、通常実影響はございません。<br>ログ採取にあたり再起動の必要はございません。</p><h2 id=対象機器>対象機器</h2><hr><ul><li>認証元となるクライアント端末</li><li>ドメイン コントローラー全台</li><li>NPSサーバー全台 (証明書を使用した無線LAN認証の場合)</li></ul><h2 id=事前準備-および-情報採取手順>事前準備 および 情報採取手順</h2><hr><p>採取対象機器にて、以下の流れで情報採取を実施していただきますようお願いいたします。</p><h3 id=スマートカードログオンの場合>スマートカードログオンの場合</h3><h4 id=1-事象再現時のログ採取>1. 事象再現時のログ採取</h4><p>採取対象機器：</p><ul><li>認証を行うクライアント端末</li><li>認証を行うユーザーが所属するドメインのドメインコントローラー全台</li></ul><p>採取手順：
+採取対象機器にて、以下のリンクを参考に情報採取を実施していただきますようお願いいたします。<br><a href=https://jpwinsup.github.io/mslog/directoryservice/manuals/tss_normal_auth/>TSS 情報採取手順</a></p><ol start=0><li>[0] の事前準備を実施します。</li><li>管理者ユーザーでクライアント端末にログオンし、[1] の情報採取を開始します。</li><li>[ユーザーの切り替え] から事象発生ユーザーにてログオンを行います。
+この時、以下の情報をメモとして残してください。<ul><li>ユーザー名</li><li>できる限り正確なログオンをした時刻</li></ul></li><li>[2] のユーザー情報採取を実施します。</li><li>管理者ユーザーで再度クライアント端末にログオンし、[3] の情報採取を停止操作を行い、[4] の採取を行います。</li><li>アップロードサイトに情報をお寄せいただきます。</li><li>以下の情報と併せて弊社にご一報ください。<ul><li>ユーザー名</li><li>できる限り正確なログオンをした時刻</li></ul></li></ol><h4 id=2-事象再現後のログ採取>2. 事象再現後のログ採取</h4><p>採取対象機器:</p><ul><li>認証を行うクライアント端末</li><li>認証を行うユーザーが所属するドメインのドメインコントローラー全台</li></ul><p>採取手順：
+以下のコマンドを実行して出力されるテキストファイルを圧縮して弊社までお寄せください。<br>c:\MS_DATA\CertInfo というフォルダを作成して、その中に出力されるようにしておりますが出力先は適宜変更いただいても問題ございません。</p><div class=highlight><pre tabindex=0 style=color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback><span style=display:flex><span>    md c:\MS_DATA\CertInfo
+</span></span><span style=display:flex><span>    certutil -v -store ROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-root.txt
+</span></span><span style=display:flex><span>    certutil -v -store AUTHROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-authroot.txt
+</span></span><span style=display:flex><span>    certutil -v -store -enterprise ROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-ent-root.txt
+</span></span><span style=display:flex><span>    certutil -v -store -enterprise NTAUTH &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-ent-ntauth.txt
+</span></span><span style=display:flex><span>    certutil -v -store -enterprise AUTHROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-ent-authroot.txt
+</span></span><span style=display:flex><span>    certutil -v -store -grouppolicy AUTHROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-gp-authroot.txt
+</span></span><span style=display:flex><span>    certutil -v -store CA &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-ca.txt
+</span></span><span style=display:flex><span>    certutil -v -store -enterprise CA &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-ent-ca.txt
+</span></span><span style=display:flex><span>    certutil -v -store -grouppolicy CA &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-gp-ca.txt
+</span></span><span style=display:flex><span>    certutil -v -store my &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-my.txt
+</span></span><span style=display:flex><span>    certutil -v -user -store ROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-user-root.txt
+</span></span><span style=display:flex><span>    certutil -v -user -store AUTHROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-user-authroot.txt
+</span></span><span style=display:flex><span>    certutil -v -user -store -grouppolicy AUTHROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-user-gp-authroot.txt
+</span></span><span style=display:flex><span>    certutil -v -user -store CA &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-user-ca.txt
+</span></span><span style=display:flex><span>    certutil -v -user -store -grouppolicy CA &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-user-gp-ca.txt
+</span></span><span style=display:flex><span>    certutil -v -user -store my &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-user-my.txt
+</span></span><span style=display:flex><span>    certutil -verifystore my &gt; %COMPUTERNAME%_verifystore_my.txt
+</span></span><span style=display:flex><span>    certutil -dcinfo verify &gt; certutil_dcinfo_verify.txt
+</span></span></code></pre></div><h3 id=証明書を使用した無線lan認証の場合>証明書を使用した無線LAN認証の場合</h3><h4 id=1-事象再現時のログ採取-1>1. 事象再現時のログ採取</h4><p>採取対象機器：</p><ul><li>認証を行うクライアント端末</li><li>NPSサーバー全台</li><li>NPSサーバーが所属するドメインのドメインコントローラー全台</li></ul><p>採取手順：
+採取対象機器にて、以下のリンクを参考に情報採取を実施していただきますようお願いいたします。<br><a href=https://jpwinsup.github.io/mslog/directoryservice/manuals/tss_normal_auth/>TSS 情報採取手順</a></p><ol start=0><li>[0] の事前準備を実施します。</li><li>管理者ユーザーで端末にログオンし、[1] の情報採取を開始します。</li><li>事象を再現します。</li><li>[3] の情報採取を停止操作を行います。</li><li>アップロードサイトに情報をお寄せいただきます</li></ol><h4 id=2-事象再現後のログ採取-1>2. 事象再現後のログ採取</h4><p>採取対象機器：</p><ul><li>認証を行うクライアント端末</li><li>NPSサーバー全台</li><li>NPSサーバーが所属するドメインのドメインコントローラー全台</li></ul><p>採取手順：<br>以下のコマンドを実行して出力されるテキストファイルを圧縮して弊社までお寄せください。<br>c:\MS_DATA\CertInfo というフォルダを作成して、その中に出力されるようにしておりますが出力先は適宜変更いただいても問題ございません。</p><div class=highlight><pre tabindex=0 style=color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback><span style=display:flex><span>    md c:\MS_DATA\CertInfo
+</span></span><span style=display:flex><span>    certutil -v -store ROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-root.txt
+</span></span><span style=display:flex><span>    certutil -v -store AUTHROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-authroot.txt
+</span></span><span style=display:flex><span>    certutil -v -store -enterprise ROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-ent-root.txt
+</span></span><span style=display:flex><span>    certutil -v -store -enterprise NTAUTH &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-ent-ntauth.txt
+</span></span><span style=display:flex><span>    certutil -v -store -enterprise AUTHROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-ent-authroot.txt
+</span></span><span style=display:flex><span>    certutil -v -store -grouppolicy AUTHROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-gp-authroot.txt
+</span></span><span style=display:flex><span>    certutil -v -store CA &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-ca.txt
+</span></span><span style=display:flex><span>    certutil -v -store -enterprise CA &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-ent-ca.txt
+</span></span><span style=display:flex><span>    certutil -v -store -grouppolicy CA &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-gp-ca.txt
+</span></span><span style=display:flex><span>    certutil -v -store my &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-my.txt
+</span></span><span style=display:flex><span>    certutil -v -user -store ROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-user-root.txt
+</span></span><span style=display:flex><span>    certutil -v -user -store AUTHROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-user-authroot.txt
+</span></span><span style=display:flex><span>    certutil -v -user -store -grouppolicy AUTHROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-user-gp-authroot.txt
+</span></span><span style=display:flex><span>    certutil -v -user -store CA &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-user-ca.txt
+</span></span><span style=display:flex><span>    certutil -v -user -store -grouppolicy CA &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-user-gp-ca.txt
+</span></span><span style=display:flex><span>    certutil -v -user -store my &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-user-my.txt
+</span></span></code></pre></div><p>手順は以上でございます。<br>本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p></article></div></div><footer class="footer footer-color"><div class=footer-container><img class=footer-logo src=https://jpwinsup.github.io/mslog/images/Microsoft-logo_rgb_c-wht.webp alt="Microsoft Logo"><nav class=footer-links><ul class=footer-links-list><li class=footer-links-item><a class=footer-links-style href=https://jpwinsup.github.io/mslog/>ホーム</a></li><li class=footer-links-item><a class=footer-links-style href=https://cssjpn.github.io/ target=_blank>サポート情報</a></li><li class=footer-links-item><a class=footer-links-style href=https://jpwinsup.github.io/blog/ target=_blank>サポート ブログ</a></li></ul></nav></div><p class="footer-copy footer-copy-style">© 2023 Microsoft Japan Windows サポート チーム</p></footer></body></html>

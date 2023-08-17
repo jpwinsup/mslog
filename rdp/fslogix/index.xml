@@ -1,13 +1,1 @@
-<ul>
-    
-        <li>
-            <a href="https://jpwinsup.github.io/mslog/rdp/fslogix/mount_vhd_with_multiple_session_ids/">VHD のマウントが、複数のセッション ID で行われる場合</a>
-            
-        </li>
-    
-        <li>
-            <a href="https://jpwinsup.github.io/mslog/rdp/fslogix/can_not_mount_vhd/">VHD のマウントがマウントできない場合</a>
-            
-        </li>
-    
-</ul>
+<ul><li><a href="https://jpwinsup.github.io/mslog/rdp/fslogix/mount_vhd_with_multiple_session_ids/">VHD のマウントが、複数のセッション ID で行われる場合</a></li><li><a href="https://jpwinsup.github.io/mslog/rdp/fslogix/can_not_mount_vhd/">VHD のマウントがマウントできない場合</a></li></ul>

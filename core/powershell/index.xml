@@ -1,18 +1,1 @@
-<ul>
-    
-        <li>
-            <a href="https://jpwinsup.github.io/mslog/core/powershell/deep_investigation/">クラッシュなどによるプロセスの異常終了や弊社エンジニアから詳細な情報採取の依頼があった場合</a>
-            
-        </li>
-    
-        <li>
-            <a href="https://jpwinsup.github.io/mslog/core/powershell/unexpected_behavior/">予期しない動作となった場合 (クラッシュなどの異常終了は除く)</a>
-            
-        </li>
-    
-        <li>
-            <a href="https://jpwinsup.github.io/mslog/core/powershell/basic/">基本情報の取得</a>
-            
-        </li>
-    
-</ul>
+<ul><li><a href="https://jpwinsup.github.io/mslog/core/powershell/deep_investigation/">クラッシュなどによるプロセスの異常終了や弊社エンジニアから詳細な情報採取の依頼があった場合</a></li><li><a href="https://jpwinsup.github.io/mslog/core/powershell/unexpected_behavior/">予期しない動作となった場合 (クラッシュなどの異常終了は除く)</a></li><li><a href="https://jpwinsup.github.io/mslog/core/powershell/basic/">基本情報の取得</a></li></ul>

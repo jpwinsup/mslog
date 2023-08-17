@@ -1,13 +1,1 @@
-<ul>
-    
-        <li>
-            <a href="https://jpwinsup.github.io/mslog/directory-service/pki/ssl-tls-communication-failure/">SSL / TLS 通信に失敗する事象の調査</a>
-            
-        </li>
-    
-        <li>
-            <a href="https://jpwinsup.github.io/mslog/directory-service/pki/certificate-authentication-failure/">証明書ベースの認証に失敗する事象の調査</a>
-            
-        </li>
-    
-</ul>
+<ul><li><a href="https://jpwinsup.github.io/mslog/directory-service/pki/ssl-tls-communication-failure/">SSL / TLS 通信に失敗する事象の調査</a></li><li><a href="https://jpwinsup.github.io/mslog/directory-service/pki/certificate-authentication-failure/">証明書ベースの認証に失敗する事象の調査</a></li></ul>

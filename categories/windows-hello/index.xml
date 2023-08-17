@@ -1,13 +1,1 @@
-<ul>
-    
-        <li>
-            <a href="https://jpwinsup.github.io/mslog/directory-service/windows-hello/whfb-logon-failure/">Windows Hello , Windows Hello for Business における PIN/生体認証でのログオンに失敗する事象の調査</a>
-            
-        </li>
-    
-        <li>
-            <a href="https://jpwinsup.github.io/mslog/directory-service/windows-hello/whfb-create-pin-failure/">Windows Hello および Windows Hello for Business における PIN および生体認証の登録に失敗する事象の調査</a>
-            
-        </li>
-    
-</ul>
+<ul><li><a href="https://jpwinsup.github.io/mslog/directory-service/windows-hello/whfb-logon-failure/">Windows Hello , Windows Hello for Business における PIN/生体認証でのログオンに失敗する事象の調査</a></li><li><a href="https://jpwinsup.github.io/mslog/directory-service/windows-hello/whfb-create-pin-failure/">Windows Hello および Windows Hello for Business における PIN および生体認証の登録に失敗する事象の調査</a></li></ul>
