@@ -4,7 +4,7 @@
 例として、&ldquo;C:\Test&rdquo; フォルダーに TSS フォルダーを配置した場合は以下のように実行します。</p><div class=highlight><pre tabindex=0 style=color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>cd C:\Test\TSS
 </span></span></code></pre></div></li><li><p>以下のコマンドでログ取得を開始します。</p><div class=highlight><pre tabindex=0 style=color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#8b949e;font-style:italic># DHCP クライアント上で実行</span>
 </span></span><span style=display:flex><span>Set-ExecutionPolicy RemoteSigned -Scope <span style=color:#ff7b72>Process</span> -Force
-</span></span><span style=display:flex><span>.\TSS.<span style=color:#79c0ff>ps1</span> -Scenario NET_DHCPcli
+</span></span><span style=display:flex><span>.\TSS.<span style=color:#79c0ff>ps1</span> -Start -Scenario NET_DHCPcli
 </span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span><span style=color:#8b949e;font-style:italic># DHCP サーバーで実行</span>
 </span></span><span style=display:flex><span>Set-ExecutionPolicy RemoteSigned -Scope <span style=color:#ff7b72>Process</span> -Force
 </span></span><span style=display:flex><span>.\TSS.<span style=color:#79c0ff>ps1</span> -Start -Scenario NET_DHCPsrv
