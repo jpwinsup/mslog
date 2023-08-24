@@ -2,7 +2,7 @@
 本記事では、プロセスのメモリ使用量が多い事象が発生した場合に採取いただきたい資料についてご紹介いたします。</p><h2 id=資料採取の流れ>資料採取の流れ</h2><ol><li><a href=https://learn.microsoft.com/en-us/sysinternals/downloads/vmmap target=_blank>VMMap ツール</a> と <a href=https://jpwinsup.github.io/mslog/other/tools/shacollector.html target=_blank>shacollector ツール</a> を資料採取対象のマシンの任意の場所にコピーし展開します。</li><li>VMMap ツール を実行し、実行結果を保存します。</li><li>shacollector ツールを利用してサポートログ情報を採取します。</li></ol><h2 id=ログ採取について>ログ採取について</h2><ol><li><p>以下の URL より VMMap.zip と shacollector.zip をダウンロードおよび展開いただき、対象端末へ配置します。</p><p>VMMap:
 <a href=https://download.sysinternals.com/files/VMMap.zip target=_blank>https://download.sysinternals.com/files/VMMap.zip</a>
 shacollector:
-<a href=https://jpwinsup.github.io/mslog/other/tools/shacollector.zip>shacollector.zip</a></p><p>(注意)
+<a href=https://jpwinsup.github.io/mslog/other/tools/shacollector/shacollector.zip>shacollector.zip</a></p><p>(注意)
 これらのツールは機能の拡張などにより内容が変更されることがあります。
 そのため、毎回上記のダウンロード先から取得していただき利用してください。</p></li><li><p>VMMap フォルダーにある VMMap64.exe を管理者権限で実行します。</p><p>次のような画面が表示されるので調査対象であるメモリ使用量の多いプロセスを選択してください。</p><p><img src=https://jpwinsup.github.io/mslog/Performance/Memory/high-process-memory-usage/select.png alt></p><p>次のようなメモリ使用状況が表示されるまで少しお待ちください。</p><p><img src=https://jpwinsup.github.io/mslog/Performance/Memory/high-process-memory-usage/vmmap.png alt></p><p>表示されましたら左上の File から Save をクリックしていただきデータを mmp ファイルとして保存します。</p><p><img src=https://jpwinsup.github.io/mslog/Performance/Memory/high-process-memory-usage/save.png alt></p><p>保存した mmp ファイルを圧縮の上、弊社までご提供ください。
 (注意)

@@ -17,7 +17,7 @@ Performance 系の調査のためには、普段から正常時のリソース�
 </span></span><span style=display:flex><span>\Server Work Queues(*)\*
 </span></span><span style=display:flex><span>\Objects\*
 </span></span></code></pre></div><h3 id=開始方法>開始方法</h3><ol><li><p>以下の URL より &ldquo;shacollector.zip&rdquo; をダウンロードおよび展開いただき、対象端末へ配置します。</p><p>ダウンロード先:
-<a href=https://jpwinsup.github.io/mslog/other/tools/shacollector.zip>shacollector.zip</a></p><p><a href=https://jpwinsup.github.io/mslog/other/tools/shacollector.html target=_blank>shacollector の使い方についてはこちら</a></p><p>(注意)
+<a href=https://jpwinsup.github.io/mslog/other/tools/shacollector/shacollector.zip>shacollector.zip</a></p><p><a href=https://jpwinsup.github.io/mslog/other/tools/shacollector.html target=_blank>shacollector の使い方についてはこちら</a></p><p>(注意)
 shacollector は機能の拡張などにより内容が変更されることがあります。
 そのため、毎回上記のダウンロード先から shacollector を取得いただき利用してください。</p></li><li><p>管理者権限のコマンド プロンプトから配置した &ldquo;shacollector&rdquo; フォルダーへ移動して、以下のコマンドを実行の上、トレース ログの採取を実施します。</p><div class=highlight><pre tabindex=0 style=color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback><span style=display:flex><span>shacollector.bat perf perfmon start C:\mslog interval 0:0:15 days 3
 </span></span></code></pre></div><p>※ 出力先フォルダー名に C:\mslog 以外のフォルダーを指定することも可能です。</p><p>※ サンプリング インターバールは 15 秒を指定していますが interval の指定で変更することも可能です。</p><p>※ パフォーマンスログを保持する日数は、3 以外の日数を days オプションに指定することも可能です。</p></li></ol><h3 id=停止方法>停止方法</h3><ol><li><p>shacollector を以下のように実行してログの採取を停止します。</p><div class=highlight><pre tabindex=0 style=color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback><span style=display:flex><span>shacollector.bat perf perfmon stop
