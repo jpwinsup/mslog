@@ -3,10 +3,10 @@
 </span></span></code></pre></div></li><li><p>手順 3 にて、TSS フォルダーを配置したディレクトリに移動します。<br>※ 以下は例として C ドライブ直下に解凍したファイルを展開した場合のコマンドを記します。</p><div class=highlight><pre tabindex=0 style=color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback><span style=display:flex><span>cd c:\TSS
 </span></span></code></pre></div></li><li><p>以下のコマンドを実行し、情報採取を開始します。</p><div class=highlight><pre tabindex=0 style=color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback><span style=display:flex><span>.\TSS.ps1 -CollectLog ADS_ADDS -BasicLog
 </span></span></code></pre></div><p>※ 既定では、C:\MSDATA フォルダーにログが出力されますが、"-LogFolderPath" オプションを指定することで、任意のログ出力先を指定することが可能です。以下に例をご案内いたしますので、必要に応じてご活用ください。</p><div class=highlight><pre tabindex=0 style=color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback><span style=display:flex><span>## 例 1 (E:\Output フォルダーにログ保存先を指定する場合)
-</span></span><span style=display:flex><span>.\TSS.ps1 -CollectLog ADS_ADDS -BasicLog -LogFolderPath E:\Output\
+</span></span><span style=display:flex><span>.\TSS.ps1 -CollectLog ADS_ADDS -BasicLog -LogFolderPath E:\Output
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>## 例 2 (\\Server\Share フォルダーを指定する場合)
-</span></span><span style=display:flex><span>.\TSS.ps1 -CollectLog ADS_ADDS -BasicLog -LogFolderPath \\Server\Share\
+</span></span><span style=display:flex><span>.\TSS.ps1 -CollectLog ADS_ADDS -BasicLog -LogFolderPath \\Server\Share
 </span></span></code></pre></div></li><li><p>&ldquo;C:\MS_DATA&rdquo; 配下に &ldquo;TSS_HOSTNAME_YYMMDD_hhmmss_&rdquo; という文字を含む zip ファイルが出力されていることを確認します。</p></li><li><p>次に、管理者権限で開いたコマンド プロンプトにて以下のコマンドを順に実行し、証明書に関する情報を取得します。</p><div class=highlight><pre tabindex=0 style=color:#c9d1d9;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback><span style=display:flex><span>md C:\MS_DATA\CertInfo
 </span></span><span style=display:flex><span>certutil -v -store ROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-root.txt
 </span></span><span style=display:flex><span>certutil -v -store AUTHROOT &gt; c:\MS_DATA\CertInfo\%COMPUTERNAME%_cert-authroot.txt
