@@ -26,8 +26,13 @@
 </span></span><span style=display:flex><span>copy D:\Windows\System32\config\RegBack\SYSTEM E:\MSLogs\RegBackSYSTEM
 </span></span><span style=display:flex><span>copy D:\Windows\System32\config\RegBack\SOFTWARE E:\MSLogs\RegBackSOFTWARE
 </span></span><span style=display:flex><span>dism /image:D:\ /get-packages /ScratchDir:D:\ /format:table &gt; E:\MSLogs\Get-Packages.txt
-</span></span><span style=display:flex><span>xcopy /h D:\pagefile.sys E:\MSLogs\pagefile.sys
+</span></span><span style=display:flex><span>echo F | xcopy /h D:\pagefile.sys E:\MSLogs\pagefile.sys
 </span></span><span style=display:flex><span>copy D:\Windows\memory.dmp E:\MSLogs\MEMORY.dmp
+</span></span><span style=display:flex><span>mountvol S: /S
+</span></span><span style=display:flex><span>echo F | xcopy /h &#34;D:\Windows\bootstat.dat&#34; &#34;E:\MSLogs\win_BOOTSTAT.DAT&#34;
+</span></span><span style=display:flex><span>echo F | xcopy /h &#34;S:\EFI\Microsoft\Boot\BOOTSTAT.DAT&#34; &#34;E:\MSLogs\EFI_BOOTSTAT.DAT&#34;
+</span></span><span style=display:flex><span>mountvol S: /D
+</span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>注：ページングファイル (pagefile.sys) や メモリダンプ (MEMORY.dmp) のパス設定を変更している場合は、パスを変更してください。
 </span></span></code></pre></div><p>※ 上記はシステム ドライブが D: で認識され、E ドライブ (外付け HDD や、USB フラッシュ ディスクなど) にコピーする例になります。手順 2 の確認結果および外付けドライブが認識されたドライブによってドライブレターが環境によって異なりますので、環境に合わせて変更ください。</p><p>※ コマンド実行時にエラーが発生した場合、一旦その内容は無視いただき採取できた資料をご提供ください。可能であればエラー画面のスクリーンショットをご提供ください。</p></li><li><p>ご採取いただきました資料を弊社にご提供ください。<br>※ 上記の例の場合、E:\MSLogs に保存されますので、E:\MSLogs フォルダを圧縮いただき弊社に送付ください。</p></li></ol><h2 id=os-起動画面の例>OS 起動画面の例</h2><ol><li><p>なにも表示されていない黒い画面
 <img src=https://jpwinsup.github.io/mslog/performance/NoBoot/no-boot/black.png alt></p></li><li><p>Logo と Progress Circle が表示されている画面 (Logo は、端末のメーカーが表示される場合があります。)
